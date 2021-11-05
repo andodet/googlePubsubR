@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main, master]
 
-name: R-CMD-check
+name: R-CMD-check-ascran
 
 jobs:
 
@@ -30,11 +30,6 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - run: 'echo "$GCP_CREDS" > ~/.gcp-creds.json'
-        shell: bash
-        env:
-          GCP_CREDS: ${{secrets.GCP_CREDS}}
-
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v1
@@ -51,8 +46,7 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v1
         env:
-          GCP_CREDS_PATH: "~/.gcp-creds.json"
-          GCP_PROJECT: ${{secrets.GCP_PROJECT_ID}}
+          NOT_CRAN: false
 
       - name: Show testthat output
         if: always()
