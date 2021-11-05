@@ -1,0 +1,31 @@
+Package: googlePubsubR
+Title: R interface for Google Cloud Pubsub REST API
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Andrea",
+           family = "Dodet",
+           role = c("aut", "cre"),
+           email = "andodet@gmail.com")
+Description: Provides an easy to use interface to the Google
+	Pub/Sub REST API.
+URL: https://github.com/andodet/googlePubsubR
+BugReports: https://github.com/andodet/googlePubsubR/issues
+License: MIT + file LICENSE
+Imports:
+  googleAuthR (>= 0.3),
+  cli,
+  magrittr
+Suggests:
+  testthat (>= 3.0.0),
+  jsonlite,
+  base64enc,
+  knitr,
+  rmarkdown,
+  shiny,
+  callr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+Config/testthat/edition: 3

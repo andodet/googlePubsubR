@@ -1,0 +1,231 @@
+#' Creates a schema.
+#' Get topic name
+#'
+#' @param x `character`, `Topic`
+#'
+#' @return `character`
+#' @keywords internal
+as.schema_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+  # Can it be done with a switch case?
+  if (is.character(x) && x != "") {
+    if (already_formatted(x)) {
+      out <- x
+    } else {
+      out <- paste(c("projects", project, "schemas", x), collapse = "/")
+    }
+    return(out)
+  } else if (inherits(x, "Schema")) {
+    if (already_formatted(x$name)) {
+      out <- x$name
+    } else {
+      out <- paste(c("projects", project, "schemas", x$name), collapse = "/")
+    }
+    return(out)
+  } else {
+    stop("Schema name is invalid!", call. = FALSE)
+  }
+}
+
+#' Creates a schema
+#'
+#' @param name `character`, `Schema` Required, schema name or instance of a schema object
+#' @param type `character` Type of the schema definition
+#' @param definition `character` Required, the definition of the schema
+#' @param project `character` GCP project id
+#' 
+#' @return  a `Schema` object
+#'
+#' @importFrom googleAuthR gar_api_generator
+#' @family schema functions
+#' @export
+schemas_create <- function(name,
+                           type = c("AVRO", "PROTOCOL_BUFFER", "TYPE_UNSPECIFIED"),
+                           definition,
+                           project = Sys.getenv("GCP_PROJECT")) {
+  schema_name <- as.schema_name(name)
+  schema <- Schema(
+    type       = type,
+    definition = definition,
+    name       = schema_name
+  )
+  parent <- sprintf("projects/%s", project)
+  url <- sprintf("https://pubsub.googleapis.com/v1/%s/schemas", parent)
+  pars <- list(schemaId = name)
+
+  f <- googleAuthR::gar_api_generator(url, "POST",
+    pars_args = rmNullObs(pars),
+    data_parse_function = function(x) unmarshal_res(Schema(), x)
+  )
+  stopifnot(inherits(schema, "Schema"))
+
+  f(the_body = schema)
+}
+
+#' Validates a schema.
+#'
+#' @param schema `Schema` Required, an instance of a `Schema` object
+#' @param project `character` GCP project id
+#'
+#' @importFrom googleAuthR gar_api_generator
+#' @family schema functions
+#' @export
+schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
+  parent <- sprintf("projects/%s", project)
+  body <- list(
+    schema = schema
+  )
+  url <- sprintf("https://pubsub.googleapis.com/v1/%s/schemas:validate", parent)
+  # pubsub.projects.schemas.validate
+  f <- googleAuthR::gar_api_generator(url, "POST", data_parse_function = function(x) x)
+
+  res <- f(the_body = body)
+
+  if (length(res) == 0) {
+    return(TRUE)
+  }
+}
+
+#' Lists all schemas in a project
+#'
+#' @param pageSize `numeric` Maximum number of schemas to return
+#' @param view The set of Schema fields to return in the response
+#' @param project `character` Required, GCP project id
+#' @param pageToken `character` The value returned by the last `ListSchemasResponse`; indicates that
+#'   this is a continuation of a prior `ListSchemas` call, and that the system should return
+#'   the next page of data
+#'
+#' @return A `data.frame`
+#'
+#' @importFrom googleAuthR gar_api_generator
+#' @family schema functions
+#' @export
+schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
+                         view = NULL, pageToken = NULL) {
+  parent <- sprintf("projects/%s", project)
+  url <- sprintf("https://pubsub.googleapis.com/v1/%s/schemas", parent)
+
+  pars <- list(pageSize = pageSize, view = view, pageToken = pageToken)
+  f <- googleAuthR::gar_api_generator(url, "GET",
+    pars_args = rmNullObs(pars),
+    data_parse_function = function(x) as.data.frame(x)
+  )
+
+  f()
+}
+
+#' Check if a schema exists
+#'
+#' @param schema `character`, `Schema` Required, an instance of a `Schema` object
+#'
+#' @return `logical`
+#' @export
+schemas_exists <- function(schema) {
+  schema_name <- as.schema_name(schema)
+  all_schemas <- schemas_list()
+
+  if (schema_name %in% all_schemas$`schemas.name`) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+
+}
+
+#' Gets a schema
+#'
+#' @param schema `character`, `Schema` Required, schema name or an instance of a `Schema` object
+#' @param view The set of fields to return in the response
+#'
+#' @return  A `Schema` object
+#'
+#' @importFrom googleAuthR gar_api_generator
+#' @family schema functions
+#' @export
+schemas_get <- function(schema,
+                        view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL")) {
+  schema <- as.schema_name(schema)
+  view <- match.arg(view)
+  url <- sprintf("https://pubsub.googleapis.com/v1/%s", schema)
+
+  pars <- list(view = view)
+  f <- googleAuthR::gar_api_generator(url, "GET",
+    pars_args = rmNullObs(pars),
+    data_parse_function = function(x) unmarshal_res(Schema(), x)
+  )
+
+  f()
+}
+
+#' Deletes a schema
+#'
+#' @param name `character`, `Schema` Schema name or instance of a schema object
+#'
+#' @importFrom googleAuthR gar_api_generator
+#' @family schema functions
+#' @export
+schemas_delete <- function(name) {
+  name <- as.schema_name(name)
+  url <- sprintf("https://pubsub.googleapis.com/v1/%s", name)
+  # pubsub.projects.schemas.delete
+  f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
+  f()
+}
+
+#' Validates a message against a schema
+#'
+#' @param schema `character`, `Schema` Required, schema name or instance of a Schema object
+#' @param message `PubsubMessage` Required, an instance of a `PubsubMessage`, can be created
+#'   using \code{\link{PubsubMessage}}
+#' @param encoding `character` The encoding of the message
+#' @param project `character` A GCP project id
+#' 
+#' @return `logical`
+#'
+#' @importFrom googleAuthR gar_api_generator
+#' @family ValidateMessageRequest functions
+#' @export
+schemas_validate_message <- function(schema,
+                                     message,
+                                     encoding = c("ENCODING_UNSPECIFIED", "JSON", "BINARY"),
+                                     project = Sys.getenv("GCP_PROJECT")) {
+  req <- ValidateMessageRequest(
+    message = message,
+    encoding = encoding
+  )
+
+  if (inherits(schema, "Schema")) {
+    req$schema <- schema$definition
+  } else {
+    req$name <- as.schema_name(schema)
+  }
+
+  parent <- sprintf("projects/%s", project)
+  url <- sprintf("https://pubsub.googleapis.com/v1/%s/schemas:validateMessage", parent)
+
+  f <- googleAuthR::gar_api_generator(url, "POST", data_parse_function = function(x) x)
+  stopifnot(inherits(req, "gar_ValidateMessageRequest"))
+
+  res <- f(the_body = req)
+
+  if (length(res) == 0) {
+    return(TRUE)
+  }
+}
+
+#' #' Returns permissions that a caller has on the specified resource. If the resource does not exist, this will return an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may 'fail open' without warning.
+#' #'
+#' #' @param TestIamPermissionsRequest The \link{TestIamPermissionsRequest} object to pass to this method
+#' #' @param resource REQUIRED: The resource for which the policy detail is being requested
+#' #' @importFrom googleAuthR gar_api_generator
+#' #' @family TestIamPermissionsRequest functions
+#' #' @export
+#' projects.schemas.testIamPermissions <- function(TestIamPermissionsRequest, resource) {
+#'     url <- sprintf("https://pubsub.googleapis.com/v1/{+resource}:testIamPermissions",
+#'         resource)
+#'     # pubsub.projects.schemas.testIamPermissions
+#'     f <- googleAuthR::gar_api_generator(url, "POST", data_parse_function = function(x) x)
+#'     stopifnot(inherits(TestIamPermissionsRequest, "gar_TestIamPermissionsRequest"))
+#'
+#'     f(the_body = TestIamPermissionsRequest)
+#'
+#' }

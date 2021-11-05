@@ -1,0 +1,50 @@
+simdestination: docs/
+
+navbar:
+  type: inverse
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: Reference
+      href: reference/index.html
+    - text: "Vignettes"
+      menu:
+        - text: "Getting started"
+          href: articles/getting_started.html
+        - text: "Consuming Pub/Sub messages in Shiny"
+          href: articles/shiny_consumer.html
+
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/andodet/googlePubsubR
+
+reference:
+  - title: "Topics"
+    contents:
+      - matches("topics_")
+  - title: "Subscriptions" 
+    contents:
+      - matches("subscriptions_")
+  - title: "Schemas"
+    contents:
+      - matches("schemas_")
+  - title: "Snapshots"
+    contents:
+      - matches("snapshots_")
+  - title: "Objects"
+    contents:
+      - PubsubMessage
+      - Topic
+      - DlqPolicy
+      - MessageStoragePolicy
+      - RetryPolicy
+      - PushConfig
+      - Subscription
+      - Schema
+      - SchemaSettings
+      - Snapshot
+      - DeadLetterPolicy
+      - ExpirationPolicy
+  - title: "Auth"
+    contents:
+      - pubsub_auth
