@@ -28,13 +28,7 @@ skip_if_no_token <- function() {
   skip_on_cran()
   skip_on_travis()
 }
-#
-# if(file.exists(paste(path.expand("~"), ".gcp_creds.json", sep = "/"))) {
-#   pubsub_auth(json_file = "~/.gcp_creds.json")
-# } else {
-#   message("No authentication file found for testing")
-# }
-print(getwd())
+
 if(file.exists("../../.gcp_creds.json")) {
   pubsub_auth(json_file = "../../.gcp_creds.json")
 } else {
