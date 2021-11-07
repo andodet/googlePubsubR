@@ -41,13 +41,14 @@ jobs:
           name: ".gcp_creds.json"
           json: ${{ secrets.GCP_CREDS }}
 
-      - name: check folder
-        run: |
-          ls -a
-        shell: bash
-
-      - name: Test
+      - name: Run tests
         env:
           GCP_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
         run: devtools::test(stop_on_failure = TRUE)
         shell: Rscript {0}
+
+      - name: Cleanup test resources
+        env:
+          GCP_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+        run: Rscript -e "source('.github/workflows/cleanup.R')"
+        if: failure()
