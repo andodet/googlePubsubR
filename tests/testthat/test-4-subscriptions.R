@@ -5,7 +5,7 @@ test_that("Gets and lists subscriptions", {
   res_exist <- subscriptions_exists(sub_name)
 
   expect_s3_class(res_get, "Subscription")
-  expect_s3_class(res_list, "data.frame")
+  expect_type(res_list, "list")
   expect_true(res_exist)
 })
 

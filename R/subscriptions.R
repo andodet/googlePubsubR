@@ -35,22 +35,22 @@ as.sub_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' @param labels `list` Key-value pairs for snapshot labels
 #' @param dead_letter_policy `DeadLetterPolicy` A policy object that specifies the conditions
 #'   for dead lettering messages in this subscription
-#' @param msg_retention_duration `character` How long to retain unacknowledged messages 
+#' @param msg_retention_duration `character` How long to retain unacknowledged messages
 #'   in the subscription's backlog
-#' @param retry_policy A policy that specifies how Pub/Sub retries message delivery for 
+#' @param retry_policy A policy that specifies how Pub/Sub retries message delivery for
 #'   this subscription
 #' @param push_config `PushConfig` A `pushConfig` object
-#' @param ack_deadline `numeric` The approximate amount of time (on a best-effort basis) Pub/Sub 
+#' @param ack_deadline `numeric` The approximate amount of time (on a best-effort basis) Pub/Sub
 #'   waits for the subscriber to acknowledge receipt before resending the message.
-#' @param expiration_policy `ExpirationPolicy` A policy that specifies the conditions for 
+#' @param expiration_policy `ExpirationPolicy` A policy that specifies the conditions for
 #'   this subscription's expiration
 #' @param filter `character` An expression written in the Pub/Sub filter language
 #' @param detached `logical` Indicates whether the subscription is detached from its topic
 #' @param retain_acked_messages `logical` Indicates whether to retain acknowledged messages
 #' @param enable_msg_ordering `logical` If true, messages published with the same orderingKey
-#'  in PubsubMessage will be delivered to the subscribers in the order in which they are received 
+#'  in PubsubMessage will be delivered to the subscribers in the order in which they are received
 #'  by the Pub/Sub system
-#'  
+#'
 #'  @return A `Subscription` object
 #'
 #' @importFrom googleAuthR gar_api_generator
@@ -108,7 +108,7 @@ subscriptions_create <- function(name,
 #'
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
-#' 
+#'
 #' @importFrom googleAuthR gar_api_generator
 #' @export
 subscriptions_delete <- function(subscription) {
@@ -163,10 +163,10 @@ subscriptions_detach <- function(subscription) {
 #'
 #' @param project `character` Required, GCP project id
 #' @param pageSize `numeric` Maximum number of subscriptions to return
-#' @param pageToken `character` The value returned by the last `subscriptions_list`; 
+#' @param pageToken `character` The value returned by the last `subscriptions_list`;
 #'   indicates that this is a continuation of a prior `subscriptions_list` call
 #'
-#' @return `data.frame`
+#' @return `list`
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @export
@@ -177,7 +177,7 @@ subscriptions_list <- function(project = Sys.getenv("GCP_PROJECT"),
 
   f <- googleAuthR::gar_api_generator(url, "GET",
     pars_args = rmNullObs(pars),
-    data_parse_function = function(x) as.data.frame(x)
+    data_parse_function = function(x) x
   )
 
   f()
@@ -188,7 +188,7 @@ subscriptions_list <- function(project = Sys.getenv("GCP_PROJECT"),
 #' @param subscription `character`, `Subscription` Required, subscription where to pull
 #'   messages from
 #' @param max_messages `numeric` Maximum number of messages to return
-#' 
+#'
 #' @return A named `list` with pulled messages
 #' @importFrom googleAuthR gar_api_generator
 #' @family PullRequest functions
@@ -241,7 +241,7 @@ subscriptions_exists <- function(subscription) {
   sub_name <- as.sub_name(subscription)
   all_subs <- subscriptions_list()
 
-  if (sub_name %in% all_subs$`subscriptions.name`) {
+  if (sub_name %in% all_subs$subscriptions$name) {
     return(TRUE)
   } else {
     return(FALSE)
@@ -252,24 +252,24 @@ subscriptions_exists <- function(subscription) {
 #'
 #' Certain properties of a subscription, such as its topic, are not modifiable.
 #'
-#' @param subscription `character`, `Subscription` Required, a subscription name or a 
+#' @param subscription `character`, `Subscription` Required, a subscription name or a
 #'   `Subscription` object
 #' @param topic `character`, `Topic` Required, a topic name or a `Topic` object
 #' @param labels `labels` Key value pairs
 #' @param dead_letter_policy `DeadLetterPolicy` A `DeadLetterPolicy` object
-#' @param msg_retention_duration `character` How long to retain unacknowledged messages 
+#' @param msg_retention_duration `character` How long to retain unacknowledged messages
 #' @param retry_policy `RetryPolicy` policy that specifies how Pub/Sub retries message delivery
 #'   for this subscription, can be built with \code{\link{RetryPolicy}}
 #' @param push_config `PushConfig` Can be built with \code{\link{PushConfig}}
 #' @param ack_deadline `numeric` amount of time (in seconds) Pub/Sub waits for the subscriber
-#'   to acknowledge receipt before resending the message 
-#' @param expiration_policy `ExpirationPolicy` specifies the conditions for this subscription's 
+#'   to acknowledge receipt before resending the message
+#' @param expiration_policy `ExpirationPolicy` specifies the conditions for this subscription's
 #'   expiration. Can be built with \code{\link{ExpirationPolicy}}
-#' @param filter `character` An expression written in the Pub/Sub [filter language](https://cloud.google.com/pubsub/docs/filtering) 
+#' @param filter `character` An expression written in the Pub/Sub [filter language](https://cloud.google.com/pubsub/docs/filtering)
 #' @param detached `logical` Indicates whether the subscription is detached from its topic
 #' @param retain_acked_msgs `character` Indicates whether to retain acknowledged messages
 #' @param enable_ordering `logical`messages published with the same orderingKey in PubsubMessage
-#'   will be delivered to the subscribers in the order in which they are received by the Pub/Sub system 
+#'   will be delivered to the subscribers in the order in which they are received by the Pub/Sub system
 #'
 #' @return An updated `Subscription` object
 #'
@@ -318,14 +318,14 @@ subscriptions_patch <- function(subscription,
 }
 
 #' Seek a subscription to a point in timex
-#' 
+#'
 #' A subscription can be seeked to a point in time or to a given snapshot.
-#' 
+#'
 #' @param subscription `character`, `Subscription` Required, a snapshot name or a `Snapshot`
 #'   object
 #' @param time `character` A timestamp in RFC3339 UTC "Zulu" format
 #' @param snapshot `character`, `Snapshot` A Snapshot name or a `Snapshot` object
-#' 
+#'
 #' @return `logical`
 #'
 #' @importFrom googleAuthR gar_api_generator
@@ -355,9 +355,9 @@ subscriptions_seek <- function(subscription, time = NULL, snapshot = NULL) {
 #' Certain properties of a subscription, such as its topic, are not modifiable.
 #'
 #' @param subscription `character`, `Subscription` A subscription name or `Subscription` object
-#' @param ack_ids `character` A vector containing ackIDs. They can be acquired using  
+#' @param ack_ids `character` A vector containing ackIDs. They can be acquired using
 #' @param ack_deadline `numeric` The new ack deadline (in seconds)
-#' 
+#'
 #' @return `logical`
 #'
 #' @importFrom googleAuthR gar_api_generator

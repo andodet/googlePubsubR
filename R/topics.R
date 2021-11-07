@@ -118,7 +118,7 @@ topics_get <- function(topic) {
 #'  that this is a continuation of a prior `ListTopics` call, and that the system should return the
 #'  next page of data.
 #'
-#' @return A `data.frame`
+#' @return A `list`
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @export
@@ -129,7 +129,7 @@ topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 
   f <- googleAuthR::gar_api_generator(url, "GET",
     pars_args = rmNullObs(pars),
-    data_parse_function = function(x) as.data.frame(x)
+    data_parse_function = function(x) x
   )
 
   f()
@@ -145,7 +145,7 @@ topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 topics_exists <- function(topic, project = Sys.getenv("GCP_PROJECT")) {
   topic <- as.topic_name(topic)
   all_topics <- topics_list(project)
-  if (any(grepl(topic, all_topics$name))) {
+  if (any(grepl(topic, all_topics$topics$name))) {
     return(TRUE)
   } else {
     return(FALSE)
