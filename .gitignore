@@ -47,3 +47,6 @@ docs/
 # translation temp files
 po/*~
 docs
+
+# credential files
+gcp_creds.json
