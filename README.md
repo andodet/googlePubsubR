@@ -1,5 +1,8 @@
 # `googlePubsubR`
 
+[![R-CMD-check-ascran](https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml)
+[![testthat](https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml/badge.svg)](https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml)
+
 This library offers an easy to use interface for the Google Pub/Sub REST API
 (docs [here](https://cloud.google.com/pubsub/docs/reference/rest)).
 
@@ -13,9 +16,11 @@ devtools::install_github("andodet/googlePubsubR")
 ```
 
 In order to use the library, you will need:
+
 * An active GCP project
 * The Pub/Sub API correctly activated
-* JSON credentials for a service accont or another method of authentication (e.g token)
+* JSON credentials for a service accont or another method of authentication (e.g token). You can pass the
+path of the file as an argument to `pubsub_auth` or setting an `GCP_AUTH_FILE` env variable.
 * A `GCP_PROJECT` env variable set with a valid GCP project id
 
 ## Usage
@@ -33,6 +38,9 @@ The following example shows how to:
 library(googlePubsubR)
 library(base64enc)
 library(jsonlite)
+
+# Authenticate 
+pubsub_auth()
 
 # Create resources
 topic_readme <- topics_create("readme-topic")
