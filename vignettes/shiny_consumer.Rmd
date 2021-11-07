@@ -5,6 +5,10 @@ date: "`r Sys.Date()`"
 output:
   html_document: default
   md_document: default
+vignette: >
+  %\VignetteIndexEntry{googlePubsubR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ## Resource setup

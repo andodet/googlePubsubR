@@ -1,7 +1,3 @@
-proj_name <- Sys.getenv("GCP_DEFAULT_PROJECT")
-options("googlePubsubR.project" = proj_name)
-
-
 # Resource names
 topic_name <- "test_topic"
 sub_name <- "test_subscription"
@@ -33,8 +29,8 @@ skip_if_no_token <- function() {
   skip_on_travis()
 }
 
-if(file.exists("~/.gcp_creds.json")) {
-  pubsub_auth(json_file = "~/.gcp_creds.json")
+if(file.exists("../../.gcp_creds.json")) {
+  pubsub_auth(json_file = "../../.gcp_creds.json")
 } else {
   message("No authentication file found for testing")
 }
