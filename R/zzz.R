@@ -1,8 +1,14 @@
 .onLoad <- function(libname, pkgname) {
-  project <- Sys.getenv("GCP_PROJECT")
-  if (project != "") {
-    # TODO: warn user with a info cli
-    options(googlePubsubR.project = project)
-  } 
-  # TODO: not found, link to instructions
+  # Check if necessary env variables have been set
+  if(Sys.getenv("GCP_PROJECT") == "") {
+    cli::cli_alert_warning(
+      "GCP_PROJECT environment not found, please set it up before starting!"
+    )
+  }
+
+  if(Sys.getenv("GCP_AUTH_FILE") == "") {
+    cli::cli_alert_warning(
+      "GCP_AUTH_FILE environment not found, please set it up before authenticating"
+    )
+  }
 }
