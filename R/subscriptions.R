@@ -3,6 +3,7 @@
 #' @param x `character`, `Topic`
 #'
 #' @return `character`
+#' @noRd
 #' @keywords internal
 as.sub_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
   # Can it be done with a switch case?

@@ -4,6 +4,7 @@
 #'
 #' @return (`character`)
 #' @keywords internal
+#' @noRd
 as.topic_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {

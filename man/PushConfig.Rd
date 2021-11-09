@@ -33,7 +33,6 @@ Other Object functions:
 \code{\link{Schema}()},
 \code{\link{Snapshot}()},
 \code{\link{Subscription}()},
-\code{\link{Topic}()},
-\code{\link{ValidateMessageRequest}()}
+\code{\link{Topic}()}
 }
 \concept{Object functions}

@@ -3,6 +3,7 @@
 #' @param x `character`, `Topic`
 #'
 #' @return `character`
+#' @noRd
 #' @keywords internal
 as.snapshot_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
   if (is.character(x) && x != "") {

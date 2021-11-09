@@ -237,6 +237,7 @@ Subscription <- function(dead_letter_policy = NULL,
 #'
 #' @return `ValidateMessageRequest` object
 #' @keywords internal
+#' @noRd
 #'
 #' @family Object functions
 ValidateMessageRequest <- function(message = NULL, name = NULL, schema = NULL, encoding = NULL) {
@@ -289,6 +290,7 @@ Schema <- function(type = NULL, definition = NULL, name = NULL) {
 #'
 #' @return An `Update*` object to be passed as a request body
 #' @keywords internal
+#' @noRd
 #'
 UpdateObjectRequest <- function(object = NULL) {
   get_update_mask <- function(object) {

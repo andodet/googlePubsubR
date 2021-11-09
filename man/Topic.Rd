@@ -51,7 +51,6 @@ Other Object functions:
 \code{\link{SchemaSettings}()},
 \code{\link{Schema}()},
 \code{\link{Snapshot}()},
-\code{\link{Subscription}()},
-\code{\link{ValidateMessageRequest}()}
+\code{\link{Subscription}()}
 }
 \concept{Object functions}

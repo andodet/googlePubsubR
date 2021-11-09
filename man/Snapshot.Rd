@@ -34,7 +34,6 @@ Other Object functions:
 \code{\link{SchemaSettings}()},
 \code{\link{Schema}()},
 \code{\link{Subscription}()},
-\code{\link{Topic}()},
-\code{\link{ValidateMessageRequest}()}
+\code{\link{Topic}()}
 }
 \concept{Object functions}
