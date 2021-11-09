@@ -7,7 +7,8 @@
 ExpirationPolicy(ttl = NULL)
 }
 \arguments{
-\item{ttl}{Specifies the 'time-to-live' duration for an associated resource}
+\item{ttl}{\code{numeric} Specifies the 'time-to-live' duration (in seconds, can be float) for an
+associated resource}
 }
 \value{
 \code{ExpirationPolicy} object

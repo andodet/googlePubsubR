@@ -9,7 +9,7 @@ SchemaSettings(encoding = NULL, schema = NULL)
 \arguments{
 \item{encoding}{\code{character} The encoding of messages validated against \code{schema}}
 
-\item{schema}{\code{character} Required}
+\item{schema}{\verb{Schema, character} Required, sachema object or schema name}
 }
 \value{
 \code{SchemaSettings} object

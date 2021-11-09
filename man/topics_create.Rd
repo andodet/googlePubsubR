@@ -24,18 +24,29 @@ to protect access to messages published on this topic.}
 
 \item{satisfies_pzs}{\code{logical} Reserved for future use.}
 
-\item{message_storage_policy}{\code{list} Policy constraining the set of Google Cloud Platform regions
-where messages published to the topic may be stored.}
+\item{message_storage_policy}{\code{MessageStorePolicy} An instance of a \code{MessageStorePolicy} object
+Policy constraining the set of Google Cloud Platform regions where messages published to the
+topic may be stored}
 
-\item{schema_settings}{\code{SchemaSettings} An intance of a \code{SchemaSettings} object}
+\item{schema_settings}{\code{SchemaSettings} An instance of a \code{SchemaSettings} object}
 
-\item{message_retention_duration}{\code{character} Indicates the minimum duration to retain
-a message after it is published to the topic.}
+\item{message_retention_duration}{\code{numeric} Indicates the minimum duration (in seconds) to retain
+a message after it is published to the topic}
 }
 \value{
 A \code{Topic} object representing the freshly created topic
 }
 \description{
 Creates a pub/sub topic
+}
+\seealso{
+Other Topic functions: 
+\code{\link{topics_delete}()},
+\code{\link{topics_exists}()},
+\code{\link{topics_get}()},
+\code{\link{topics_list_subscriptions}()},
+\code{\link{topics_list}()},
+\code{\link{topics_patch}()},
+\code{\link{topics_publish}()}
 }
 \concept{Topic functions}

@@ -30,7 +30,7 @@ subscriptions_patch(
 
 \item{dead_letter_policy}{\code{DeadLetterPolicy} A \code{DeadLetterPolicy} object}
 
-\item{msg_retention_duration}{\code{character} How long to retain unacknowledged messages}
+\item{msg_retention_duration}{\code{numeric} How long to retain unacknowledged messages (in seconds)}
 
 \item{retry_policy}{\code{RetryPolicy} policy that specifies how Pub/Sub retries message delivery
 for this subscription, can be built with \code{\link{RetryPolicy}}}
@@ -47,7 +47,7 @@ expiration. Can be built with \code{\link{ExpirationPolicy}}}
 
 \item{detached}{\code{logical} Indicates whether the subscription is detached from its topic}
 
-\item{retain_acked_msgs}{\code{character} Indicates whether to retain acknowledged messages}
+\item{retain_acked_msgs}{\code{logical} Indicates whether to retain acknowledged messages}
 
 \item{enable_ordering}{\code{logical}messages published with the same orderingKey in PubsubMessage
 will be delivered to the subscribers in the order in which they are received by the Pub/Sub system}
@@ -59,7 +59,17 @@ An updated \code{Subscription} object
 Certain properties of a subscription, such as its topic, are not modifiable.
 }
 \seealso{
-Other UpdateSubscriptionRequest functions: 
-\code{\link{subscriptions_modify_ack_deadline}()}
+Other Subscription functions: 
+\code{\link{subscriptions_ack}()},
+\code{\link{subscriptions_create}()},
+\code{\link{subscriptions_delete}()},
+\code{\link{subscriptions_detach}()},
+\code{\link{subscriptions_exists}()},
+\code{\link{subscriptions_get}()},
+\code{\link{subscriptions_list}()},
+\code{\link{subscriptions_modify_ack_deadline}()},
+\code{\link{subscriptions_modify_pushconf}()},
+\code{\link{subscriptions_pull}()},
+\code{\link{subscriptions_seek}()}
 }
-\concept{UpdateSubscriptionRequest functions}
+\concept{Subscription functions}

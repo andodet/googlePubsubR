@@ -7,7 +7,7 @@
 topics_get(topic)
 }
 \arguments{
-\item{topic}{\code{character}, \code{Topic} Required, instance of \code{Topic} or \code{character}}
+\item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic}}
 }
 \value{
 \code{Topic} A \code{Topic} object
@@ -15,3 +15,14 @@ topics_get(topic)
 \description{
 Gets a topic configuration
 }
+\seealso{
+Other Topic functions: 
+\code{\link{topics_create}()},
+\code{\link{topics_delete}()},
+\code{\link{topics_exists}()},
+\code{\link{topics_list_subscriptions}()},
+\code{\link{topics_list}()},
+\code{\link{topics_patch}()},
+\code{\link{topics_publish}()}
+}
+\concept{Topic functions}

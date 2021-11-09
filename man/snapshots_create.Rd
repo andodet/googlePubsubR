@@ -11,7 +11,7 @@ snapshots_create(name, subscription, labels = NULL)
 snapshot name}
 
 \item{subscription}{\code{Subscription}, \code{character} Required, an instance of a \code{Subscription}
-object or a subscription name.}
+object or a subscription name}
 
 \item{labels}{\code{list} Key-value pairs for snapshot labels}
 }
@@ -30,4 +30,11 @@ the server will assign a random name for this snapshot on the same project as th
 conforming to the \href{https://cloud.google.com/pubsub/docs/admin#resource_names}{resource name format}.
 The generated name is populated in the returned Snapshot object. Note that for REST API requests, you must
 }
-\concept{CreateSnapshotRequest functions}
+\seealso{
+Other Snapshot functions: 
+\code{\link{snapshots_delete}()},
+\code{\link{snapshots_exists}()},
+\code{\link{snapshots_list}()},
+\code{\link{snapshots_patch}()}
+}
+\concept{Snapshot functions}

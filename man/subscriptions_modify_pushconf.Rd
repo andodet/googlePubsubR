@@ -18,3 +18,18 @@ object}
 \description{
 Modify PushConfig for a subscription
 }
+\seealso{
+Other Subscription functions: 
+\code{\link{subscriptions_ack}()},
+\code{\link{subscriptions_create}()},
+\code{\link{subscriptions_delete}()},
+\code{\link{subscriptions_detach}()},
+\code{\link{subscriptions_exists}()},
+\code{\link{subscriptions_get}()},
+\code{\link{subscriptions_list}()},
+\code{\link{subscriptions_modify_ack_deadline}()},
+\code{\link{subscriptions_patch}()},
+\code{\link{subscriptions_pull}()},
+\code{\link{subscriptions_seek}()}
+}
+\concept{Subscription functions}

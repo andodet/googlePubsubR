@@ -11,7 +11,7 @@ topics_list(
 )
 }
 \arguments{
-\item{project}{\code{character} Required, GCP project id}
+\item{project}{\code{character} GCP project id}
 
 \item{pageSize}{\code{numeric} Maximum number of topics to return}
 
@@ -20,8 +20,19 @@ that this is a continuation of a prior \code{ListTopics} call, and that the syst
 next page of data.}
 }
 \value{
-A \code{data.frame}
+A \code{list}
 }
 \description{
 Lists topics from project
 }
+\seealso{
+Other Topic functions: 
+\code{\link{topics_create}()},
+\code{\link{topics_delete}()},
+\code{\link{topics_exists}()},
+\code{\link{topics_get}()},
+\code{\link{topics_list_subscriptions}()},
+\code{\link{topics_patch}()},
+\code{\link{topics_publish}()}
+}
+\concept{Topic functions}

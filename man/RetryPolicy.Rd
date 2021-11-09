@@ -4,13 +4,13 @@
 \alias{RetryPolicy}
 \title{Builds a retry policy object}
 \usage{
-RetryPolicy(min_backoff, max_backoff)
+RetryPolicy(min_backoff = 600, max_backoff = 600)
 }
 \arguments{
-\item{min_backoff}{\code{character} The minimum delay between consecutive deliveries of a
+\item{min_backoff}{\code{numeric} The minimum delay between consecutive deliveries of a
 given message}
 
-\item{max_backoff}{\code{character} The maximum delay between consecutive deliveries of a
+\item{max_backoff}{\code{numeric} The maximum delay between consecutive deliveries of a
 given message}
 }
 \value{

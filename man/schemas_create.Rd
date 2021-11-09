@@ -27,10 +27,12 @@ a \code{Schema} object
 Creates a schema
 }
 \seealso{
-Other schema functions: 
+Other Schema functions: 
 \code{\link{schemas_delete}()},
+\code{\link{schemas_exists}()},
 \code{\link{schemas_get}()},
 \code{\link{schemas_list}()},
+\code{\link{schemas_validate_message}()},
 \code{\link{schemas_validate}()}
 }
-\concept{schema functions}
+\concept{Schema functions}

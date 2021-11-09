@@ -77,8 +77,6 @@ if(topics_exists("vignette-topic")) {
 }
 ```
 
-### Subscriptions
-
 In order to consume messages from a topic, a subscription will be needed:
 ```r
 # You can either pass a Topic object or a topic name
@@ -182,7 +180,7 @@ msg <- list(
   toJSON(auto_unbox = T) %>%
   charToRaw() %>% 
   base64enc::base64encode() %>% 
-  PubsubMessage()v    
+  PubsubMessage()
 
 schemas_validate_message(schema = "vignette-schema", message = msg, encoding = "JSON")
 # [1] TRUE

@@ -9,7 +9,7 @@ topics_exists(topic, project = Sys.getenv("GCP_PROJECT"))
 \arguments{
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a topic object}
 
-\item{project}{\code{character} Required, GCP project id}
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical}
@@ -17,3 +17,14 @@ topics_exists(topic, project = Sys.getenv("GCP_PROJECT"))
 \description{
 Check if a topic exists
 }
+\seealso{
+Other Topic functions: 
+\code{\link{topics_create}()},
+\code{\link{topics_delete}()},
+\code{\link{topics_get}()},
+\code{\link{topics_list_subscriptions}()},
+\code{\link{topics_list}()},
+\code{\link{topics_patch}()},
+\code{\link{topics_publish}()}
+}
+\concept{Topic functions}

@@ -8,8 +8,16 @@ snapshots_delete(snapshot)
 }
 \arguments{
 \item{snapshot}{\code{Snapshot}, \code{character} Required, an instance of a \code{Snapshot} object or a
-object or a subscription name.}
+object or a subscription name}
 }
 \description{
 Removes an existing snapshot
 }
+\seealso{
+Other Snapshot functions: 
+\code{\link{snapshots_create}()},
+\code{\link{snapshots_exists}()},
+\code{\link{snapshots_list}()},
+\code{\link{snapshots_patch}()}
+}
+\concept{Snapshot functions}

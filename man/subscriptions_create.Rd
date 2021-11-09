@@ -23,26 +23,25 @@ subscriptions_create(
 \arguments{
 \item{name}{\code{character} Required, name of the subscription to be created}
 
-\item{topic}{\code{Topic}, \code{character} Required, an instance of a \code{Topic} object or a string of the
-topic name}
+\item{topic}{\code{Topic}, \code{character} Required, an instance of a \code{Topic} object or a topic name}
 
 \item{dead_letter_policy}{\code{DeadLetterPolicy} A policy object that specifies the conditions
 for dead lettering messages in this subscription}
 
-\item{msg_retention_duration}{\code{character} How long to retain unacknowledged messages
-in the subscription's backlog}
+\item{msg_retention_duration}{\code{string} How long to retain unacknowledged messages
+in the subscription's backlog in seconds}
 
 \item{labels}{\code{list} Key-value pairs for snapshot labels}
 
-\item{retry_policy}{A policy that specifies how Pub/Sub retries message delivery for
-this subscription}
+\item{retry_policy}{\code{RetryPolicy} A \code{RetryPolicy} object that specifies how Pub/Sub retries
+message delivery for this subscription}
 
-\item{push_config}{\code{PushConfig} A \code{pushConfig} object}
+\item{push_config}{\code{PushConfig} A \code{PushConfig} object}
 
 \item{ack_deadline}{\code{numeric} The approximate amount of time (on a best-effort basis) Pub/Sub
 waits for the subscriber to acknowledge receipt before resending the message.}
 
-\item{expiration_policy}{\code{ExpirationPolicy} A policy that specifies the conditions for
+\item{expiration_policy}{\code{ExpirationPolicy} A policy object that specifies the conditions for
 this subscription's expiration}
 
 \item{filter}{\code{character} An expression written in the Pub/Sub filter language}
@@ -53,10 +52,26 @@ this subscription's expiration}
 
 \item{enable_msg_ordering}{\code{logical} If true, messages published with the same orderingKey
 in PubsubMessage will be delivered to the subscribers in the order in which they are received
-by the Pub/Sub system
-
-@return A \code{Subscription} object}
+by the Pub/Sub system}
+}
+\value{
+A \code{Subscription} object
 }
 \description{
 Creates a subscription to a given topic
 }
+\seealso{
+Other Subscription functions: 
+\code{\link{subscriptions_ack}()},
+\code{\link{subscriptions_delete}()},
+\code{\link{subscriptions_detach}()},
+\code{\link{subscriptions_exists}()},
+\code{\link{subscriptions_get}()},
+\code{\link{subscriptions_list}()},
+\code{\link{subscriptions_modify_ack_deadline}()},
+\code{\link{subscriptions_modify_pushconf}()},
+\code{\link{subscriptions_patch}()},
+\code{\link{subscriptions_pull}()},
+\code{\link{subscriptions_seek}()}
+}
+\concept{Subscription functions}
