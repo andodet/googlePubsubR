@@ -7,10 +7,10 @@ navbar:
       href: index.html
     - text: Reference
       href: reference/index.html
-    - text: "Vignettes"
+    - text: Quickstart
+      href: articles/getting_started.html
+    - text  : "Vignettes"
       menu:
-        - text: "Getting started"
-          href: articles/getting_started.html
         - text: "Consuming Pub/Sub messages in Shiny"
           href: articles/shiny_consumer.html
 
