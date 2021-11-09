@@ -255,10 +255,10 @@
 <span class="va">msg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     name <span class="op">=</span> <span class="st">"John"</span>,
     price <span class="op">=</span> <span class="fl">123</span>
-<span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">base64enc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
+  <span class="fu">base64enc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/PubsubMessage.html">PubsubMessage</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/schemas_validate_message.html">schemas_validate_message</a></span><span class="op">(</span>schema <span class="op">=</span> <span class="st">"vignette-schema"</span>, message <span class="op">=</span> <span class="va">msg</span>, encoding <span class="op">=</span> <span class="st">"JSON"</span><span class="op">)</span>
@@ -330,12 +330,12 @@
 <p>In order to re-convert back message data into an usable format we’ll basically need to reverse the process that was used to encode them in the first place. Given that <code>subscriptions_pull</code> will return <strong>all</strong> messages in the queue, a good strategy might be to decode them all at once using <code>lapply</code></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">decoded_msg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">msgs</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">msg</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">msg</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">rawToChar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>flatten <span class="op">=</span> <span class="cn">TRUE</span>, simplifyDataFrame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="va">msg</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+        <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+        <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">rawToChar</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+        <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>flatten <span class="op">=</span> <span class="cn">TRUE</span>, simplifyDataFrame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
         <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span>
 
 <span class="va">decoded_msg</span>
 <span class="co">#   name price</span>

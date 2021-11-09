@@ -132,7 +132,7 @@ Run the app from the root of the package:</p>
   <span class="fu">future_promise</span><span class="op">(</span><span class="op">{</span>
     <span class="fu"><a href="../reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Authenticated session is not passed to futures' env</span>
     <span class="fu">get_data</span><span class="op">(</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
     <span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">{</span>
       <span class="co"># Notify the user if new messages have been received</span>
       <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>

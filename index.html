@@ -130,11 +130,11 @@ The following example shows how to:</p>
 <span class="va">sub_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subscriptions_create.html">subscriptions_create</a></span><span class="op">(</span><span class="st">"readme-sub"</span>, <span class="va">topic_readme</span><span class="op">)</span>
 
 <span class="co"># Prepare the message</span>
-<span class="va">msg</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">msg</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
   <span class="co"># Pub/Sub expects a base64 encoded string</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
   <span class="fu"><a href="reference/PubsubMessage.html">PubsubMessage</a></span><span class="op">(</span><span class="op">)</span> 
 
 <span class="co"># Publish the message!</span>
@@ -143,9 +143,9 @@ The following example shows how to:</p>
 <span class="co"># Pull the message from server</span>
 <span class="va">msgs_pull</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subscriptions_pull.html">subscriptions_pull</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span>
 
-<span class="va">msg_decoded</span> <span class="op">&lt;-</span> <span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">rawToChar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">msg_decoded</span> <span class="op">&lt;-</span> <span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">rawToChar</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">msg_decoded</span><span class="op">)</span>
