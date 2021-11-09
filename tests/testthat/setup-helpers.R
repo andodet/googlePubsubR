@@ -2,6 +2,7 @@
 topic_name <- "test_topic"
 sub_name <- "test_subscription"
 snap_name <- "test_snapshot"
+
 schema_name <- "test_schema"
 schema_def <- list(
   type = "record",
@@ -20,9 +21,15 @@ schema_def <- list(
   )
 )
 
+msg <- list(cost = 12, object = "fork") %>%
+  jsonlite::toJSON(auto_unbox = TRUE) %>%
+  charToRaw() %>%
+  base64enc::base64encode() %>%
+  PubsubMessage()
+
 # Some resource properties
 labels = list(a = "1", b = "2")
-retention_duration= "1800s"  # 30 min
+retention_duration= 1800  # 30 min
 
 skip_if_no_token <- function() {
   skip_on_cran()

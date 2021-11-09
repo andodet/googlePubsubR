@@ -9,12 +9,23 @@ test_that("Gets and lists subscriptions", {
   expect_true(res_exist)
 })
 
+test_that("Subscription detaches", {
+  skip_on_cran()
+  res <- subscriptions_detach(sub_name)
+  
+  expect_true(res)
+  # It is not possible to reattach a subscription to a topic, hence we need to delete
+  # and recreate it for further testing.
+  subscriptions_delete(sub_name)
+  subscriptions_create(name = sub_name, topic = topic_name)
+})
+
 test_that("Subscription gets patched", {
   skip_on_cran()
   res <- subscriptions_patch(
     subscription = sub_name,
     topic = topic_name,
-    msg_retention_duration = "2400s",
+    msg_retention_duration = 2400,
     labels = list(new_a = "a", new_b = "b")
   )
 
@@ -26,10 +37,12 @@ test_that("Subscription gets patched", {
 
 test_that("Pulls messages from a subscription", {
   skip_on_cran()
+  topics_publish(msg, topic_name)
+  
   msgs <- subscriptions_pull(sub_name)
 
   expect_s3_class(msgs$receivedMessages, "data.frame")
-  expect_true(length(msgs$receivedMessages) > 1)
+  expect_true(length(msgs$receivedMessages) > 0)
 })
 
 test_that("Aknowledges messages", {
@@ -43,7 +56,6 @@ test_that("Aknowledges messages", {
 test_that("Modifies the ack deadline ", {
   skip_on_cran()
   # Publish a message to the topic
-  msg <- PubsubMessage(data = base64enc::base64encode(serialize("hello", NULL)))
   topics_publish(msg, topic_name)
 
   Sys.sleep(0.5)  # Sometimes pull fails
@@ -55,13 +67,14 @@ test_that("Modifies the ack deadline ", {
   expect_true(res)
 })
 
-test_that("Subscription detaches", {
+test_that("Subscription seeks to a point in time", {
   skip_on_cran()
-  res <- subscriptions_detach(sub_name)
-
-  expect_true(res)
-  # It is not possible to reattach a subscription to a topic, hence we need to delete
-  # and recreate it for further testing.
-  subscriptions_delete(sub_name)
-  subscriptions_create(name = sub_name, topic = topic_name)
+  
+  # We can seek to a snapshot or a specific timestamp 
+  time_seek <- subscriptions_seek(sub_name,
+                                  time =  strftime(Sys.time() - 20, "%Y-%m-%dT%H:%M:%SZ"))
+  snap_seek <- subscriptions_seek(sub_name, snapshot = snap_name)
+  
+  expect_true(time_seek)
+  expect_true(snap_seek)
 })

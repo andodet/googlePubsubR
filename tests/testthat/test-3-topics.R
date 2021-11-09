@@ -9,6 +9,13 @@ test_that("Gets and lists topics", {
   expect_true(res_exist)
 })
 
+test_that("Can publish to a topic", {
+  skip_on_cran()
+  
+  expect_error(topics_publish(messages = msg, topic = topic_name), NA)
+
+})
+
 test_that("Topic gets patched", {
   skip_on_cran()
   res <- topics_patch(
@@ -21,14 +28,6 @@ test_that("Topic gets patched", {
   expect_equal(res$messageRetentionDuration, "2400s")
   expect_equal(res$labels$new_a, "a")
   expect_equal(res$labels$new_b, "b")
-
-})
-
-test_that("Can publish to a topic", {
-  skip_on_cran()
-
-  msg <- PubsubMessage(data = base64enc::base64encode(serialize("hello", NULL)))
-  expect_error(topics_publish(messages = msg, topic = topic_name), NA)
 
 })
 
