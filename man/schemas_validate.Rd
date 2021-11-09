@@ -2,7 +2,7 @@
 % Please edit documentation in R/schemas.R
 \name{schemas_validate}
 \alias{schemas_validate}
-\title{Validates a schema.}
+\title{Validates a schema}
 \usage{
 schemas_validate(schema, project = Sys.getenv("GCP_PROJECT"))
 }
@@ -12,13 +12,15 @@ schemas_validate(schema, project = Sys.getenv("GCP_PROJECT"))
 \item{project}{\code{character} GCP project id}
 }
 \description{
-Validates a schema.
+Validates a schema
 }
 \seealso{
-Other schema functions: 
+Other Schema functions: 
 \code{\link{schemas_create}()},
 \code{\link{schemas_delete}()},
+\code{\link{schemas_exists}()},
 \code{\link{schemas_get}()},
-\code{\link{schemas_list}()}
+\code{\link{schemas_list}()},
+\code{\link{schemas_validate_message}()}
 }
-\concept{schema functions}
+\concept{Schema functions}

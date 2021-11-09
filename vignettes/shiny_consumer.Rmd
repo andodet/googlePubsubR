@@ -6,7 +6,7 @@ output:
   html_document: default
   md_document: default
 vignette: >
-  %\VignetteIndexEntry{googlePubsubR}
+  %\VignetteIndexEntry{Using Pubsub in `{shiny}`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -104,5 +104,4 @@ The components described above interact according the behaviour described by the
 ### Todo
 
 - It would be nice to have the time to profile the whole thing (an idea could be to observe memory usage
-inside a docker container as I am not sure `profviz` still haven't investigated whether `profviz` would 
-do the trick here).
+inside a docker container as I am not sure `profviz` is capable to handle multi-session shiny apps).

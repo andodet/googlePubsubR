@@ -13,7 +13,7 @@ snapshot name}
 \item{topic}{\code{character}, \code{Topic} Topic name or instance of a topic object}
 
 \item{expire_time}{\code{string} The snapshot is guaranteed to exist up until this time.
-must be formatted in RFC3339 UTC "Zulu" format}
+Must be formatted in RFC3339 UTC "Zulu" format}
 
 \item{labels}{\code{list} Key-value pairs for topic labels}
 }
@@ -23,4 +23,11 @@ An instance the patched \code{Snapshot} object
 \description{
 Updates an existing snapshot
 }
-\concept{UpdateSnapshotRequest functions}
+\seealso{
+Other Snapshot functions: 
+\code{\link{snapshots_create}()},
+\code{\link{snapshots_delete}()},
+\code{\link{snapshots_exists}()},
+\code{\link{snapshots_list}()}
+}
+\concept{Snapshot functions}

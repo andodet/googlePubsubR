@@ -27,4 +27,13 @@ using \code{\link{PubsubMessage}}}
 \description{
 Validates a message against a schema
 }
-\concept{ValidateMessageRequest functions}
+\seealso{
+Other Schema functions: 
+\code{\link{schemas_create}()},
+\code{\link{schemas_delete}()},
+\code{\link{schemas_exists}()},
+\code{\link{schemas_get}()},
+\code{\link{schemas_list}()},
+\code{\link{schemas_validate}()}
+}
+\concept{Schema functions}

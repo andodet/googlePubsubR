@@ -2,7 +2,7 @@
 % Please edit documentation in R/subscriptions.R
 \name{subscriptions_list}
 \alias{subscriptions_list}
-\title{Lists matching subscriptions.}
+\title{List subscriptions}
 \usage{
 subscriptions_list(
   project = Sys.getenv("GCP_PROJECT"),
@@ -19,8 +19,23 @@ subscriptions_list(
 indicates that this is a continuation of a prior \code{subscriptions_list} call}
 }
 \value{
-\code{data.frame}
+\code{list}
 }
 \description{
-Lists matching subscriptions.
+List subscriptions
 }
+\seealso{
+Other Subscription functions: 
+\code{\link{subscriptions_ack}()},
+\code{\link{subscriptions_create}()},
+\code{\link{subscriptions_delete}()},
+\code{\link{subscriptions_detach}()},
+\code{\link{subscriptions_exists}()},
+\code{\link{subscriptions_get}()},
+\code{\link{subscriptions_modify_ack_deadline}()},
+\code{\link{subscriptions_modify_pushconf}()},
+\code{\link{subscriptions_patch}()},
+\code{\link{subscriptions_pull}()},
+\code{\link{subscriptions_seek}()}
+}
+\concept{Subscription functions}

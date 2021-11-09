@@ -38,7 +38,7 @@ as.snapshot_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' The generated name is populated in the returned Snapshot object. Note that for REST API requests, you must
 #'
 #' @param subscription `Subscription`, `character` Required, an instance of a `Subscription`
-#'   object or a subscription name.
+#'  object or a subscription name
 #' @param labels `list` Key-value pairs for snapshot labels
 #' @param name `Snapshot`, `character` Required, an instance of a `Snapshot` object or a
 #'   snapshot name
@@ -46,7 +46,7 @@ as.snapshot_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' @return  An instance of a `Snapshot` object
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family CreateSnapshotRequest functions
+#' @family Snapshot functions
 #' @export
 snapshots_create <- function(name, subscription, labels = NULL) {
   snap_name <- as.snapshot_name(name)
@@ -67,9 +67,10 @@ snapshots_create <- function(name, subscription, labels = NULL) {
 #' Removes an existing snapshot
 #'
 #' @param snapshot `Snapshot`, `character` Required, an instance of a `Snapshot` object or a
-#'   object or a subscription name.
+#'   object or a subscription name
 #'
 #' @importFrom googleAuthR gar_api_generator
+#' @family Snapshot functions
 #' @export
 snapshots_delete <- function(snapshot) {
   snap_name <- as.snapshot_name(snapshot)
@@ -89,9 +90,10 @@ snapshots_delete <- function(snapshot) {
 #'   system should return the next page of data
 #' @param project `character` a GCP project ID
 #'
-#' @return A `data.frame` containing all subscriptions
+#' @return A `data.frame` containing all snapshots
 #'
 #' @importFrom googleAuthR gar_api_generator
+#' @family Snapshot functions
 #' @export
 snapshots_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
                            pageToken = NULL) {
@@ -113,6 +115,7 @@ snapshots_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' @param snapshot `character`, `Snapshot` Required, snapshot name or an instance of a `Snapshot` object
 #'
 #' @return `logical`
+#' @family Snapshot functions 
 #' @export
 snapshots_exists <- function(snapshot) {
   snap_name <- as.snapshot_name(snapshot)
@@ -151,13 +154,13 @@ snapshots_get <- function(snapshot) {
 #'   snapshot name
 #' @param topic `character`, `Topic` Topic name or instance of a topic object
 #' @param expire_time `string` The snapshot is guaranteed to exist up until this time.
-#'   must be formatted in RFC3339 UTC "Zulu" format
+#'   Must be formatted in RFC3339 UTC "Zulu" format
 #' @param labels `list` Key-value pairs for topic labels
 #' 
 #' @return An instance the patched `Snapshot` object
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family UpdateSnapshotRequest functions
+#' @family Snapshot functions
 #' @export
 snapshots_patch <- function(snapshot,
                             topic = NULL,

@@ -15,17 +15,17 @@ topics_patch(
 )
 }
 \arguments{
-\item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a topic object}
+\item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic} object}
 
 \item{labels}{\code{list} Key-value pairs for topic labels}
 
-\item{message_storage_policy}{\code{MessageStoragePolicy} Policy constraining the set of Google Cloud Platform regions
-where messages published to the topic may be stored.}
+\item{message_storage_policy}{\code{MessageStoragePolicy} Policy constraining the set of Google Cloud
+Platform regions where messages published to the topic may be stored.}
 
-\item{kms_key_name}{The resource name of the Cloud KMS CryptoKey to be used to protect access
-to messages published on this topic.}
+\item{kms_key_name}{\code{character} The resource name of the Cloud KMS CryptoKey to be used
+to protect access to messages published on this topic.}
 
-\item{schema_settings}{\code{SchemaSettings} An intance of a \code{SchemaSettings} object}
+\item{schema_settings}{\code{SchemaSettings} An instance of a \code{SchemaSettings} object}
 
 \item{satisfies_pzs}{\code{logical} Reserved for future use.}
 
@@ -38,4 +38,14 @@ An instance of the patched \code{Topic}
 \description{
 Updates an existing topic
 }
-\concept{UpdateTopicRequest functions}
+\seealso{
+Other Topic functions: 
+\code{\link{topics_create}()},
+\code{\link{topics_delete}()},
+\code{\link{topics_exists}()},
+\code{\link{topics_get}()},
+\code{\link{topics_list_subscriptions}()},
+\code{\link{topics_list}()},
+\code{\link{topics_publish}()}
+}
+\concept{Topic functions}

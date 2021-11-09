@@ -20,7 +20,17 @@ subscriptions_modify_ack_deadline(subscription, ack_ids, ack_deadline)
 Certain properties of a subscription, such as its topic, are not modifiable.
 }
 \seealso{
-Other UpdateSubscriptionRequest functions: 
-\code{\link{subscriptions_patch}()}
+Other Subscription functions: 
+\code{\link{subscriptions_ack}()},
+\code{\link{subscriptions_create}()},
+\code{\link{subscriptions_delete}()},
+\code{\link{subscriptions_detach}()},
+\code{\link{subscriptions_exists}()},
+\code{\link{subscriptions_get}()},
+\code{\link{subscriptions_list}()},
+\code{\link{subscriptions_modify_pushconf}()},
+\code{\link{subscriptions_patch}()},
+\code{\link{subscriptions_pull}()},
+\code{\link{subscriptions_seek}()}
 }
-\concept{UpdateSubscriptionRequest functions}
+\concept{Subscription functions}

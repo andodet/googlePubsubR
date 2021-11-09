@@ -36,7 +36,7 @@ as.schema_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' @return  a `Schema` object
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family schema functions
+#' @family Schema functions
 #' @export
 schemas_create <- function(name,
                            type = c("AVRO", "PROTOCOL_BUFFER", "TYPE_UNSPECIFIED"),
@@ -61,13 +61,13 @@ schemas_create <- function(name,
   f(the_body = schema)
 }
 
-#' Validates a schema.
+#' Validates a schema
 #'
 #' @param schema `Schema` Required, an instance of a `Schema` object
 #' @param project `character` GCP project id
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family schema functions
+#' @family Schema functions
 #' @export
 schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
   parent <- sprintf("projects/%s", project)
@@ -88,8 +88,8 @@ schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
 #' Lists all schemas in a project
 #'
 #' @param pageSize `numeric` Maximum number of schemas to return
-#' @param view The set of Schema fields to return in the response
-#' @param project `character` Required, GCP project id
+#' @param view `list` The set of Schema fields to return in the response
+#' @param project `character` GCP project id
 #' @param pageToken `character` The value returned by the last `ListSchemasResponse`; indicates that
 #'   this is a continuation of a prior `ListSchemas` call, and that the system should return
 #'   the next page of data
@@ -97,10 +97,12 @@ schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
 #' @return A `data.frame`
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family schema functions
+#' @family Schema functions
 #' @export
 schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
-                         view = NULL, pageToken = NULL) {
+                         view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"), 
+                         pageToken = NULL) {
+  view <- match.arg(view)
   parent <- sprintf("projects/%s", project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s/schemas", parent)
 
@@ -115,9 +117,10 @@ schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 
 #' Check if a schema exists
 #'
-#' @param schema `character`, `Schema` Required, an instance of a `Schema` object
+#' @param schema `character`, `Schema` Required, schema name or an instance of a `Schema` object
 #'
 #' @return `logical`
+#' @family Schema functions
 #' @export
 schemas_exists <- function(schema) {
   schema_name <- as.schema_name(schema)
@@ -134,12 +137,12 @@ schemas_exists <- function(schema) {
 #' Gets a schema
 #'
 #' @param schema `character`, `Schema` Required, schema name or an instance of a `Schema` object
-#' @param view The set of fields to return in the response
+#' @param view `character` The set of fields to return in the response
 #'
 #' @return  A `Schema` object
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family schema functions
+#' @family Schema functions
 #' @export
 schemas_get <- function(schema,
                         view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL")) {
@@ -161,14 +164,15 @@ schemas_get <- function(schema,
 #' @param name `character`, `Schema` Schema name or instance of a schema object
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family schema functions
+#' @family Schema functions
 #' @export
 schemas_delete <- function(name) {
-  name <- as.schema_name(name)
-  url <- sprintf("https://pubsub.googleapis.com/v1/%s", name)
-  # pubsub.projects.schemas.delete
+  schema_name <- as.schema_name(name)
+  url <- sprintf("https://pubsub.googleapis.com/v1/%s", schema_name)
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
-  f()
+  
+  invisible(f())
+  cli::cli_alert_success(sprintf("%s succesfully deleted", schema_name))
 }
 
 #' Validates a message against a schema
@@ -182,12 +186,18 @@ schemas_delete <- function(name) {
 #' @return `logical`
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family ValidateMessageRequest functions
+#' @family Schema functions
 #' @export
 schemas_validate_message <- function(schema,
                                      message,
                                      encoding = c("ENCODING_UNSPECIFIED", "JSON", "BINARY"),
                                      project = Sys.getenv("GCP_PROJECT")) {
+  
+  # API expects a base64 encoded string, extract it from the message object
+  if (inherits(message, "PubsubMessage")) {
+    message <- message$data
+  }
+  
   req <- ValidateMessageRequest(
     message = message,
     encoding = encoding

@@ -21,7 +21,17 @@ Acknowledging a message whose ack deadline has expired may succeed, but such a m
 may be redelivered later. Acknowledging a message more than once will not result in an error.
 }
 \seealso{
-Other AcknowledgeRequest functions: 
+Other Subscription functions: 
+\code{\link{subscriptions_create}()},
+\code{\link{subscriptions_delete}()},
+\code{\link{subscriptions_detach}()},
+\code{\link{subscriptions_exists}()},
+\code{\link{subscriptions_get}()},
+\code{\link{subscriptions_list}()},
+\code{\link{subscriptions_modify_ack_deadline}()},
+\code{\link{subscriptions_modify_pushconf}()},
+\code{\link{subscriptions_patch}()},
+\code{\link{subscriptions_pull}()},
 \code{\link{subscriptions_seek}()}
 }
-\concept{AcknowledgeRequest functions}
+\concept{Subscription functions}

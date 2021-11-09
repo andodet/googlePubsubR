@@ -9,8 +9,7 @@ topics_publish(messages, topic)
 \arguments{
 \item{messages}{\code{list} Required, a list containing the messages to be published}
 
-\item{topic}{\code{Topic}, \code{character} Required, an instance of a \code{Topic} object or a string of the
-topic name}
+\item{topic}{\code{Topic}, \code{character} Required, an instance of a \code{Topic} object or a topic name}
 }
 \value{
 A \code{character} vector containing message IDs
@@ -18,4 +17,14 @@ A \code{character} vector containing message IDs
 \description{
 Adds one or more messages to the topic
 }
-\concept{PublishRequest functions}
+\seealso{
+Other Topic functions: 
+\code{\link{topics_create}()},
+\code{\link{topics_delete}()},
+\code{\link{topics_exists}()},
+\code{\link{topics_get}()},
+\code{\link{topics_list_subscriptions}()},
+\code{\link{topics_list}()},
+\code{\link{topics_patch}()}
+}
+\concept{Topic functions}

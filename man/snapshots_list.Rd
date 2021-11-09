@@ -20,8 +20,16 @@ indicates that this is a continuation of a prior \code{ListSnapshots} call, and 
 system should return the next page of data}
 }
 \value{
-A \code{data.frame} containing all subscriptions
+A \code{data.frame} containing all snapshots
 }
 \description{
 Lists the existing snapshots
 }
+\seealso{
+Other Snapshot functions: 
+\code{\link{snapshots_create}()},
+\code{\link{snapshots_delete}()},
+\code{\link{snapshots_exists}()},
+\code{\link{snapshots_patch}()}
+}
+\concept{Snapshot functions}

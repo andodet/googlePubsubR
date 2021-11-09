@@ -1,4 +1,3 @@
-
 #' Get topic name
 #'
 #' @param x `character`, `Topic`
@@ -31,12 +30,13 @@ as.topic_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #'
 #' @param name `character`, `Topic` Required, topic name or instance of a topic object
 #' @param labels `list` Key-value pairs for topic labels
-#' @param message_retention_duration `character` Indicates the minimum duration to retain
-#'  a message after it is published to the topic.
-#' @param message_storage_policy `list` Policy constraining the set of Google Cloud Platform regions
-#'  where messages published to the topic may be stored.
+#' @param message_retention_duration `numeric` Indicates the minimum duration (in seconds) to retain
+#'  a message after it is published to the topic
+#' @param message_storage_policy `MessageStorePolicy` An instance of a `MessageStorePolicy` object
+#'   Policy constraining the set of Google Cloud Platform regions where messages published to the 
+#'   topic may be stored
 #' @param satisfies_pzs `logical` Reserved for future use.
-#' @param schema_settings `SchemaSettings` An intance of a `SchemaSettings` object
+#' @param schema_settings `SchemaSettings` An instance of a `SchemaSettings` object
 #' @param kms_key_name `character` The resource name of the Cloud KMS CryptoKey to be used
 #'  to protect access to messages published on this topic.
 #'
@@ -51,6 +51,11 @@ topics_create <- function(name,
                           message_storage_policy = NULL,
                           schema_settings = NULL,
                           message_retention_duration = NULL) {
+  
+  if(!is.null(message_retention_duration)) {
+    message_retention_duration <- paste0(message_retention_duration, "s")
+  }
+  
   topic_name <- as.topic_name(name)
   topic <- Topic(
     labels                     = labels,
@@ -78,8 +83,9 @@ topics_create <- function(name,
 
 #' Deletes a pub/sub topic
 #'
-#' @param topic `character`, `Topic` Required, topic name or instance of a topic object
+#' @param topic `character`, `Topic` Required, topic name or instance of a `Topic` object
 #' @importFrom googleAuthR gar_api_generator
+#' @family Topic functions
 #' @export
 topics_delete <- function(topic) {
   topic <- as.topic_name(topic)
@@ -92,14 +98,14 @@ topics_delete <- function(topic) {
 
 #' Gets a topic configuration
 #'
-#' @param topic `character`, `Topic` Required, instance of `Topic` or `character`
+#' @param topic `character`, `Topic` Required, topic name or instance of a `Topic`
 #' @return `Topic` A `Topic` object
 #'
 #' @importFrom googleAuthR gar_api_generator
+#' @family Topic functions
 #' @export
 topics_get <- function(topic) {
   topic <- as.topic_name(topic)
-  print(topic)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", topic)
 
   f <- googleAuthR::gar_api_generator(
@@ -112,7 +118,7 @@ topics_get <- function(topic) {
 
 #' Lists topics from project
 #'
-#' @param project `character` Required, GCP project id
+#' @param project `character` GCP project id
 #' @param pageSize `numeric` Maximum number of topics to return
 #' @param pageToken `character` The value returned by the last `ListTopicsResponse`; indicates
 #'  that this is a continuation of a prior `ListTopics` call, and that the system should return the
@@ -121,6 +127,7 @@ topics_get <- function(topic) {
 #' @return A `list`
 #'
 #' @importFrom googleAuthR gar_api_generator
+#' @family Topic functions
 #' @export
 topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
                         pageToken = NULL) {
@@ -137,10 +144,11 @@ topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 
 #' Check if a topic exists
 #'
-#' @param project `character` Required, GCP project id
 #' @param topic `character`, `Topic` Required, topic name or instance of a topic object
+#' @param project `character` GCP project id
 #'
 #' @return `logical`
+#' @family Topic functions
 #' @export
 topics_exists <- function(topic, project = Sys.getenv("GCP_PROJECT")) {
   topic <- as.topic_name(topic)
@@ -154,21 +162,21 @@ topics_exists <- function(topic, project = Sys.getenv("GCP_PROJECT")) {
 
 #' Updates an existing topic
 #'
-#' @param topic `character`, `Topic` Required, topic name or instance of a topic object
+#' @param topic `character`, `Topic` Required, topic name or instance of a `Topic` object
 #' @param labels `list` Key-value pairs for topic labels
-#' @param kms_key_name The resource name of the Cloud KMS CryptoKey to be used to protect access
-#'  to messages published on this topic.
-#' @param schema_settings `SchemaSettings` An intance of a `SchemaSettings` object
+#' @param kms_key_name `character` The resource name of the Cloud KMS CryptoKey to be used 
+#'  to protect access to messages published on this topic.
+#' @param schema_settings `SchemaSettings` An instance of a `SchemaSettings` object
 #' @param satisfies_pzs `logical` Reserved for future use.
 #' @param message_retention_duration `character` Indicates the minimum duration to retain
 #'  a message after it is published to the topic.
-#' @param message_storage_policy `MessageStoragePolicy` Policy constraining the set of Google Cloud Platform regions
-#'  where messages published to the topic may be stored.
-
+#' @param message_storage_policy `MessageStoragePolicy` Policy constraining the set of Google Cloud 
+#'  Platform regions where messages published to the topic may be stored.
+#'
 #' @return An instance of the patched `Topic`
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family UpdateTopicRequest functions
+#' @family Topic functions
 #' @export
 topics_patch <- function(topic,
                          labels = NULL,
@@ -204,13 +212,12 @@ topics_patch <- function(topic,
 #' Adds one or more messages to the topic
 #'
 #' @param messages `list` Required, a list containing the messages to be published
-#' @param topic `Topic`, `character` Required, an instance of a `Topic` object or a string of the
-#'   topic name
+#' @param topic `Topic`, `character` Required, an instance of a `Topic` object or a topic name
 #'
 #' @return A `character` vector containing message IDs
 #'
 #' @importFrom googleAuthR gar_api_generator
-#' @family PublishRequest functions
+#' @family Topic functions
 #' @export
 topics_publish <- function(messages, topic) {
   topic <- as.topic_name(topic)
@@ -262,18 +269,18 @@ topics_publish <- function(messages, topic) {
 #   f(the_body = SetIamPolicyRequest)
 # }
 
-#' Lists the names of the attached subscriptions on this topic.
+#' List attached subscriptions to a topic.
 #'
-#' @param topic `Topic`, `character` Required, an instance of a `Topic` object or a string of the
-#'   topic name
-#' @param pageToken The value returned by the last response; indicates that this is a continuation
+#' @param topic `Topic`, `character` Required, an instance of a `Topic` object or a topic name
+#' @param pageToken `character` The value returned by the last response; indicates that this is a continuation
 #'  of a prior `topics_list_subscriptions()` paged call, and that the system should return the next
 #'  page of data
-#' @param pageSize Maximum number of subscription names to return
+#' @param pageSize `numeric` Maximum number of subscription names to return
 #'
 #' @return A `character` vector
 #'
 #' @importFrom googleAuthR gar_api_generator
+#' @family Topic functions 
 #' @export
 topics_list_subscriptions <- function(topic, pageToken = NULL, pageSize = NULL) {
   topic <- as.topic_name(topic)

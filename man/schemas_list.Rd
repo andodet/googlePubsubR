@@ -7,16 +7,16 @@
 schemas_list(
   project = Sys.getenv("GCP_PROJECT"),
   pageSize = NULL,
-  view = NULL,
+  view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"),
   pageToken = NULL
 )
 }
 \arguments{
-\item{project}{\code{character} Required, GCP project id}
+\item{project}{\code{character} GCP project id}
 
 \item{pageSize}{\code{numeric} Maximum number of schemas to return}
 
-\item{view}{The set of Schema fields to return in the response}
+\item{view}{\code{list} The set of Schema fields to return in the response}
 
 \item{pageToken}{\code{character} The value returned by the last \code{ListSchemasResponse}; indicates that
 this is a continuation of a prior \code{ListSchemas} call, and that the system should return
@@ -29,10 +29,12 @@ A \code{data.frame}
 Lists all schemas in a project
 }
 \seealso{
-Other schema functions: 
+Other Schema functions: 
 \code{\link{schemas_create}()},
 \code{\link{schemas_delete}()},
+\code{\link{schemas_exists}()},
 \code{\link{schemas_get}()},
+\code{\link{schemas_validate_message}()},
 \code{\link{schemas_validate}()}
 }
-\concept{schema functions}
+\concept{Schema functions}

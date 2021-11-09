@@ -94,5 +94,5 @@ described by the diagram below:
 
 -   It would be nice to have the time to profile the whole thing (an
     idea could be to observe memory usage inside a docker container as I
-    am not sure `profviz` still haven’t investigated whether `profviz`
-    would do the trick here).
+    am not sure `profviz` is capable to handle multi-session shiny
+    apps).

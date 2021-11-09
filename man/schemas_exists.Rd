@@ -7,7 +7,7 @@
 schemas_exists(schema)
 }
 \arguments{
-\item{schema}{\code{character}, \code{Schema} Required, an instance of a \code{Schema} object}
+\item{schema}{\code{character}, \code{Schema} Required, schema name or an instance of a \code{Schema} object}
 }
 \value{
 \code{logical}
@@ -15,3 +15,13 @@ schemas_exists(schema)
 \description{
 Check if a schema exists
 }
+\seealso{
+Other Schema functions: 
+\code{\link{schemas_create}()},
+\code{\link{schemas_delete}()},
+\code{\link{schemas_get}()},
+\code{\link{schemas_list}()},
+\code{\link{schemas_validate_message}()},
+\code{\link{schemas_validate}()}
+}
+\concept{Schema functions}

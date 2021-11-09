@@ -20,13 +20,7 @@ test_that("Schemas validates", {
 
 test_that("Validates message", {
   skip_on_cran()
-  
-  # TODO: this seems convoluted, check if it does make sense to simplify the message
-  # interface.
-  msg <- list(cost = 100, object = "fork")
-  msg <- jsonlite::toJSON(msg, auto_unbox = TRUE)
-  msg <- base64enc::base64encode(charToRaw(msg))
-  
+
   expect_true(
     schemas_validate_message(schema = schema_name, message = msg, encoding = "JSON")
   )

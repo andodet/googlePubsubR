@@ -15,3 +15,11 @@ snapshots_exists(snapshot)
 \description{
 Check if a snapshot exists
 }
+\seealso{
+Other Snapshot functions: 
+\code{\link{snapshots_create}()},
+\code{\link{snapshots_delete}()},
+\code{\link{snapshots_list}()},
+\code{\link{snapshots_patch}()}
+}
+\concept{Snapshot functions}

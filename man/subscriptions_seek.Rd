@@ -2,7 +2,7 @@
 % Please edit documentation in R/subscriptions.R
 \name{subscriptions_seek}
 \alias{subscriptions_seek}
-\title{Seek a subscription to a point in timex}
+\title{Seek a subscription to a point in time}
 \usage{
 subscriptions_seek(subscription, time = NULL, snapshot = NULL)
 }
@@ -21,7 +21,17 @@ object}
 A subscription can be seeked to a point in time or to a given snapshot.
 }
 \seealso{
-Other AcknowledgeRequest functions: 
-\code{\link{subscriptions_ack}()}
+Other Subscription functions: 
+\code{\link{subscriptions_ack}()},
+\code{\link{subscriptions_create}()},
+\code{\link{subscriptions_delete}()},
+\code{\link{subscriptions_detach}()},
+\code{\link{subscriptions_exists}()},
+\code{\link{subscriptions_get}()},
+\code{\link{subscriptions_list}()},
+\code{\link{subscriptions_modify_ack_deadline}()},
+\code{\link{subscriptions_modify_pushconf}()},
+\code{\link{subscriptions_patch}()},
+\code{\link{subscriptions_pull}()}
 }
-\concept{AcknowledgeRequest functions}
+\concept{Subscription functions}
