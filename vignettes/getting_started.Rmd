@@ -10,7 +10,7 @@ vignette: >
 
 # `googlePubsubR`
 
-This vignette will provide a walktrhough for the most common functions that will cover the majority
+This vignette will provide a walk through for the most common functions that will cover the majority
 of use cases.
 
 ## Authentication

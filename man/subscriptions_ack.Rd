@@ -10,7 +10,7 @@ subscriptions_ack(ack_ids, subscription)
 \item{ack_ids}{\code{character} A vector containing one or more message ackIDs}
 
 \item{subscription}{\code{character}, \code{Subscription} Required, the subscription whose messages
-are being aknowledged}
+are being acknowledged}
 }
 \value{
 \code{logical}
