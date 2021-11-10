@@ -222,7 +222,7 @@ subscriptions_pull <- function(subscription, max_messages = 100) {
 #'
 #' @param ack_ids `character` A vector containing one or more message ackIDs
 #' @param subscription `character`, `Subscription` Required, the subscription whose messages
-#'   are being aknowledged
+#'   are being acknowledged
 #'
 #' @return `logical`
 #' @importFrom googleAuthR gar_api_generator

@@ -4,10 +4,12 @@ test_that("Gets and lists schemas", {
   res_get <- schemas_get(schema_name)
   res_list <- schemas_list()
   res_exist <- schemas_exists(schema_name)
+  res_exist_fail <- schemas_exists("junk-name")
 
   expect_s3_class(res_get, "Schema")
   expect_s3_class(res_list, "data.frame")
   expect_true(res_exist)
+  expect_false(res_exist_fail)
 })
 
 test_that("Schemas validates", {

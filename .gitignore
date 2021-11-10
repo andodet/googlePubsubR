@@ -18,7 +18,6 @@
 /*.Rcheck/
 
 # RStudio files
-*.Rproj
 .Rproj.user/
 
 # produced vignettes
@@ -47,6 +46,3 @@ docs/
 # translation temp files
 po/*~
 docs
-
-# credential files
-gcp_creds.json

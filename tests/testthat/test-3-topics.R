@@ -3,10 +3,12 @@ test_that("Gets and lists topics", {
   res_get <- topics_get(topic_name)
   res_list <- topics_list()
   res_exist <- topics_exists(topic_name)
+  res_exist_fail <- topics_exists("junk-name")
 
   expect_s3_class(res_get, "Topic")
   expect_type(res_list, "list")
   expect_true(res_exist)
+  expect_false(res_exist_fail)
 })
 
 test_that("Can publish to a topic", {
