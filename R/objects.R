@@ -342,7 +342,7 @@ UpdateObjectRequest <- function(object = NULL) {
 #' SchemaSettings Object
 #'
 #' @param encoding `character` The encoding of messages validated against `schema`
-#' @param schema `Schema, character` Required, sachema object or schema name
+#' @param schema `Schema, character` Required, schema object or schema name
 #'
 #' @return `SchemaSettings` object
 #' @export
