@@ -3,10 +3,12 @@ test_that("Gets and lists snapshots", {
   res_get <- snapshots_get(snap_name)
   res_list <- snapshots_list()
   res_exist <- snapshots_exists(snap_name)
+  res_exist_fail <- snapshots_exists("junk-name")
 
   expect_s3_class(res_get, "Snapshot")
   expect_s3_class(res_list, "data.frame")
   expect_true(res_exist)
+  expect_false(res_exist_fail)
 })
 
 test_that("Snapshot gets patched", {
