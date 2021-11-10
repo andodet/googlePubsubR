@@ -1,3 +1,3 @@
-## googlePubsubR 0.0.1
+# googlePubsubR 0.0.1
 
 * Initial version
