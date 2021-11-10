@@ -5,3 +5,4 @@
 ^\.Rproj\.user$
 ^\.github$
 ^.gcp_creds.json
+^cran-comments.md
