@@ -2,7 +2,7 @@
 
 [![R-CMD-check-ascran](https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml)
 [![testthat](https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml/badge.svg)](https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml)
-[![codecov](https://codecov.io/gh/andodet/googlePubsubR/branch/master/graph/badge.svg?token=OTBHY3F1KD)](https://codecov.io/gh/andodet/googlePubsubR)
+[![codecov](https://codecov.io/gh/andodet/googlePubsubR/branch/master/graph/badge.svg?token=OTBHY3F1KD)](https://app.codecov.io/gh/andodet/googlePubsubR)
 
 This library offers an easy to use interface for the Google Pub/Sub REST API
 (docs [here](https://cloud.google.com/pubsub/docs/reference/rest)).
@@ -11,9 +11,12 @@ Not an official Google product.
 
 ## Setup
 
-You can install the package (not on CRAN for the time being) from Github:
+You can install the package from CRAN or get the `dev` version from Github:
 ```r
-devtools::install_github("andodet/googlePubsubR")
+install.packages("googlePubsubR")
+
+# Or get the dev version from Github
+devtools::install_github("andodet/googlePubsubR@dev")
 ```
 
 In order to use the library, you will need:

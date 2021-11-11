@@ -10,6 +10,9 @@ subscriptions_delete(subscription)
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of
 a \code{Subscription} object}
 }
+\value{
+None, called for side effects
+}
 \description{
 All messages retained in the subscription will be immediately dropped. Calls to \code{Pull}
 after deletion will return \code{NOT_FOUND}. After a subscription is deleted, a new one may

@@ -9,6 +9,9 @@ schemas_delete(name)
 \arguments{
 \item{name}{\code{character}, \code{Schema} Schema name or instance of a schema object}
 }
+\value{
+None, called for side effects
+}
 \description{
 Deletes a schema
 }

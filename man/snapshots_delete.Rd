@@ -10,6 +10,9 @@ snapshots_delete(snapshot)
 \item{snapshot}{\code{Snapshot}, \code{character} Required, an instance of a \code{Snapshot} object or a
 object or a subscription name}
 }
+\value{
+None, called for side effects
+}
 \description{
 Removes an existing snapshot
 }

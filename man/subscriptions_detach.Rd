@@ -10,6 +10,9 @@ subscriptions_detach(subscription)
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of
 a \code{Subscription} object}
 }
+\value{
+\code{logical}, TRUE if successfully detached
+}
 \description{
 Detaches a subscription from a topic.
 }

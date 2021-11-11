@@ -10,7 +10,7 @@ topics_get(topic)
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic}}
 }
 \value{
-\code{Topic} A \code{Topic} object
+\code{Topic}, A \code{Topic} object
 }
 \description{
 Gets a topic configuration

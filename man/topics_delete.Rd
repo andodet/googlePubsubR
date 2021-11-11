@@ -9,6 +9,9 @@ topics_delete(topic)
 \arguments{
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic} object}
 }
+\value{
+None, called for side effects
+}
 \description{
 Deletes a pub/sub topic
 }

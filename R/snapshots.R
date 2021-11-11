@@ -69,6 +69,8 @@ snapshots_create <- function(name, subscription, labels = NULL) {
 #'
 #' @param snapshot `Snapshot`, `character` Required, an instance of a `Snapshot` object or a
 #'   object or a subscription name
+#'   
+#' @return None, called for side effects
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Snapshot functions

@@ -1,13 +1,13 @@
 Package: googlePubsubR
-Title: R Interface for Google Cloud Pub/Sub REST API
+Title: R Interface for Google 'Cloud Pub/Sub' REST API
 Version: 0.0.1
 Authors@R: 
     person(given = "Andrea",
            family = "Dodet",
            role = c("aut", "cre"),
            email = "andodet@gmail.com")
-Description: Provides an easy to use interface to the Google
-	Pub/Sub REST API.
+Description: Provides an easy to use interface to the 'Google
+	Pub/Sub' REST API <https://cloud.google.com/pubsub/docs/reference/rest>.
 URL: https://github.com/andodet/googlePubsubR
 BugReports: https://github.com/andodet/googlePubsubR/issues
 License: MIT + file LICENSE

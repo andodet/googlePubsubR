@@ -13,7 +13,7 @@ object}
 \item{push_config}{\code{PushConfig} New PushConfig object, can be built using \code{\link{PushConfig}}}
 }
 \value{
-\code{logical}
+\code{logical}, TRUE if successfully modified
 }
 \description{
 Modify PushConfig for a subscription

@@ -11,6 +11,9 @@ schemas_validate(schema, project = Sys.getenv("GCP_PROJECT"))
 
 \item{project}{\code{character} GCP project id}
 }
+\value{
+\code{logical} TRUE if successfully validated
+}
 \description{
 Validates a schema
 }

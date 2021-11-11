@@ -6,6 +6,8 @@
 #'   account
 #' @param token `character` An existing authentication token
 #' @param email `character` The email to default authentication to
+#' 
+#' @return None, called for side effects
 #'
 #' @import googleAuthR
 #' @export

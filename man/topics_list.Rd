@@ -20,7 +20,7 @@ that this is a continuation of a prior \code{ListTopics} call, and that the syst
 next page of data.}
 }
 \value{
-A \code{list}
+A \code{list} of topics
 }
 \description{
 Lists topics from project

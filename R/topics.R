@@ -85,6 +85,9 @@ topics_create <- function(name,
 #' Deletes a pub/sub topic
 #'
 #' @param topic `character`, `Topic` Required, topic name or instance of a `Topic` object
+#' 
+#' @return None, called for side effects
+#' 
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
 #' @export
@@ -100,7 +103,7 @@ topics_delete <- function(topic) {
 #' Gets a topic configuration
 #'
 #' @param topic `character`, `Topic` Required, topic name or instance of a `Topic`
-#' @return `Topic` A `Topic` object
+#' @return `Topic`, A `Topic` object
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
@@ -125,7 +128,7 @@ topics_get <- function(topic) {
 #'  that this is a continuation of a prior `ListTopics` call, and that the system should return the
 #'  next page of data.
 #'
-#' @return A `list`
+#' @return A `list` of topics
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
@@ -148,7 +151,7 @@ topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' @param topic `character`, `Topic` Required, topic name or instance of a topic object
 #' @param project `character` GCP project id
 #'
-#' @return `logical`
+#' @return `logical`, TRUE if topic exists, FALSE otherwise
 #' @family Topic functions
 #' @export
 topics_exists <- function(topic, project = Sys.getenv("GCP_PROJECT")) {

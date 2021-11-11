@@ -114,6 +114,8 @@ subscriptions_create <- function(name,
 #'
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
+#'   
+#' @return None, called for side effects
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
@@ -152,6 +154,8 @@ subscriptions_get <- function(subscription) {
 #'
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
+#'   
+#' @return `logical`, TRUE if successfully detached
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
@@ -399,7 +403,7 @@ subscriptions_modify_ack_deadline <- function(subscription, ack_ids, ack_deadlin
 #'   object
 #' @param push_config `PushConfig` New PushConfig object, can be built using \code{\link{PushConfig}}
 #'
-#' @return `logical`
+#' @return `logical`, TRUE if successfully modified
 #' @family Subscription functions
 #' @export
 subscriptions_modify_pushconf <- function(subscription, push_config) {

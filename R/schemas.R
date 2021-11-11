@@ -66,6 +66,8 @@ schemas_create <- function(name,
 #'
 #' @param schema `Schema` Required, an instance of a `Schema` object
 #' @param project `character` GCP project id
+#' 
+#' @return `logical` TRUE if successfully validated
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
@@ -163,6 +165,8 @@ schemas_get <- function(schema,
 #' Deletes a schema
 #'
 #' @param name `character`, `Schema` Schema name or instance of a schema object
+#' 
+#' @return None, called for side effects
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions

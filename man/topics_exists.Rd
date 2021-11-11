@@ -12,7 +12,7 @@ topics_exists(topic, project = Sys.getenv("GCP_PROJECT"))
 \item{project}{\code{character} GCP project id}
 }
 \value{
-\code{logical}
+\code{logical}, TRUE if topic exists, FALSE otherwise
 }
 \description{
 Check if a topic exists
