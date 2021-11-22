@@ -13,7 +13,7 @@ subscriptions_ack(ack_ids, subscription)
 are being acknowledged}
 }
 \value{
-\code{logical}
+\code{logical} TRUE if message(s) was successfully acknowledged
 }
 \description{
 The Pub/Sub system can remove the relevant messages from the subscription.

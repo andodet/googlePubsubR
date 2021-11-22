@@ -10,7 +10,7 @@ snapshots_exists(snapshot)
 \item{snapshot}{\code{character}, \code{Snapshot} Required, snapshot name or an instance of a \code{Snapshot} object}
 }
 \value{
-\code{logical}
+\code{logical} TRUE if snapshot exists
 }
 \description{
 Check if a snapshot exists

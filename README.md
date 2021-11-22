@@ -80,7 +80,15 @@ head(msg_decoded)
 # Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 # Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 
-#Cleanup resources
+# We can acknowledge that the message has been consumed
+subscriptions_ack(msgs_pull$receivedMessages$ackId, sub_readme)
+# [1] TRUE
+
+# A subsequent pull will return no messages from the server
+subscriptions_pull(sub_readme)
+# named list()
+
+# Cleanup resources
 topics_delete(topic_readme)
 subscriptions_delete(sub_readme)
 ```

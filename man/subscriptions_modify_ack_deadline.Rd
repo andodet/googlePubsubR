@@ -2,7 +2,7 @@
 % Please edit documentation in R/subscriptions.R
 \name{subscriptions_modify_ack_deadline}
 \alias{subscriptions_modify_ack_deadline}
-\title{Updates an existing subscription}
+\title{Modify the ack deadline for a subscription}
 \usage{
 subscriptions_modify_ack_deadline(subscription, ack_ids, ack_deadline)
 }
@@ -14,10 +14,12 @@ subscriptions_modify_ack_deadline(subscription, ack_ids, ack_deadline)
 \item{ack_deadline}{\code{numeric} The new ack deadline (in seconds)}
 }
 \value{
-\code{logical}
+\code{logical} TRUE if successfully modified
 }
 \description{
-Certain properties of a subscription, such as its topic, are not modifiable.
+This method is useful to indicate that more time is needed to process a message by the
+subscriber, or to make the message available for redelivery if the processing was
+interrupted.
 }
 \seealso{
 Other Subscription functions: 

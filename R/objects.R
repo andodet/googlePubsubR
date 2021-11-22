@@ -1,7 +1,7 @@
 #' Builds a PubsubMessage Object
 #'
 #' @param data `character` The message data field as a base64 encoded string
-#' @param message_id `character ID of this message, assigned by the server when the message
+#' @param message_id `character` ID of this message, assigned by the server when the message
 #'   is published
 #' @param ordering_key `character` If non-empty, identifies related messages for which publish 
 #'   order should be respected
@@ -60,11 +60,12 @@ Topic <- function(labels = NULL, name = NULL, kms_key_name = NULL, satisfies_pzs
 #' Builds a DqlPolicy object
 #'
 #' @param dlq_topic `character`, `Topic` Required, topic name or instance of a topic object
-#' @param max_delivery_attempts `numeric` 
+#' @param max_delivery_attempts `numeric` Number of delivery attempts for any message. The 
+#'   value must be between 5 and 100.
 #'
 #' @return `DlqPolicy` object
 #' @export
-#' 
+#'
 #' @family Object functions
 DlqPolicy <- function(dlq_topic, max_delivery_attempts) {
   dlq_topic <- as.topic_name(dlq_topic)
