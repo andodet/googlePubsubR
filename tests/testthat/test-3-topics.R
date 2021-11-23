@@ -18,6 +18,16 @@ test_that("Can publish to a topic", {
 
 })
 
+test_that("Can encode/decode messages consistently", {
+  greet <- "hello"
+  enc_greet <- msg_encode(greet)
+  
+  expect_equal(msg_encode(greet), "aGVsbG8=")
+  expect_equal(msg_decode(enc_greet), greet)
+  expect_type(msg_encode(greet), "character")
+  expect_type(msg_decode(enc_greet), "character")
+})
+
 test_that("Topic gets patched", {
   skip_on_cran()
   res <- topics_patch(

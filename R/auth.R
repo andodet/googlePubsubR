@@ -19,7 +19,7 @@ pubsub_auth <- function(json_file = Sys.getenv("GCP_AUTH_FILE"),
   if(is.null(json_file)){
     gar_auth(token = token,
              email = email,
-             package = "googleCloudStorageR")
+             package = "googlePubsubR")
   } else {
     gar_auth_service(json_file = json_file)
   }

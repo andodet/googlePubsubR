@@ -10,7 +10,7 @@ schemas_exists(schema)
 \item{schema}{\code{character}, \code{Schema} Required, schema name or an instance of a \code{Schema} object}
 }
 \value{
-\code{logical}
+\code{logical} TRUE if the schema exists
 }
 \description{
 Check if a schema exists

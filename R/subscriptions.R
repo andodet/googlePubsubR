@@ -179,7 +179,7 @@ subscriptions_detach <- function(subscription) {
 #' @param pageToken `character` The value returned by the last `subscriptions_list`;
 #'   indicates that this is a continuation of a prior `subscriptions_list` call
 #'
-#' @return `list`
+#' @return `list` A list containing all subscriptions
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
@@ -228,7 +228,7 @@ subscriptions_pull <- function(subscription, max_messages = 100) {
 #' @param subscription `character`, `Subscription` Required, the subscription whose messages
 #'   are being acknowledged
 #'
-#' @return `logical`
+#' @return `logical` TRUE if message(s) was successfully acknowledged
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
@@ -249,7 +249,7 @@ subscriptions_ack <- function(ack_ids, subscription) {
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
 #'
-#' @return `logical`
+#' @return `logical` TRUE if the subscription exist
 #' @family Subscription functions
 #' @export
 subscriptions_exists <- function(subscription) {
@@ -344,7 +344,7 @@ subscriptions_patch <- function(subscription,
 #' @param time `character` A timestamp in RFC3339 UTC "Zulu" format
 #' @param snapshot `character`, `Snapshot` A Snapshot name or a `Snapshot` object
 #'
-#' @return `logical`
+#' @return `logical` TRUE when succesfull seeked
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
@@ -368,15 +368,17 @@ subscriptions_seek <- function(subscription, time = NULL, snapshot = NULL) {
   }
 }
 
-#' Updates an existing subscription
+#' Modify the ack deadline for a subscription
 #'
-#' Certain properties of a subscription, such as its topic, are not modifiable.
+#' This method is useful to indicate that more time is needed to process a message by the 
+#' subscriber, or to make the message available for redelivery if the processing was 
+#' interrupted.
 #'
 #' @param subscription `character`, `Subscription` A subscription name or `Subscription` object
 #' @param ack_ids `character` A vector containing ackIDs. They can be acquired using
 #' @param ack_deadline `numeric` The new ack deadline (in seconds)
 #'
-#' @return `logical`
+#' @return `logical` TRUE if successfully modified
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions

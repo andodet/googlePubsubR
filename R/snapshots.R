@@ -117,7 +117,8 @@ snapshots_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #'
 #' @param snapshot `character`, `Snapshot` Required, snapshot name or an instance of a `Snapshot` object
 #'
-#' @return `logical`
+#' @return `logical` TRUE if snapshot exists
+#' 
 #' @family Snapshot functions 
 #' @export
 snapshots_exists <- function(snapshot) {
