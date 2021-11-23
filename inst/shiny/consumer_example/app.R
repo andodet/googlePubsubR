@@ -18,8 +18,7 @@ gen_msg <- function() {
   ) %>%
     as.list() %>%
     toJSON(auto_unbox = TRUE) %>%
-    charToRaw() %>%
-    base64encode() %>%
+    msg_encode() %>% 
     PubsubMessage()
 }
 
@@ -36,8 +35,7 @@ get_data <- function() {
     # formed for whatever reason
     out <- lapply(msgs$receivedMessages$message$data, function(msg) {
       msg %>%
-        base64decode() %>%
-        rawToChar() %>%
+        msg_decode() %>% 
         fromJSON(flatten = TRUE, simplifyDataFrame = TRUE) %>%
         as.data.frame()
     }) %>% do.call(rbind, .)
@@ -79,7 +77,7 @@ server <- function(input, output, session) {
 
   # Set up a message consumer in background sessions (poll messages every 2 seconds)
   observe({
-    invalidateLater(20000, session)
+    invalidateLater(2000, session)
 
     future_promise({
       pubsub_auth() # Authenticated session is not passed to futures' env
@@ -93,10 +91,9 @@ server <- function(input, output, session) {
             duration = 3,
             type = "warning"
           )
+          # Append to the reactive dataframe
+          out_df$df <- rbind(out_df$df, res)
         }
-
-        # Append to the reactive dataframe
-        out_df$df <- rbind(out_df$df, res)
       })
 
     # Hide the future, this is a fire and forget hack and allows avoid blocking

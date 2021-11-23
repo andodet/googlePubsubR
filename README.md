@@ -53,9 +53,8 @@ sub_readme <- subscriptions_create("readme-sub", topic_readme)
 # Prepare the message
 msg <- mtcars %>%
   toJSON(auto_unbox = TRUE) %>%
-  charToRaw() %>%
   # Pub/Sub expects a base64 encoded string
-  base64encode() %>%
+  msg_encode() %>% 
   PubsubMessage() 
 
 # Publish the message!
@@ -65,8 +64,7 @@ topics_publish(msg, topic_readme)
 msgs_pull <- subscriptions_pull(sub_readme)
 
 msg_decoded <- msgs_pull$receivedMessages$message$data %>%
-  base64decode() %>%
-  rawToChar() %>%
+  msg_decode() %>% 
   fromJSON()
 
 head(msg_decoded)
