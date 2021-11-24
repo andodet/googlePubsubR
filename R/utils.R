@@ -41,7 +41,7 @@ secs_to_str <- function(x) {
 #' 
 #' pulled_msgs$receivedMessages$messages$data %>% 
 #'   msg_decode() %>%
-#'   from
+#'   fromJSON()
 #' }
 #'
 #' @return A deserialized object

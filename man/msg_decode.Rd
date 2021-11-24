@@ -21,7 +21,7 @@ library(jsonlite)
 
 pulled_msgs$receivedMessages$messages$data \%>\% 
   msg_decode() \%>\%
-  from
+  fromJSON()
 }
 
 }
