@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
       </span>
     </div>
 
@@ -68,7 +68,7 @@
     <p>Builds a DqlPolicy object</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">DlqPolicy</span><span class="op">(</span><span class="va">dlq_topic</span>, <span class="va">max_delivery_attempts</span><span class="op">)</span></code></pre></div>
+    <div class="ref-usage sourceCode">Usage,<pre class="sourceCode r"><code><span class="fu">DlqPolicy</span><span class="op">(</span><span class="va">dlq_topic</span>, <span class="va">max_delivery_attempts</span><span class="op">)</span></code></pre></div>
 
     <div id="ref-sections">
     <div id="arguments">
@@ -76,7 +76,8 @@
     <dl><dt>dlq_topic</dt>
 <dd><p><code>character</code>, <code>Topic</code> Required, topic name or instance of a topic object</p></dd>
 <dt>max_delivery_attempts</dt>
-<dd><p><code>numeric</code></p></dd>
+<dd><p><code>numeric</code> Number of delivery attempts for any message. The
+value must be between 5 and 100.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

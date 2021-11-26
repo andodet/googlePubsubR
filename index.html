@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
       </span>
     </div>
 
@@ -135,9 +135,8 @@ The following example shows how to:</p>
 <span class="co"># Prepare the message</span>
 <span class="va">msg</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
   <span class="co"># Pub/Sub expects a base64 encoded string</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/msg_encode.html">msg_encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/PubsubMessage.html">PubsubMessage</a></span><span class="op">(</span><span class="op">)</span> 
 
 <span class="co"># Publish the message!</span>
@@ -147,8 +146,7 @@ The following example shows how to:</p>
 <span class="va">msgs_pull</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subscriptions_pull.html">subscriptions_pull</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span>
 
 <span class="va">msg_decoded</span> <span class="op">&lt;-</span> <span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">rawToChar</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
+  <span class="fu"><a href="reference/msg_decode.html">msg_decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">msg_decoded</span><span class="op">)</span>
@@ -162,7 +160,15 @@ The following example shows how to:</p>
 <span class="co"># Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
 <span class="co"># Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span>
 
-<span class="co">#Cleanup resources</span>
+<span class="co"># We can acknowledge that the message has been consumed</span>
+<span class="fu"><a href="reference/subscriptions_ack.html">subscriptions_ack</a></span><span class="op">(</span><span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">ackId</span>, <span class="va">sub_readme</span><span class="op">)</span>
+<span class="co"># [1] TRUE</span>
+
+<span class="co"># A subsequent pull will return no messages from the server</span>
+<span class="fu"><a href="reference/subscriptions_pull.html">subscriptions_pull</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span>
+<span class="co"># named list()</span>
+
+<span class="co"># Cleanup resources</span>
 <span class="fu"><a href="reference/topics_delete.html">topics_delete</a></span><span class="op">(</span><span class="va">topic_readme</span><span class="op">)</span>
 <span class="fu"><a href="reference/subscriptions_delete.html">subscriptions_delete</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span></code></pre></div>
 </div>
@@ -185,6 +191,7 @@ The following example shows how to:</p>
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=googlePubsubR" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/andodet/googlePubsubR/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/andodet/googlePubsubR/issues" class="external-link">Report a bug</a></li>
 </ul>

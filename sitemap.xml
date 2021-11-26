@@ -67,6 +67,12 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/msg_decode.html</loc>
+  </url>
+  <url>
+    <loc>/reference/msg_encode.html</loc>
+  </url>
+  <url>
     <loc>/reference/pubsub_auth.html</loc>
   </url>
   <url>
