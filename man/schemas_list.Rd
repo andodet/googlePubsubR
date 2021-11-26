@@ -23,7 +23,7 @@ this is a continuation of a prior \code{ListSchemas} call, and that the system s
 the next page of data}
 }
 \value{
-A \code{data.frame}
+A \code{data.frame} containing all schema objects and properties
 }
 \description{
 Lists all schemas in a project

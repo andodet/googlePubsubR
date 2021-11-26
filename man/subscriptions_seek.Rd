@@ -15,7 +15,7 @@ object}
 \item{snapshot}{\code{character}, \code{Snapshot} A Snapshot name or a \code{Snapshot} object}
 }
 \value{
-\code{logical}
+\code{logical} TRUE when succesfull seeked
 }
 \description{
 A subscription can be seeked to a point in time or to a given snapshot.

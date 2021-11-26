@@ -97,7 +97,7 @@ schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
 #'   this is a continuation of a prior `ListSchemas` call, and that the system should return
 #'   the next page of data
 #'
-#' @return A `data.frame`
+#' @return A `data.frame` containing all schema objects and properties
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
@@ -122,7 +122,7 @@ schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #'
 #' @param schema `character`, `Schema` Required, schema name or an instance of a `Schema` object
 #'
-#' @return `logical`
+#' @return `logical` TRUE if the schema exists
 #' @family Schema functions
 #' @export
 schemas_exists <- function(schema) {
@@ -188,7 +188,7 @@ schemas_delete <- function(name) {
 #' @param encoding `character` The encoding of the message
 #' @param project `character` A GCP project id
 #' 
-#' @return `logical`
+#' @return `logical` TRUE if successfully validated
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions

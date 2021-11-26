@@ -9,7 +9,8 @@ DlqPolicy(dlq_topic, max_delivery_attempts)
 \arguments{
 \item{dlq_topic}{\code{character}, \code{Topic} Required, topic name or instance of a topic object}
 
-\item{max_delivery_attempts}{\code{numeric}}
+\item{max_delivery_attempts}{\code{numeric} Number of delivery attempts for any message. The
+value must be between 5 and 100.}
 }
 \value{
 \code{DlqPolicy} object

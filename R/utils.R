@@ -28,6 +28,51 @@ secs_to_str <- function(x) {
   paste0(x, "s")
 }
 
+
+#' Decode Pub/Sub message
+#' 
+#' Converts a Pub/Sub message into an object
+#' 
+#' @param x A base64 encoded string
+#' 
+#' @examples
+#' \dontrun{
+#' library(jsonlite)
+#' 
+#' pulled_msgs$receivedMessages$messages$data %>% 
+#'   msg_decode() %>%
+#'   fromJSON()
+#' }
+#'
+#' @return A deserialized object
+#' @export
+msg_decode <- function(x) {
+  x %>% 
+    base64enc::base64decode() %>% 
+    rawToChar()
+}
+
+#' Encode Pub/Sub message
+#' 
+#' Converts an object into a base64 string
+#'
+#' @param x A serializeable object
+#' 
+#' @examples
+#' \dontrun{
+#' mtcars %>% 
+#'   msg_encode() %>% 
+#'   PubsubMessage()
+#' }
+#'
+#' @return `character` a base64 encoded string
+#' @export
+msg_encode <- function(x) {
+  x %>% 
+    charToRaw() %>%  
+    base64enc::base64encode()
+}
+
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.

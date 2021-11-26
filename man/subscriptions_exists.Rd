@@ -11,7 +11,7 @@ subscriptions_exists(subscription)
 a \code{Subscription} object}
 }
 \value{
-\code{logical}
+\code{logical} TRUE if the subscription exist
 }
 \description{
 Check if a subscription exists

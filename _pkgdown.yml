@@ -48,3 +48,7 @@ reference:
   - title: "Auth"
     contents:
       - pubsub_auth
+  - title: "Utils"
+    contents:
+      - msg_encode
+      - msg_decode

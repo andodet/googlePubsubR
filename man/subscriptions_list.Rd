@@ -19,7 +19,7 @@ subscriptions_list(
 indicates that this is a continuation of a prior \code{subscriptions_list} call}
 }
 \value{
-\code{list}
+\code{list} A list containing all subscriptions
 }
 \description{
 List subscriptions

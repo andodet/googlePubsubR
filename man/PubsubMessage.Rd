@@ -15,7 +15,7 @@ PubsubMessage(
 \arguments{
 \item{data}{\code{character} The message data field as a base64 encoded string}
 
-\item{message_id}{`character ID of this message, assigned by the server when the message
+\item{message_id}{\code{character} ID of this message, assigned by the server when the message
 is published}
 
 \item{ordering_key}{\code{character} If non-empty, identifies related messages for which publish

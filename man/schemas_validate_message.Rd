@@ -22,7 +22,7 @@ using \code{\link{PubsubMessage}}}
 \item{project}{\code{character} A GCP project id}
 }
 \value{
-\code{logical}
+\code{logical} TRUE if successfully validated
 }
 \description{
 Validates a message against a schema
