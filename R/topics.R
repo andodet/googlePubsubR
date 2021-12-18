@@ -5,7 +5,7 @@
 #' @return (`character`)
 #' @keywords internal
 #' @noRd
-as.topic_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.topic_name <- function(x, project = ps_project_get()) {
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {
       out <- x
@@ -133,7 +133,7 @@ topics_get <- function(topic) {
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
 #' @export
-topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
+topics_list <- function(project = ps_project_get(), pageSize = NULL,
                         pageToken = NULL) {
   url <- sprintf("https://pubsub.googleapis.com/v1/projects/%s/topics/", project)
   pars <- list(pageSize = pageSize, pageToken = pageToken)
@@ -154,7 +154,7 @@ topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' @return `logical`, TRUE if topic exists, FALSE otherwise
 #' @family Topic functions
 #' @export
-topics_exists <- function(topic, project = Sys.getenv("GCP_PROJECT")) {
+topics_exists <- function(topic, project = ps_project_get()) {
   topic <- as.topic_name(topic)
   all_topics <- topics_list(project)
   if (any(grepl(topic, all_topics$topics$name))) {

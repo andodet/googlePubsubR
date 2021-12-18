@@ -73,6 +73,41 @@ msg_encode <- function(x) {
     base64enc::base64encode()
 }
 
+.ps_env <- new.env(parent = emptyenv())
+#' Set GCP projectId
+#'
+#' @param project_id `character` A valid GCP projectId
+#'
+#' @return `character` ProjectId string
+#' @export
+ps_project_set <- function(project_id) {
+  .ps_env$project <- project_id
+    cli::cli_alert_info("GCP project successfully set!")
+  .ps_env$project
+}
+
+#' Get GCP projectId
+#'
+#' @return `character` A valid GCP projectId, defaults to `GCP_PROJECT` env var
+#' @export
+ps_project_get <- function() {
+  # Fallback logic taken from `{googleCloudRunner/R/init.R}`
+  if(!is.null(.ps_env$project)) {
+    return(.ps_env$project)
+  }
+
+  if(Sys.getenv("GCP_PROJECT") != "") {
+    .ps_env$project <- Sys.getenv("GCP_PROJECT")
+  }
+  if(is.null(.ps_env$project)) {
+    stop("No projectId set - use ps_project_set() or set GCP_PROJECT env var",
+         call. = FALSE
+    )
+  }
+
+  return(.ps_env$project)
+}
+
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.

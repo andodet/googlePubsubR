@@ -8,7 +8,7 @@ schemas_validate_message(
   schema,
   message,
   encoding = c("ENCODING_UNSPECIFIED", "JSON", "BINARY"),
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{
