@@ -4,7 +4,7 @@
 \alias{schemas_validate}
 \title{Validates a schema}
 \usage{
-schemas_validate(schema, project = Sys.getenv("GCP_PROJECT"))
+schemas_validate(schema, project = ps_project_get())
 }
 \arguments{
 \item{schema}{\code{Schema} Required, an instance of a \code{Schema} object}

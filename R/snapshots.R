@@ -5,7 +5,7 @@
 #' @return `character`
 #' @noRd
 #' @keywords internal
-as.snapshot_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.snapshot_name <- function(x, project = ps_project_get()) {
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {
       out <- x
@@ -98,7 +98,7 @@ snapshots_delete <- function(snapshot) {
 #' @importFrom googleAuthR gar_api_generator
 #' @family Snapshot functions
 #' @export
-snapshots_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
+snapshots_list <- function(project = ps_project_get(), pageSize = NULL,
                            pageToken = NULL) {
 
   url <- sprintf("https://pubsub.googleapis.com/v1/projects/%s/snapshots", project)

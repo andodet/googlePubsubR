@@ -25,7 +25,8 @@ In order to use the library, you will need:
 * The Pub/Sub API correctly activated
 * JSON credentials for a service account or another method of authentication (e.g token). You can pass the
 path of the file as an argument to `pubsub_auth` or setting an `GCP_AUTH_FILE` env variable.
-* A `GCP_PROJECT` env variable set with a valid GCP project id
+* A `GCP_PROJECT` env variable set with a valid GCP project id. Since `0.0.3`, GCP project id can also be set 
+using `ps_project_set`.
 
 ## Usage
 

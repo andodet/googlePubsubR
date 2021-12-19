@@ -17,7 +17,10 @@ Converts an object into a base64 string
 }
 \examples{
 \dontrun{
+library(jsonlite)
+
 mtcars \%>\% 
+  toJSON(auto_unbox = TRUE) \%>\%
   msg_encode() \%>\% 
   PubsubMessage()
 }

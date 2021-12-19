@@ -4,11 +4,7 @@
 \alias{topics_list}
 \title{Lists topics from project}
 \usage{
-topics_list(
-  project = Sys.getenv("GCP_PROJECT"),
-  pageSize = NULL,
-  pageToken = NULL
-)
+topics_list(project = ps_project_get(), pageSize = NULL, pageToken = NULL)
 }
 \arguments{
 \item{project}{\code{character} GCP project id}

@@ -4,7 +4,7 @@
 \alias{topics_exists}
 \title{Check if a topic exists}
 \usage{
-topics_exists(topic, project = Sys.getenv("GCP_PROJECT"))
+topics_exists(topic, project = ps_project_get())
 }
 \arguments{
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a topic object}
