@@ -81,6 +81,14 @@ msg_encode <- function(x) {
 #'
 #' @param project_id `character` A valid GCP projectId
 #'
+#' @examples
+#' \dontrun{
+#' ps_project_set("my-new-project")
+#' # Do whatever...
+#' # Jump back on the default project
+#' ps_project_set(Sys.getenv("GCP_PROJECT"))
+#' }
+#'
 #' @return `character` ProjectId string
 #' @family Auth functions
 #' @export

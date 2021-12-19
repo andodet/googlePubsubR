@@ -15,6 +15,15 @@ ps_project_set(project_id)
 \description{
 Set GCP projectId
 }
+\examples{
+\dontrun{
+ps_project_set("my-new-project")
+# Do whatever...
+# Jump back on the default project
+ps_project_set(Sys.getenv("GCP_PROJECT"))
+}
+
+}
 \seealso{
 Other Auth functions: 
 \code{\link{ps_project_get}()},
