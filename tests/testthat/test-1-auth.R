@@ -16,3 +16,6 @@ test_that("GCP project gets changed", {
   on.exit(ps_project_set(Sys.getenv("GCP_PROJECT")))
 })
 
+test_that("Setting GCP projectId as an empty string errors out", {
+  expect_error(ps_project_set(""))
+})

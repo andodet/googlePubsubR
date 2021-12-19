@@ -81,8 +81,11 @@ msg_encode <- function(x) {
 #' @return `character` ProjectId string
 #' @export
 ps_project_set <- function(project_id) {
+  if(project_id == "") {
+    stop("You must pass a valid GCP projectId string")
+  }
   .ps_env$project <- project_id
-    cli::cli_alert_info("GCP project successfully set!")
+  cli::cli_alert_info("GCP project successfully set!")
   .ps_env$project
 }
 
