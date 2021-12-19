@@ -12,3 +12,9 @@ ps_project_get()
 \description{
 Get GCP projectId
 }
+\seealso{
+Other Auth functions: 
+\code{\link{ps_project_set}()},
+\code{\link{pubsub_auth}()}
+}
+\concept{Auth functions}

@@ -24,3 +24,9 @@ None, called for side effects
 \description{
 Authenticate a Pub/Sub client
 }
+\seealso{
+Other Auth functions: 
+\code{\link{ps_project_get}()},
+\code{\link{ps_project_set}()}
+}
+\concept{Auth functions}

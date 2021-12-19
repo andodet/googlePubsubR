@@ -60,7 +60,10 @@ msg_decode <- function(x) {
 #' 
 #' @examples
 #' \dontrun{
+#' library(jsonlite)
+#'
 #' mtcars %>% 
+#'   toJSON(auto_unbox = TRUE) %>%
 #'   msg_encode() %>% 
 #'   PubsubMessage()
 #' }
@@ -79,6 +82,7 @@ msg_encode <- function(x) {
 #' @param project_id `character` A valid GCP projectId
 #'
 #' @return `character` ProjectId string
+#' @family Auth functions
 #' @export
 ps_project_set <- function(project_id) {
   if(project_id == "") {
@@ -92,6 +96,7 @@ ps_project_set <- function(project_id) {
 #' Get GCP projectId
 #'
 #' @return `character` A valid GCP projectId, defaults to `GCP_PROJECT` env var
+#' @family Auth functions
 #' @export
 ps_project_get <- function() {
   # Fallback logic taken from `{googleCloudRunner/R/init.R}`
