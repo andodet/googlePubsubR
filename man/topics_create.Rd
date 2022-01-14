@@ -11,7 +11,8 @@ topics_create(
   satisfies_pzs = NULL,
   message_storage_policy = NULL,
   schema_settings = NULL,
-  message_retention_duration = NULL
+  message_retention_duration = NULL,
+  project = Sys.getenv("GCP_PROJECT")
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ topic may be stored}
 
 \item{message_retention_duration}{\code{numeric} Indicates the minimum duration (in seconds) to retain
 a message after it is published to the topic}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 A \code{Topic} object representing the freshly created topic

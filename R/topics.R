@@ -40,6 +40,7 @@ as.topic_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' @param schema_settings `SchemaSettings` An instance of a `SchemaSettings` object
 #' @param kms_key_name `character` The resource name of the Cloud KMS CryptoKey to be used
 #'  to protect access to messages published on this topic.
+#' @param project `character` GCP project id
 #'
 #' @return A `Topic` object representing the freshly created topic
 #' @importFrom googleAuthR gar_api_generator
@@ -51,13 +52,14 @@ topics_create <- function(name,
                           satisfies_pzs = NULL,
                           message_storage_policy = NULL,
                           schema_settings = NULL,
-                          message_retention_duration = NULL) {
+                          message_retention_duration = NULL,
+                          project = Sys.getenv("GCP_PROJECT")) {
   
   if(!is.null(message_retention_duration)) {
     message_retention_duration <- paste0(message_retention_duration, "s")
   }
   
-  topic_name <- as.topic_name(name)
+  topic_name <- as.topic_name(name, project = project)
   topic <- Topic(
     labels                     = labels,
     kms_key_name               = kms_key_name,
