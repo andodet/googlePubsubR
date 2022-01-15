@@ -2,8 +2,9 @@
 
 This is a resubmission. In this version I have:
 
-* Add helpers to encode/decode messages: `msg_encode`, `msg_decode`.
-* `pubsub_auth` now prompts the correct package name (fixes #6)
+* Add helper methods (`ps_project_set/get`) to switch between GCP projects (#13)
+* Quieter warnings when env variables are not set (#13)
+* Deleted extra `name` argument from `topics_create` (thanks muschellij2)
 
 ## Test environments
 
