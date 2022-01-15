@@ -4,7 +4,7 @@
 \alias{topics_publish}
 \title{Adds one or more messages to the topic}
 \usage{
-topics_publish(messages, topic, project = Sys.getenv("GCP_PROJECT"))
+topics_publish(messages, topic, project = ps_project_get())
 }
 \arguments{
 \item{messages}{\code{list} Required, a list containing the messages to be published}

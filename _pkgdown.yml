@@ -48,6 +48,8 @@ reference:
   - title: "Auth"
     contents:
       - pubsub_auth
+      - ps_project_get
+      - ps_project_set
   - title: "Utils"
     contents:
       - msg_encode

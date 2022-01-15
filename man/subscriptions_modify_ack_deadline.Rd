@@ -8,7 +8,7 @@ subscriptions_modify_ack_deadline(
   subscription,
   ack_ids,
   ack_deadline,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

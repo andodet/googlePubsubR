@@ -4,7 +4,7 @@
 \alias{snapshots_delete}
 \title{Removes an existing snapshot}
 \usage{
-snapshots_delete(snapshot, project = Sys.getenv("GCP_PROJECT"))
+snapshots_delete(snapshot, project = ps_project_get())
 }
 \arguments{
 \item{snapshot}{\code{Snapshot}, \code{character} Required, an instance of a \code{Snapshot} object or a

@@ -6,7 +6,7 @@
 #' @return `character`
 #' @noRd
 #' @keywords internal
-as.snapshot_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.snapshot_name <- function(x, project = ps_project_get()) {
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {
       out <- x
@@ -52,7 +52,7 @@ as.snapshot_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' @family Snapshot functions
 #' @export
 snapshots_create <- function(name, subscription, labels = NULL,
-                             project = Sys.getenv("GCP_PROJECT")) {
+                             project = ps_project_get()) {
   snap_name <- as.snapshot_name(name, project = project)
   snap_req <- list(
     subscription = as.sub_name(subscription, project = project),
@@ -80,7 +80,7 @@ snapshots_create <- function(name, subscription, labels = NULL,
 #' @family Snapshot functions
 #' @export
 snapshots_delete <- function(snapshot,
-                             project = Sys.getenv("GCP_PROJECT")) {
+                             project = ps_project_get()) {
   snap_name <- as.snapshot_name(snapshot, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", snap_name)
   # pubsub.projects.snapshots.delete
@@ -103,7 +103,7 @@ snapshots_delete <- function(snapshot,
 #' @importFrom googleAuthR gar_api_generator
 #' @family Snapshot functions
 #' @export
-snapshots_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
+snapshots_list <- function(project = ps_project_get(), pageSize = NULL,
                            pageToken = NULL) {
 
   url <- sprintf("https://pubsub.googleapis.com/v1/projects/%s/snapshots", project)
@@ -128,7 +128,7 @@ snapshots_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' @family Snapshot functions 
 #' @export
 snapshots_exists <- function(snapshot,
-                             project = Sys.getenv("GCP_PROJECT")) {
+                             project = ps_project_get()) {
   snap_name <- as.snapshot_name(snapshot, project = project)
   all_snaps <- snapshots_list(project = project)
 
@@ -149,7 +149,7 @@ snapshots_exists <- function(snapshot,
 #' @importFrom googleAuthR gar_api_generator
 #' @export
 snapshots_get <- function(snapshot,
-                          project = Sys.getenv("GCP_PROJECT")) {
+                          project = ps_project_get()) {
   snap_name <- as.snapshot_name(snapshot, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", snap_name)
 
@@ -180,7 +180,7 @@ snapshots_patch <- function(snapshot,
                             topic = NULL,
                             expire_time = NULL,
                             labels = NULL,
-                            project = Sys.getenv("GCP_PROJECT")) {
+                            project = ps_project_get()) {
   snap_name <- as.snapshot_name(snapshot, project = project)
   update_req <- UpdateObjectRequest(Snapshot(
     topic       = topic,

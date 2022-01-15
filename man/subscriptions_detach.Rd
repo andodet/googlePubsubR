@@ -4,7 +4,7 @@
 \alias{subscriptions_detach}
 \title{Detaches a subscription from a topic.}
 \usage{
-subscriptions_detach(subscription, project = Sys.getenv("GCP_PROJECT"))
+subscriptions_detach(subscription, project = ps_project_get())
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of

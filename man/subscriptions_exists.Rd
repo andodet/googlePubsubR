@@ -4,7 +4,7 @@
 \alias{subscriptions_exists}
 \title{Check if a subscription exists}
 \usage{
-subscriptions_exists(subscription, project = Sys.getenv("GCP_PROJECT"))
+subscriptions_exists(subscription, project = ps_project_get())
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of

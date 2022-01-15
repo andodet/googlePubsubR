@@ -4,11 +4,7 @@
 \alias{snapshots_list}
 \title{Lists the existing snapshots}
 \usage{
-snapshots_list(
-  project = Sys.getenv("GCP_PROJECT"),
-  pageSize = NULL,
-  pageToken = NULL
-)
+snapshots_list(project = ps_project_get(), pageSize = NULL, pageToken = NULL)
 }
 \arguments{
 \item{project}{\code{character} a GCP project ID}

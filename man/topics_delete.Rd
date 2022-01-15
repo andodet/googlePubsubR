@@ -4,7 +4,7 @@
 \alias{topics_delete}
 \title{Deletes a pub/sub topic}
 \usage{
-topics_delete(topic, project = Sys.getenv("GCP_PROJECT"))
+topics_delete(topic, project = ps_project_get())
 }
 \arguments{
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic} object}

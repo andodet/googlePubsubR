@@ -12,7 +12,7 @@ topics_patch(
   schema_settings = NULL,
   satisfies_pzs = NULL,
   message_retention_duration = NULL,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

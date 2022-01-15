@@ -7,7 +7,7 @@
 subscriptions_modify_pushconf(
   subscription,
   push_config,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

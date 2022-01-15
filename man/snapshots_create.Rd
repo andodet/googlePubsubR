@@ -4,12 +4,7 @@
 \alias{snapshots_create}
 \title{Creates a snapshot from the requested subscription}
 \usage{
-snapshots_create(
-  name,
-  subscription,
-  labels = NULL,
-  project = Sys.getenv("GCP_PROJECT")
-)
+snapshots_create(name, subscription, labels = NULL, project = ps_project_get())
 }
 \arguments{
 \item{name}{\code{Snapshot}, \code{character} Required, an instance of a \code{Snapshot} object or a

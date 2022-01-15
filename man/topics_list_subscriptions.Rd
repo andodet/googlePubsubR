@@ -8,7 +8,7 @@ topics_list_subscriptions(
   topic,
   pageToken = NULL,
   pageSize = NULL,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

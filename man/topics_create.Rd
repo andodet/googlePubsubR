@@ -12,7 +12,7 @@ topics_create(
   message_storage_policy = NULL,
   schema_settings = NULL,
   message_retention_duration = NULL,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

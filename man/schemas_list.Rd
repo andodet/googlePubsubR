@@ -5,7 +5,7 @@
 \title{Lists all schemas in a project}
 \usage{
 schemas_list(
-  project = Sys.getenv("GCP_PROJECT"),
+  project = ps_project_get(),
   pageSize = NULL,
   view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"),
   pageToken = NULL

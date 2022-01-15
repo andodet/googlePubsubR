@@ -7,7 +7,7 @@
 schemas_get(
   schema,
   view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"),
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

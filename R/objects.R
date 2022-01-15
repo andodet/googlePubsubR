@@ -69,7 +69,7 @@ Topic <- function(labels = NULL, name = NULL, kms_key_name = NULL, satisfies_pzs
 #'
 #' @family Object functions
 DlqPolicy <- function(dlq_topic, max_delivery_attempts,
-                      project = Sys.getenv("GCP_PROJECT")) {
+                      project = ps_project_get()) {
   dlq_topic <- as.topic_name(dlq_topic, project = project)
   structure(
     list(deadLetterTopic = dlq_topic, maxDeliveryAttempts = max_delivery_attempts),
@@ -376,7 +376,7 @@ SchemaSettings <- function(encoding = NULL, schema = NULL) {
 #'
 #' @family Object functions
 Snapshot <- function(topic = NULL, expire_time = NULL, name = NULL,
-                     labels = NULL, project = Sys.getenv("GCP_PROJECT")) {
+                     labels = NULL, project = ps_project_get()) {
   topic <- as.topic_name(topic, project = project)
   structure(list(
     topic = topic, expireTime = expire_time, name = name, labels = labels

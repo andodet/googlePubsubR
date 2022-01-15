@@ -4,11 +4,7 @@
 \alias{DlqPolicy}
 \title{Builds a DqlPolicy object}
 \usage{
-DlqPolicy(
-  dlq_topic,
-  max_delivery_attempts,
-  project = Sys.getenv("GCP_PROJECT")
-)
+DlqPolicy(dlq_topic, max_delivery_attempts, project = ps_project_get())
 }
 \arguments{
 \item{dlq_topic}{\code{character}, \code{Topic} Required, topic name or instance of a topic object}

@@ -4,7 +4,7 @@
 \alias{topics_get}
 \title{Gets a topic configuration}
 \usage{
-topics_get(topic, project = Sys.getenv("GCP_PROJECT"))
+topics_get(topic, project = ps_project_get())
 }
 \arguments{
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic}}

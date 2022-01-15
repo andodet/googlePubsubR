@@ -6,7 +6,7 @@
 #' @return (`character`)
 #' @keywords internal
 #' @noRd
-as.topic_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.topic_name <- function(x, project = ps_project_get()) {
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {
       out <- x
@@ -54,7 +54,7 @@ topics_create <- function(name,
                           message_storage_policy = NULL,
                           schema_settings = NULL,
                           message_retention_duration = NULL,
-                          project = Sys.getenv("GCP_PROJECT")) {
+                          project = ps_project_get()) {
   
   if(!is.null(message_retention_duration)) {
     message_retention_duration <- paste0(message_retention_duration, "s")
@@ -96,7 +96,7 @@ topics_create <- function(name,
 #' @family Topic functions
 #' @export
 topics_delete <- function(topic,
-                          project = Sys.getenv("GCP_PROJECT")) {
+                          project = ps_project_get()) {
   topic <- as.topic_name(topic, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", topic)
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
@@ -115,7 +115,7 @@ topics_delete <- function(topic,
 #' @family Topic functions
 #' @export
 topics_get <- function(topic,
-                       project = Sys.getenv("GCP_PROJECT")) {
+                       project = ps_project_get()) {
   topic <- as.topic_name(topic, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", topic)
 
@@ -140,7 +140,7 @@ topics_get <- function(topic,
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
 #' @export
-topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
+topics_list <- function(project = ps_project_get(), pageSize = NULL,
                         pageToken = NULL) {
   url <- sprintf("https://pubsub.googleapis.com/v1/projects/%s/topics/", project)
   pars <- list(pageSize = pageSize, pageToken = pageToken)
@@ -161,7 +161,7 @@ topics_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' @return `logical`, TRUE if topic exists, FALSE otherwise
 #' @family Topic functions
 #' @export
-topics_exists <- function(topic, project = Sys.getenv("GCP_PROJECT")) {
+topics_exists <- function(topic, project = ps_project_get()) {
   topic <- as.topic_name(topic, project = project)
   all_topics <- topics_list(project)
   if (any(grepl(topic, all_topics$topics$name))) {
@@ -197,7 +197,7 @@ topics_patch <- function(topic,
                          schema_settings = NULL,
                          satisfies_pzs = NULL,
                          message_retention_duration = NULL,
-                         project = Sys.getenv("GCP_PROJECT")) {
+                         project = ps_project_get()) {
 
   # Build a patch request
   topic <- as.topic_name(topic, project = project)
@@ -234,7 +234,7 @@ topics_patch <- function(topic,
 #' @family Topic functions
 #' @export
 topics_publish <- function(messages, topic,
-                           project = Sys.getenv("GCP_PROJECT")) {
+                           project = ps_project_get()) {
   topic <- as.topic_name(topic, project = project)
   body <- list(messages = messages)
   url <- sprintf(
@@ -299,7 +299,7 @@ topics_publish <- function(messages, topic,
 #' @family Topic functions 
 #' @export
 topics_list_subscriptions <- function(topic, pageToken = NULL, pageSize = NULL,
-                                      project = Sys.getenv("GCP_PROJECT")) {
+                                      project = ps_project_get()) {
   topic <- as.topic_name(topic, project = project)
   print(topic)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s/subscriptions", topic)

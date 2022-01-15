@@ -4,7 +4,7 @@
 \alias{schemas_delete}
 \title{Deletes a schema}
 \usage{
-schemas_delete(name, project = Sys.getenv("GCP_PROJECT"))
+schemas_delete(name, project = ps_project_get())
 }
 \arguments{
 \item{name}{\code{character}, \code{Schema} Schema name or instance of a schema object}

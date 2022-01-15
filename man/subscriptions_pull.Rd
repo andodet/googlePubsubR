@@ -7,7 +7,7 @@
 subscriptions_pull(
   subscription,
   max_messages = 100,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

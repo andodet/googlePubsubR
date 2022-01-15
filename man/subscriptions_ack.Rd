@@ -4,7 +4,7 @@
 \alias{subscriptions_ack}
 \title{Acknowledges the messages}
 \usage{
-subscriptions_ack(ack_ids, subscription, project = Sys.getenv("GCP_PROJECT"))
+subscriptions_ack(ack_ids, subscription, project = ps_project_get())
 }
 \arguments{
 \item{ack_ids}{\code{character} A vector containing one or more message ackIDs}

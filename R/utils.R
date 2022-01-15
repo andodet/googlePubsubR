@@ -60,7 +60,10 @@ msg_decode <- function(x) {
 #' 
 #' @examples
 #' \dontrun{
+#' library(jsonlite)
+#'
 #' mtcars %>% 
+#'   toJSON(auto_unbox = TRUE) %>%
 #'   msg_encode() %>% 
 #'   PubsubMessage()
 #' }
@@ -71,6 +74,54 @@ msg_encode <- function(x) {
   x %>% 
     charToRaw() %>%  
     base64enc::base64encode()
+}
+
+.ps_env <- new.env(parent = emptyenv())
+#' Set GCP projectId
+#'
+#' @param project_id `character` A valid GCP projectId
+#'
+#' @examples
+#' \dontrun{
+#' ps_project_set("my-new-project")
+#' # Do whatever...
+#' # Jump back on the default project
+#' ps_project_set(Sys.getenv("GCP_PROJECT"))
+#' }
+#'
+#' @return `character` ProjectId string
+#' @family Auth functions
+#' @export
+ps_project_set <- function(project_id) {
+  if(project_id == "") {
+    stop("You must pass a valid GCP projectId string")
+  }
+  .ps_env$project <- project_id
+  cli::cli_alert_info("GCP project successfully set!")
+  .ps_env$project
+}
+
+#' Get GCP projectId
+#'
+#' @return `character` A valid GCP projectId, defaults to `GCP_PROJECT` env var
+#' @family Auth functions
+#' @export
+ps_project_get <- function() {
+  # Fallback logic taken from `{googleCloudRunner/R/init.R}`
+  if(!is.null(.ps_env$project)) {
+    return(.ps_env$project)
+  }
+
+  if(Sys.getenv("GCP_PROJECT") != "") {
+    .ps_env$project <- Sys.getenv("GCP_PROJECT")
+  }
+  if(is.null(.ps_env$project)) {
+    stop("No projectId set - use ps_project_set() or set GCP_PROJECT env var",
+         call. = FALSE
+    )
+  }
+
+  return(.ps_env$project)
 }
 
 #' Pipe operator

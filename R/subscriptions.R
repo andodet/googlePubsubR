@@ -6,7 +6,7 @@
 #' @return `character`
 #' @noRd
 #' @keywords internal
-as.sub_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.sub_name <- function(x, project = ps_project_get()) {
   # Can it be done with a switch case?
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {
@@ -71,7 +71,7 @@ subscriptions_create <- function(name,
                                  detached = NULL,
                                  retain_acked_messages = NULL,
                                  enable_msg_ordering = NULL,
-                                 project = Sys.getenv("GCP_PROJECT")) {
+                                 project = ps_project_get()) {
   
   if(!is.null(msg_retention_duration)) {
     msg_retention_duration <- secs_to_str(msg_retention_duration)
@@ -124,7 +124,7 @@ subscriptions_create <- function(name,
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_delete <- function(subscription, project = Sys.getenv("GCP_PROJECT")) {
+subscriptions_delete <- function(subscription, project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", sub_name)
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
@@ -144,7 +144,7 @@ subscriptions_delete <- function(subscription, project = Sys.getenv("GCP_PROJECT
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_get <- function(subscription, project = Sys.getenv("GCP_PROJECT")) {
+subscriptions_get <- function(subscription, project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", sub_name)
   f <- googleAuthR::gar_api_generator(
@@ -166,7 +166,7 @@ subscriptions_get <- function(subscription, project = Sys.getenv("GCP_PROJECT"))
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_detach <- function(subscription, project = Sys.getenv("GCP_PROJECT")) {
+subscriptions_detach <- function(subscription, project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s:detach", sub_name)
   # pubsub.projects.subscriptions.detach
@@ -190,7 +190,7 @@ subscriptions_detach <- function(subscription, project = Sys.getenv("GCP_PROJECT
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_list <- function(project = Sys.getenv("GCP_PROJECT"),
+subscriptions_list <- function(project = ps_project_get(),
                                pageSize = NULL, pageToken = NULL) {
   url <- sprintf("https://pubsub.googleapis.com/v1/projects/%s/subscriptions", project)
   pars <- list(pageSize = pageSize, pageToken = pageToken)
@@ -215,7 +215,7 @@ subscriptions_list <- function(project = Sys.getenv("GCP_PROJECT"),
 #' @family Subscription functions
 #' @export
 subscriptions_pull <- function(subscription, max_messages = 100,
-                               project = Sys.getenv("GCP_PROJECT")) {
+                               project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s:pull", sub_name)
   f <- googleAuthR::gar_api_generator(
@@ -242,7 +242,7 @@ subscriptions_pull <- function(subscription, max_messages = 100,
 #' @family Subscription functions
 #' @export
 subscriptions_ack <- function(ack_ids, subscription, 
-                              project = Sys.getenv("GCP_PROJECT")) {
+                              project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s:acknowledge", sub_name)
   f <- googleAuthR::gar_api_generator(url, "POST", data_parse_function = function(x) x)
@@ -264,7 +264,7 @@ subscriptions_ack <- function(ack_ids, subscription,
 #' @family Subscription functions
 #' @export
 subscriptions_exists <- function(subscription, 
-                                 project = Sys.getenv("GCP_PROJECT")) {
+                                 project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   all_subs <- subscriptions_list()
 
@@ -317,7 +317,7 @@ subscriptions_patch <- function(subscription,
                                 detached = NULL,
                                 retain_acked_msgs = NULL,
                                 enable_ordering = NULL, 
-                                project = Sys.getenv("GCP_PROJECT")) {
+                                project = ps_project_get()) {
   
   if(!is.null(msg_retention_duration)) {
     msg_retention_duration <- secs_to_str(msg_retention_duration)
@@ -365,7 +365,7 @@ subscriptions_patch <- function(subscription,
 #' @family Subscription functions
 #' @export
 subscriptions_seek <- function(subscription, time = NULL, snapshot = NULL, 
-                               project = Sys.getenv("GCP_PROJECT")) {
+                               project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   if(!is.null(snapshot)) {
     snapshot <- as.snapshot_name(snapshot, project = project)
@@ -404,7 +404,7 @@ subscriptions_modify_ack_deadline <- function(
   subscription, 
   ack_ids, 
   ack_deadline, 
-  project = Sys.getenv("GCP_PROJECT")) {
+  project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   update_req <- list(
     ackIds = ack_ids,
@@ -431,7 +431,7 @@ subscriptions_modify_ack_deadline <- function(
 #' @family Subscription functions
 #' @export
 subscriptions_modify_pushconf <- function(subscription, push_config, 
-                                          project = Sys.getenv("GCP_PROJECT")) {
+                                          project = ps_project_get()) {
   sub_name <- as.sub_name(subscription, project = project)
   update_req <- list(
     pushConfig = push_config

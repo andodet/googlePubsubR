@@ -18,7 +18,7 @@ subscriptions_create(
   detached = NULL,
   retain_acked_messages = NULL,
   enable_msg_ordering = NULL,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

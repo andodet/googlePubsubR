@@ -4,7 +4,7 @@
 \alias{schemas_exists}
 \title{Check if a schema exists}
 \usage{
-schemas_exists(schema, project = Sys.getenv("GCP_PROJECT"))
+schemas_exists(schema, project = ps_project_get())
 }
 \arguments{
 \item{schema}{\code{character}, \code{Schema} Required, schema name or an instance of a \code{Schema} object}

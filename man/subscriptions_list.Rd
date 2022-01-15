@@ -5,7 +5,7 @@
 \title{List subscriptions}
 \usage{
 subscriptions_list(
-  project = Sys.getenv("GCP_PROJECT"),
+  project = ps_project_get(),
   pageSize = NULL,
   pageToken = NULL
 )

@@ -9,7 +9,7 @@ snapshots_patch(
   topic = NULL,
   expire_time = NULL,
   labels = NULL,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

@@ -10,6 +10,7 @@
 #' @return None, called for side effects
 #'
 #' @import googleAuthR
+#' @family Auth functions
 #' @export
 pubsub_auth <- function(json_file = Sys.getenv("GCP_AUTH_FILE"),
                         token = NULL,

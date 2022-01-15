@@ -18,7 +18,7 @@ subscriptions_patch(
   detached = NULL,
   retain_acked_msgs = NULL,
   enable_ordering = NULL,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

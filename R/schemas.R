@@ -7,7 +7,7 @@
 #' @return `character`
 #' @noRd
 #' @keywords internal
-as.schema_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.schema_name <- function(x, project = ps_project_get()) {
   # Can it be done with a switch case?
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {
@@ -43,8 +43,9 @@ as.schema_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 schemas_create <- function(name,
                            type = c("AVRO", "PROTOCOL_BUFFER", "TYPE_UNSPECIFIED"),
                            definition,
-                           project = Sys.getenv("GCP_PROJECT")) {
+                           project = ps_project_get()) {
   schema_name <- as.schema_name(name, project = project)
+  
   schema <- Schema(
     type       = type,
     definition = definition,
@@ -73,7 +74,7 @@ schemas_create <- function(name,
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
 #' @export
-schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
+schemas_validate <- function(schema, project = ps_project_get()) {
   parent <- sprintf("projects/%s", project)
   body <- list(
     schema = schema
@@ -103,7 +104,7 @@ schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
 #' @export
-schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
+schemas_list <- function(project = ps_project_get(), pageSize = NULL,
                          view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"), 
                          pageToken = NULL) {
   view <- match.arg(view)
@@ -127,7 +128,7 @@ schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' @return `logical` TRUE if the schema exists
 #' @family Schema functions
 #' @export
-schemas_exists <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
+schemas_exists <- function(schema, project = ps_project_get()) {
   schema_name <- as.schema_name(schema, project = project)
   all_schemas <- schemas_list(project = project)
 
@@ -152,7 +153,7 @@ schemas_exists <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
 #' @export
 schemas_get <- function(schema,
                         view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"),
-                        project = Sys.getenv("GCP_PROJECT")) {
+                        project = ps_project_get()) {
   schema <- as.schema_name(schema, project = project)
   view <- match.arg(view)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", schema)
@@ -176,7 +177,7 @@ schemas_get <- function(schema,
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
 #' @export
-schemas_delete <- function(name, project = Sys.getenv("GCP_PROJECT")) {
+schemas_delete <- function(name, project = ps_project_get()) {
   schema_name <- as.schema_name(name, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", schema_name)
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
@@ -201,7 +202,7 @@ schemas_delete <- function(name, project = Sys.getenv("GCP_PROJECT")) {
 schemas_validate_message <- function(schema,
                                      message,
                                      encoding = c("ENCODING_UNSPECIFIED", "JSON", "BINARY"),
-                                     project = Sys.getenv("GCP_PROJECT")) {
+                                     project = ps_project_get()) {
   
   # API expects a base64 encoded string, extract it from the message object
   if (inherits(message, "PubsubMessage")) {
