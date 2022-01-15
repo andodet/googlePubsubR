@@ -64,8 +64,7 @@ topics_create <- function(name,
     satisfies_pzs              = satisfies_pzs,
     message_storage_policy     = message_storage_policy,
     schema_settings            = schema_settings,
-    message_retention_duration = message_retention_duration,
-    name                       = topic_name
+    message_retention_duration = message_retention_duration
   )
 
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", topic_name)
