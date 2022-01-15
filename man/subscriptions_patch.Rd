@@ -17,7 +17,8 @@ subscriptions_patch(
   filter = NULL,
   detached = NULL,
   retain_acked_msgs = NULL,
-  enable_ordering = NULL
+  enable_ordering = NULL,
+  project = Sys.getenv("GCP_PROJECT")
 )
 }
 \arguments{
@@ -51,6 +52,8 @@ expiration. Can be built with \code{\link{ExpirationPolicy}}}
 
 \item{enable_ordering}{\code{logical}messages published with the same orderingKey in PubsubMessage
 will be delivered to the subscribers in the order in which they are received by the Pub/Sub system}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 An updated \code{Subscription} object

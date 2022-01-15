@@ -4,13 +4,19 @@
 \alias{DlqPolicy}
 \title{Builds a DqlPolicy object}
 \usage{
-DlqPolicy(dlq_topic, max_delivery_attempts)
+DlqPolicy(
+  dlq_topic,
+  max_delivery_attempts,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{dlq_topic}{\code{character}, \code{Topic} Required, topic name or instance of a topic object}
 
 \item{max_delivery_attempts}{\code{numeric} Number of delivery attempts for any message. The
 value must be between 5 and 100.}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{DlqPolicy} object

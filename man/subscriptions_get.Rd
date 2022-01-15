@@ -4,11 +4,13 @@
 \alias{subscriptions_get}
 \title{Gets the configuration details of a subscription.}
 \usage{
-subscriptions_get(subscription)
+subscriptions_get(subscription, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of
 a \code{Subscription} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 A \code{Subscription} object

@@ -4,13 +4,19 @@
 \alias{subscriptions_pull}
 \title{Pulls messages from the server.}
 \usage{
-subscriptions_pull(subscription, max_messages = 100)
+subscriptions_pull(
+  subscription,
+  max_messages = 100,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription where to pull
 messages from}
 
 \item{max_messages}{\code{numeric} Maximum number of messages to return}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 A named \code{list} with pulled messages

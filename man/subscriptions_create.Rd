@@ -17,7 +17,8 @@ subscriptions_create(
   filter = NULL,
   detached = NULL,
   retain_acked_messages = NULL,
-  enable_msg_ordering = NULL
+  enable_msg_ordering = NULL,
+  project = Sys.getenv("GCP_PROJECT")
 )
 }
 \arguments{
@@ -53,6 +54,8 @@ this subscription's expiration}
 \item{enable_msg_ordering}{\code{logical} If true, messages published with the same orderingKey
 in PubsubMessage will be delivered to the subscribers in the order in which they are received
 by the Pub/Sub system}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 A \code{Subscription} object

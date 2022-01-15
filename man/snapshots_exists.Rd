@@ -4,10 +4,12 @@
 \alias{snapshots_exists}
 \title{Check if a snapshot exists}
 \usage{
-snapshots_exists(snapshot)
+snapshots_exists(snapshot, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{snapshot}{\code{character}, \code{Snapshot} Required, snapshot name or an instance of a \code{Snapshot} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical} TRUE if snapshot exists

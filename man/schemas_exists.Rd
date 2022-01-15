@@ -4,10 +4,12 @@
 \alias{schemas_exists}
 \title{Check if a schema exists}
 \usage{
-schemas_exists(schema)
+schemas_exists(schema, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{schema}{\code{character}, \code{Schema} Required, schema name or an instance of a \code{Schema} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical} TRUE if the schema exists

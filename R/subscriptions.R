@@ -1,6 +1,7 @@
 #' Get topic name
 #'
 #' @param x `character`, `Topic`
+#' @param project `character` GCP project id
 #'
 #' @return `character`
 #' @noRd
@@ -50,6 +51,7 @@ as.sub_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' @param enable_msg_ordering `logical` If true, messages published with the same orderingKey
 #'  in PubsubMessage will be delivered to the subscribers in the order in which they are received
 #'  by the Pub/Sub system
+#' @param project `character` GCP project id
 #'
 #' @return A `Subscription` object
 #'
@@ -68,13 +70,14 @@ subscriptions_create <- function(name,
                                  filter = NULL,
                                  detached = NULL,
                                  retain_acked_messages = NULL,
-                                 enable_msg_ordering = NULL) {
+                                 enable_msg_ordering = NULL,
+                                 project = Sys.getenv("GCP_PROJECT")) {
   
   if(!is.null(msg_retention_duration)) {
     msg_retention_duration <- secs_to_str(msg_retention_duration)
   }
-  sub_name <- as.sub_name(name)
-  topic_name <- as.topic_name(topic)
+  sub_name <- as.sub_name(name, project = project)
+  topic_name <- as.topic_name(topic, project = project)
 
   subscription <- Subscription(
     topic                      = topic_name,
@@ -114,14 +117,15 @@ subscriptions_create <- function(name,
 #'
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
+#' @param project `character` GCP project id
 #'   
 #' @return None, called for side effects
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_delete <- function(subscription) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_delete <- function(subscription, project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", sub_name)
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
 
@@ -133,14 +137,15 @@ subscriptions_delete <- function(subscription) {
 #'
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
+#' @param project `character` GCP project id
 #'
 #' @return A `Subscription` object
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_get <- function(subscription) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_get <- function(subscription, project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", sub_name)
   f <- googleAuthR::gar_api_generator(
     url, "GET",
@@ -154,14 +159,15 @@ subscriptions_get <- function(subscription) {
 #'
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
+#' @param project `character` GCP project id
 #'   
 #' @return `logical`, TRUE if successfully detached
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_detach <- function(subscription) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_detach <- function(subscription, project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s:detach", sub_name)
   # pubsub.projects.subscriptions.detach
   f <- googleAuthR::gar_api_generator(url, "POST", data_parse_function = function(x) x)
@@ -202,13 +208,15 @@ subscriptions_list <- function(project = Sys.getenv("GCP_PROJECT"),
 #' @param subscription `character`, `Subscription` Required, subscription where to pull
 #'   messages from
 #' @param max_messages `numeric` Maximum number of messages to return
+#' @param project `character` GCP project id
 #'
 #' @return A named `list` with pulled messages
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_pull <- function(subscription, max_messages = 100) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_pull <- function(subscription, max_messages = 100,
+                               project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s:pull", sub_name)
   f <- googleAuthR::gar_api_generator(
     url, "POST",
@@ -227,13 +235,15 @@ subscriptions_pull <- function(subscription, max_messages = 100) {
 #' @param ack_ids `character` A vector containing one or more message ackIDs
 #' @param subscription `character`, `Subscription` Required, the subscription whose messages
 #'   are being acknowledged
+#' @param project `character` GCP project id
 #'
 #' @return `logical` TRUE if message(s) was successfully acknowledged
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_ack <- function(ack_ids, subscription) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_ack <- function(ack_ids, subscription, 
+                              project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s:acknowledge", sub_name)
   f <- googleAuthR::gar_api_generator(url, "POST", data_parse_function = function(x) x)
 
@@ -248,12 +258,14 @@ subscriptions_ack <- function(ack_ids, subscription) {
 #'
 #' @param subscription `character`, `Subscription` Required, subscription name or instance of
 #'   a `Subscription` object
+#' @param project `character` GCP project id
 #'
 #' @return `logical` TRUE if the subscription exist
 #' @family Subscription functions
 #' @export
-subscriptions_exists <- function(subscription) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_exists <- function(subscription, 
+                                 project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   all_subs <- subscriptions_list()
 
   if (sub_name %in% all_subs$subscriptions$name) {
@@ -285,6 +297,7 @@ subscriptions_exists <- function(subscription) {
 #' @param retain_acked_msgs `logical` Indicates whether to retain acknowledged messages
 #' @param enable_ordering `logical`messages published with the same orderingKey in PubsubMessage
 #'   will be delivered to the subscribers in the order in which they are received by the Pub/Sub system
+#' @param project `character` GCP project id
 #'
 #' @return An updated `Subscription` object
 #'
@@ -303,13 +316,14 @@ subscriptions_patch <- function(subscription,
                                 filter = NULL,
                                 detached = NULL,
                                 retain_acked_msgs = NULL,
-                                enable_ordering = NULL) {
+                                enable_ordering = NULL, 
+                                project = Sys.getenv("GCP_PROJECT")) {
   
   if(!is.null(msg_retention_duration)) {
     msg_retention_duration <- secs_to_str(msg_retention_duration)
   }
-  sub_name <- as.sub_name(subscription)
-  topic_name <- as.topic_name(topic)
+  sub_name <- as.sub_name(subscription, project = project)
+  topic_name <- as.topic_name(topic, project = project)
 
   update_req <- UpdateObjectRequest(Subscription(
     labels                     = labels,
@@ -343,16 +357,18 @@ subscriptions_patch <- function(subscription,
 #'   object
 #' @param time `character` A timestamp in RFC3339 UTC "Zulu" format
 #' @param snapshot `character`, `Snapshot` A Snapshot name or a `Snapshot` object
+#' @param project `character` GCP project id
 #'
 #' @return `logical` TRUE when succesfull seeked
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_seek <- function(subscription, time = NULL, snapshot = NULL) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_seek <- function(subscription, time = NULL, snapshot = NULL, 
+                               project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   if(!is.null(snapshot)) {
-    snapshot <- as.snapshot_name(snapshot)
+    snapshot <- as.snapshot_name(snapshot, project = project)
   }
   req <- list(
     time = time,
@@ -377,14 +393,19 @@ subscriptions_seek <- function(subscription, time = NULL, snapshot = NULL) {
 #' @param subscription `character`, `Subscription` A subscription name or `Subscription` object
 #' @param ack_ids `character` A vector containing ackIDs. They can be acquired using
 #' @param ack_deadline `numeric` The new ack deadline (in seconds)
+#' @param project `character` GCP project id
 #'
 #' @return `logical` TRUE if successfully modified
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Subscription functions
 #' @export
-subscriptions_modify_ack_deadline <- function(subscription, ack_ids, ack_deadline) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_modify_ack_deadline <- function(
+  subscription, 
+  ack_ids, 
+  ack_deadline, 
+  project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   update_req <- list(
     ackIds = ack_ids,
     ackDeadlineSeconds = ack_deadline
@@ -404,12 +425,14 @@ subscriptions_modify_ack_deadline <- function(subscription, ack_ids, ack_deadlin
 #' @param subscription `character`, `Subscription` Required, a subscription name or a `Subscription`
 #'   object
 #' @param push_config `PushConfig` New PushConfig object, can be built using \code{\link{PushConfig}}
+#' @param project `character` GCP project id
 #'
 #' @return `logical`, TRUE if successfully modified
 #' @family Subscription functions
 #' @export
-subscriptions_modify_pushconf <- function(subscription, push_config) {
-  sub_name <- as.sub_name(subscription)
+subscriptions_modify_pushconf <- function(subscription, push_config, 
+                                          project = Sys.getenv("GCP_PROJECT")) {
+  sub_name <- as.sub_name(subscription, project = project)
   update_req <- list(
     pushConfig = push_config
   )

@@ -62,13 +62,15 @@ Topic <- function(labels = NULL, name = NULL, kms_key_name = NULL, satisfies_pzs
 #' @param dlq_topic `character`, `Topic` Required, topic name or instance of a topic object
 #' @param max_delivery_attempts `numeric` Number of delivery attempts for any message. The 
 #'   value must be between 5 and 100.
+#' @param project `character` GCP project id
 #'
 #' @return `DlqPolicy` object
 #' @export
 #'
 #' @family Object functions
-DlqPolicy <- function(dlq_topic, max_delivery_attempts) {
-  dlq_topic <- as.topic_name(dlq_topic)
+DlqPolicy <- function(dlq_topic, max_delivery_attempts,
+                      project = Sys.getenv("GCP_PROJECT")) {
+  dlq_topic <- as.topic_name(dlq_topic, project = project)
   structure(
     list(deadLetterTopic = dlq_topic, maxDeliveryAttempts = max_delivery_attempts),
     class = c("DlqPolicy", "list")
@@ -367,14 +369,15 @@ SchemaSettings <- function(encoding = NULL, schema = NULL) {
 #' @param expire_time `character` The snapshot is guaranteed to exist up until this time
 #' @param name `character` The name of the snapshot
 #' @param labels `list` Key-value pairs for topic labels
+#' @param project `character` GCP project id
 #'
 #' @return `Snapshot` object
 #' @export
 #'
 #' @family Object functions
 Snapshot <- function(topic = NULL, expire_time = NULL, name = NULL,
-                     labels = NULL) {
-  topic <- as.topic_name(topic)
+                     labels = NULL, project = Sys.getenv("GCP_PROJECT")) {
+  topic <- as.topic_name(topic, project = project)
   structure(list(
     topic = topic, expireTime = expire_time, name = name, labels = labels
   ), class = c("Snapshot", "list"))

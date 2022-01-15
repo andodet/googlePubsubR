@@ -4,11 +4,13 @@
 \alias{snapshots_get}
 \title{Gets the configuration details of a snapshot}
 \usage{
-snapshots_get(snapshot)
+snapshots_get(snapshot, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{snapshot}{\code{Snapshot}, \code{character} Required, an instance of a \code{Snapshot} object or a
 snapshot name}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 An instance of a \code{Snapshot} object

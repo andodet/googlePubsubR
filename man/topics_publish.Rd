@@ -4,12 +4,14 @@
 \alias{topics_publish}
 \title{Adds one or more messages to the topic}
 \usage{
-topics_publish(messages, topic)
+topics_publish(messages, topic, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{messages}{\code{list} Required, a list containing the messages to be published}
 
 \item{topic}{\code{Topic}, \code{character} Required, an instance of a \code{Topic} object or a topic name}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 A \code{character} vector containing message IDs

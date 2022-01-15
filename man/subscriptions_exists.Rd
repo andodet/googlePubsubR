@@ -4,11 +4,13 @@
 \alias{subscriptions_exists}
 \title{Check if a subscription exists}
 \usage{
-subscriptions_exists(subscription)
+subscriptions_exists(subscription, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of
 a \code{Subscription} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical} TRUE if the subscription exist

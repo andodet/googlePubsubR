@@ -2,6 +2,7 @@
 #' Get topic name
 #'
 #' @param x `character`, `Topic`
+#' @param project `character` GCP project id
 #'
 #' @return `character`
 #' @noRd
@@ -43,7 +44,7 @@ schemas_create <- function(name,
                            type = c("AVRO", "PROTOCOL_BUFFER", "TYPE_UNSPECIFIED"),
                            definition,
                            project = Sys.getenv("GCP_PROJECT")) {
-  schema_name <- as.schema_name(name)
+  schema_name <- as.schema_name(name, project = project)
   schema <- Schema(
     type       = type,
     definition = definition,
@@ -121,13 +122,14 @@ schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' Check if a schema exists
 #'
 #' @param schema `character`, `Schema` Required, schema name or an instance of a `Schema` object
+#' @param project `character` GCP project id
 #'
 #' @return `logical` TRUE if the schema exists
 #' @family Schema functions
 #' @export
-schemas_exists <- function(schema) {
-  schema_name <- as.schema_name(schema)
-  all_schemas <- schemas_list()
+schemas_exists <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
+  schema_name <- as.schema_name(schema, project = project)
+  all_schemas <- schemas_list(project = project)
 
   if (schema_name %in% all_schemas$`schemas.name`) {
     return(TRUE)
@@ -141,6 +143,7 @@ schemas_exists <- function(schema) {
 #'
 #' @param schema `character`, `Schema` Required, schema name or an instance of a `Schema` object
 #' @param view `character` The set of fields to return in the response
+#' @param project `character` GCP project id
 #'
 #' @return  A `Schema` object
 #'
@@ -148,8 +151,9 @@ schemas_exists <- function(schema) {
 #' @family Schema functions
 #' @export
 schemas_get <- function(schema,
-                        view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL")) {
-  schema <- as.schema_name(schema)
+                        view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"),
+                        project = Sys.getenv("GCP_PROJECT")) {
+  schema <- as.schema_name(schema, project = project)
   view <- match.arg(view)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", schema)
 
@@ -165,14 +169,15 @@ schemas_get <- function(schema,
 #' Deletes a schema
 #'
 #' @param name `character`, `Schema` Schema name or instance of a schema object
+#' @param project `character` GCP project id
 #' 
 #' @return None, called for side effects
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
 #' @export
-schemas_delete <- function(name) {
-  schema_name <- as.schema_name(name)
+schemas_delete <- function(name, project = Sys.getenv("GCP_PROJECT")) {
+  schema_name <- as.schema_name(name, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", schema_name)
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
   
@@ -211,7 +216,7 @@ schemas_validate_message <- function(schema,
   if (inherits(schema, "Schema")) {
     req$schema <- schema$definition
   } else {
-    req$name <- as.schema_name(schema)
+    req$name <- as.schema_name(schema, project = project)
   }
 
   parent <- sprintf("projects/%s", project)

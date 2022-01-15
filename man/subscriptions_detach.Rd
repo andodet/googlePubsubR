@@ -4,11 +4,13 @@
 \alias{subscriptions_detach}
 \title{Detaches a subscription from a topic.}
 \usage{
-subscriptions_detach(subscription)
+subscriptions_detach(subscription, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of
 a \code{Subscription} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical}, TRUE if successfully detached

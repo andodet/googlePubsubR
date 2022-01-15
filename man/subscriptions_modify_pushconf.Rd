@@ -4,13 +4,19 @@
 \alias{subscriptions_modify_pushconf}
 \title{Modify PushConfig for a subscription}
 \usage{
-subscriptions_modify_pushconf(subscription, push_config)
+subscriptions_modify_pushconf(
+  subscription,
+  push_config,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, a subscription name or a \code{Subscription}
 object}
 
 \item{push_config}{\code{PushConfig} New PushConfig object, can be built using \code{\link{PushConfig}}}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical}, TRUE if successfully modified

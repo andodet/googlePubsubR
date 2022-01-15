@@ -1,6 +1,7 @@
 #' Get snaphsot name
 #'
 #' @param x `character`, `Topic`
+#' @param project `character` GCP project id
 #'
 #' @return `character`
 #' @noRd
@@ -43,16 +44,18 @@ as.snapshot_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 #' @param labels `list` Key-value pairs for snapshot labels
 #' @param name `Snapshot`, `character` Required, an instance of a `Snapshot` object or a
 #'   snapshot name
+#' @param project `character` GCP project id
 #'
 #' @return  An instance of a `Snapshot` object
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Snapshot functions
 #' @export
-snapshots_create <- function(name, subscription, labels = NULL) {
-  snap_name <- as.snapshot_name(name)
+snapshots_create <- function(name, subscription, labels = NULL,
+                             project = Sys.getenv("GCP_PROJECT")) {
+  snap_name <- as.snapshot_name(name, project = project)
   snap_req <- list(
-    subscription = as.sub_name(subscription),
+    subscription = as.sub_name(subscription, project = project),
     labels = labels
   )
 
@@ -69,14 +72,16 @@ snapshots_create <- function(name, subscription, labels = NULL) {
 #'
 #' @param snapshot `Snapshot`, `character` Required, an instance of a `Snapshot` object or a
 #'   object or a subscription name
+#' @param project `character` GCP project id
 #'   
 #' @return None, called for side effects
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Snapshot functions
 #' @export
-snapshots_delete <- function(snapshot) {
-  snap_name <- as.snapshot_name(snapshot)
+snapshots_delete <- function(snapshot,
+                             project = Sys.getenv("GCP_PROJECT")) {
+  snap_name <- as.snapshot_name(snapshot, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", snap_name)
   # pubsub.projects.snapshots.delete
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
@@ -116,14 +121,16 @@ snapshots_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
 #' Check if a snapshot exists
 #'
 #' @param snapshot `character`, `Snapshot` Required, snapshot name or an instance of a `Snapshot` object
+#' @param project `character` GCP project id
 #'
 #' @return `logical` TRUE if snapshot exists
 #' 
 #' @family Snapshot functions 
 #' @export
-snapshots_exists <- function(snapshot) {
-  snap_name <- as.snapshot_name(snapshot)
-  all_snaps <- snapshots_list()
+snapshots_exists <- function(snapshot,
+                             project = Sys.getenv("GCP_PROJECT")) {
+  snap_name <- as.snapshot_name(snapshot, project = project)
+  all_snaps <- snapshots_list(project = project)
 
   if (snap_name %in% all_snaps$`snapshots.name`) {
     return(TRUE)
@@ -136,12 +143,14 @@ snapshots_exists <- function(snapshot) {
 #' 
 #' @param snapshot `Snapshot`, `character` Required, an instance of a `Snapshot` object or a
 #'   snapshot name
+#' @param project `character` GCP project id
 #'
 #' @return An instance of a `Snapshot` object
 #' @importFrom googleAuthR gar_api_generator
 #' @export
-snapshots_get <- function(snapshot) {
-  snap_name <- as.snapshot_name(snapshot)
+snapshots_get <- function(snapshot,
+                          project = Sys.getenv("GCP_PROJECT")) {
+  snap_name <- as.snapshot_name(snapshot, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", snap_name)
 
   f <- googleAuthR::gar_api_generator(
@@ -160,6 +169,7 @@ snapshots_get <- function(snapshot) {
 #' @param expire_time `string` The snapshot is guaranteed to exist up until this time.
 #'   Must be formatted in RFC3339 UTC "Zulu" format
 #' @param labels `list` Key-value pairs for topic labels
+#' @param project `character` GCP project id
 #' 
 #' @return An instance the patched `Snapshot` object
 #'
@@ -169,8 +179,9 @@ snapshots_get <- function(snapshot) {
 snapshots_patch <- function(snapshot,
                             topic = NULL,
                             expire_time = NULL,
-                            labels = NULL) {
-  snap_name <- as.snapshot_name(snapshot)
+                            labels = NULL,
+                            project = Sys.getenv("GCP_PROJECT")) {
+  snap_name <- as.snapshot_name(snapshot, project = project)
   update_req <- UpdateObjectRequest(Snapshot(
     topic       = topic,
     expire_time = expire_time,

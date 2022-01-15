@@ -4,7 +4,12 @@
 \alias{subscriptions_modify_ack_deadline}
 \title{Modify the ack deadline for a subscription}
 \usage{
-subscriptions_modify_ack_deadline(subscription, ack_ids, ack_deadline)
+subscriptions_modify_ack_deadline(
+  subscription,
+  ack_ids,
+  ack_deadline,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} A subscription name or \code{Subscription} object}
@@ -12,6 +17,8 @@ subscriptions_modify_ack_deadline(subscription, ack_ids, ack_deadline)
 \item{ack_ids}{\code{character} A vector containing ackIDs. They can be acquired using}
 
 \item{ack_deadline}{\code{numeric} The new ack deadline (in seconds)}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical} TRUE if successfully modified

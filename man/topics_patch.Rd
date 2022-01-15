@@ -11,7 +11,8 @@ topics_patch(
   kms_key_name = NULL,
   schema_settings = NULL,
   satisfies_pzs = NULL,
-  message_retention_duration = NULL
+  message_retention_duration = NULL,
+  project = Sys.getenv("GCP_PROJECT")
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ to protect access to messages published on this topic.}
 
 \item{message_retention_duration}{\code{character} Indicates the minimum duration to retain
 a message after it is published to the topic.}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 An instance of the patched \code{Topic}

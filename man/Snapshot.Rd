@@ -4,7 +4,13 @@
 \alias{Snapshot}
 \title{Builds a Snapshot Object}
 \usage{
-Snapshot(topic = NULL, expire_time = NULL, name = NULL, labels = NULL)
+Snapshot(
+  topic = NULL,
+  expire_time = NULL,
+  name = NULL,
+  labels = NULL,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{topic}{\code{character}, \code{Topic} The name of the topic from which this snapshot is
@@ -15,6 +21,8 @@ retaining messages}
 \item{name}{\code{character} The name of the snapshot}
 
 \item{labels}{\code{list} Key-value pairs for topic labels}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{Snapshot} object

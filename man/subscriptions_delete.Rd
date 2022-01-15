@@ -4,11 +4,13 @@
 \alias{subscriptions_delete}
 \title{Deletes an existing subscription.}
 \usage{
-subscriptions_delete(subscription)
+subscriptions_delete(subscription, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, subscription name or instance of
 a \code{Subscription} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 None, called for side effects

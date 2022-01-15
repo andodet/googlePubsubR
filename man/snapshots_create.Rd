@@ -4,7 +4,12 @@
 \alias{snapshots_create}
 \title{Creates a snapshot from the requested subscription}
 \usage{
-snapshots_create(name, subscription, labels = NULL)
+snapshots_create(
+  name,
+  subscription,
+  labels = NULL,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{name}{\code{Snapshot}, \code{character} Required, an instance of a \code{Snapshot} object or a
@@ -14,6 +19,8 @@ snapshot name}
 object or a subscription name}
 
 \item{labels}{\code{list} Key-value pairs for snapshot labels}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 An instance of a \code{Snapshot} object

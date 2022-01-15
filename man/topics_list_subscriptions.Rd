@@ -4,7 +4,12 @@
 \alias{topics_list_subscriptions}
 \title{List attached subscriptions to a topic.}
 \usage{
-topics_list_subscriptions(topic, pageToken = NULL, pageSize = NULL)
+topics_list_subscriptions(
+  topic,
+  pageToken = NULL,
+  pageSize = NULL,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{topic}{\code{Topic}, \code{character} Required, an instance of a \code{Topic} object or a topic name}
@@ -14,6 +19,8 @@ of a prior \code{topics_list_subscriptions()} paged call, and that the system sh
 page of data}
 
 \item{pageSize}{\code{numeric} Maximum number of subscription names to return}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 A \code{character} vector

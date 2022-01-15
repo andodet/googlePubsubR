@@ -4,13 +4,15 @@
 \alias{subscriptions_ack}
 \title{Acknowledges the messages}
 \usage{
-subscriptions_ack(ack_ids, subscription)
+subscriptions_ack(ack_ids, subscription, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{ack_ids}{\code{character} A vector containing one or more message ackIDs}
 
 \item{subscription}{\code{character}, \code{Subscription} Required, the subscription whose messages
 are being acknowledged}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical} TRUE if message(s) was successfully acknowledged

@@ -4,7 +4,13 @@
 \alias{snapshots_patch}
 \title{Updates an existing snapshot}
 \usage{
-snapshots_patch(snapshot, topic = NULL, expire_time = NULL, labels = NULL)
+snapshots_patch(
+  snapshot,
+  topic = NULL,
+  expire_time = NULL,
+  labels = NULL,
+  project = Sys.getenv("GCP_PROJECT")
+)
 }
 \arguments{
 \item{snapshot}{\code{Snapshot}, \code{character} Required, an instance of a \code{Snapshot} object or a
@@ -16,6 +22,8 @@ snapshot name}
 Must be formatted in RFC3339 UTC "Zulu" format}
 
 \item{labels}{\code{list} Key-value pairs for topic labels}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 An instance the patched \code{Snapshot} object

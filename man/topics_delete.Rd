@@ -4,10 +4,12 @@
 \alias{topics_delete}
 \title{Deletes a pub/sub topic}
 \usage{
-topics_delete(topic)
+topics_delete(topic, project = Sys.getenv("GCP_PROJECT"))
 }
 \arguments{
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 None, called for side effects
