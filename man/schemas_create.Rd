@@ -8,7 +8,7 @@ schemas_create(
   name,
   type = c("AVRO", "PROTOCOL_BUFFER", "TYPE_UNSPECIFIED"),
   definition,
-  project = Sys.getenv("GCP_PROJECT")
+  project = ps_project_get()
 )
 }
 \arguments{

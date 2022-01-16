@@ -5,7 +5,7 @@
 #' @return `character`
 #' @noRd
 #' @keywords internal
-as.sub_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.sub_name <- function(x, project = ps_project_get()) {
   # Can it be done with a switch case?
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {

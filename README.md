@@ -25,7 +25,8 @@ In order to use the library, you will need:
 * The Pub/Sub API correctly activated
 * JSON credentials for a service account or another method of authentication (e.g token). You can pass the
 path of the file as an argument to `pubsub_auth` or setting an `GCP_AUTH_FILE` env variable.
-* A `GCP_PROJECT` env variable set with a valid GCP project id
+* A `GCP_PROJECT` env variable set with a valid GCP project id. Since `0.0.3`, GCP project id can also be set 
+using `ps_project_set`.
 
 ## Usage
 
@@ -99,3 +100,18 @@ The main use-cases for Pub/Sub messaging queue:
 * Trigger workflows hosted in Cloud Run or Cloud Functions
 * Expand interactivity in Shiny dashboards (more on this [here](inst/shiny/consumer_example/readme.md)).
 * Add event driven actions in [`{plumbr}`](https://www.rplumber.io/)
+
+## Contributing
+
+In order to contribute to `googlePubsubR` you'll need to go through the following steps:
+
+1. Set up a GCP project and create a service account with Pub/Sub admin rights.
+2. Download a JSON key for the newly created account. Naming the file `.gcp_creds.json` and placing
+it in the package root folder will make it automatically gitignored.
+3. Set up the following env vars (either through a tool like `direnv` or a `.Renviron` file).
+
+    ```
+    GCP_AUTH_FILE=<paht_to_json_auth_file>
+    GCP_PROJECT=<gcp_project_id_string>
+    ```
+4. Check everything is set up correctly by running a test run via `devtools::test()`.

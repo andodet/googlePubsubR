@@ -6,7 +6,7 @@
 #' @return `character`
 #' @noRd
 #' @keywords internal
-as.schema_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
+as.schema_name <- function(x, project = ps_project_get()) {
   # Can it be done with a switch case?
   if (is.character(x) && x != "") {
     if (already_formatted(x)) {
@@ -42,7 +42,7 @@ as.schema_name <- function(x, project = Sys.getenv("GCP_PROJECT")) {
 schemas_create <- function(name,
                            type = c("AVRO", "PROTOCOL_BUFFER", "TYPE_UNSPECIFIED"),
                            definition,
-                           project = Sys.getenv("GCP_PROJECT")) {
+                           project = ps_project_get()) {
   schema_name <- as.schema_name(name)
   schema <- Schema(
     type       = type,
@@ -72,7 +72,7 @@ schemas_create <- function(name,
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
 #' @export
-schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
+schemas_validate <- function(schema, project = ps_project_get()) {
   parent <- sprintf("projects/%s", project)
   body <- list(
     schema = schema
@@ -102,7 +102,7 @@ schemas_validate <- function(schema, project = Sys.getenv("GCP_PROJECT")) {
 #' @importFrom googleAuthR gar_api_generator
 #' @family Schema functions
 #' @export
-schemas_list <- function(project = Sys.getenv("GCP_PROJECT"), pageSize = NULL,
+schemas_list <- function(project = ps_project_get(), pageSize = NULL,
                          view = c("SCHEMA_VIEW_UNSPECIFIED", "BASIC", "FULL"), 
                          pageToken = NULL) {
   view <- match.arg(view)
@@ -196,7 +196,7 @@ schemas_delete <- function(name) {
 schemas_validate_message <- function(schema,
                                      message,
                                      encoding = c("ENCODING_UNSPECIFIED", "JSON", "BINARY"),
-                                     project = Sys.getenv("GCP_PROJECT")) {
+                                     project = ps_project_get()) {
   
   # API expects a base64 encoded string, extract it from the message object
   if (inherits(message, "PubsubMessage")) {
