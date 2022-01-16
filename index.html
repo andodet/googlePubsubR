@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
       </span>
     </div>
 
@@ -105,7 +105,7 @@
 <li>An active GCP project</li>
 <li>The Pub/Sub API correctly activated</li>
 <li>JSON credentials for a service account or another method of authentication (e.g token). You can pass the path of the file as an argument to <code>pubsub_auth</code> or setting an <code>GCP_AUTH_FILE</code> env variable.</li>
-<li>A <code>GCP_PROJECT</code> env variable set with a valid GCP project id</li>
+<li>A <code>GCP_PROJECT</code> env variable set with a valid GCP project id. Since <code>0.0.3</code>, GCP project id can also be set using <code>ps_project_set</code>.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -184,6 +184,21 @@ The following example shows how to:</p>
 </li>
 </ul>
 </div>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>In order to contribute to <code>googlePubsubR</code> you’ll need to go through the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Set up a GCP project and create a service account with Pub/Sub admin rights.</p></li>
+<li><p>Download a JSON key for the newly created account. Naming the file <code>.gcp_creds.json</code> and placing it in the package root folder will make it automatically gitignored.</p></li>
+<li>
+<p>Set up the following env vars (either through a tool like <code>direnv</code> or a <code>.Renviron</code> file).</p>
+<pre><code>GCP_AUTH_FILE=&lt;paht_to_json_auth_file&gt;
+GCP_PROJECT=&lt;gcp_project_id_string&gt;</code></pre>
+</li>
+<li><p>Check everything is set up correctly by running a test run via <code>devtools::test()</code>.</p></li>
+</ol>
+</div>
 </div>
   </div>
 
@@ -206,6 +221,13 @@ The following example shows how to:</p>
 </ul>
 </div>
 
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing googlePubsubR</a></li>
+</ul>
+</div>
 
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
@@ -234,7 +256,7 @@ The following example shows how to:</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer>

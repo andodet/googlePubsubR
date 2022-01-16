@@ -73,6 +73,12 @@
     <loc>/reference/msg_encode.html</loc>
   </url>
   <url>
+    <loc>/reference/ps_project_get.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ps_project_set.html</loc>
+  </url>
+  <url>
     <loc>/reference/pubsub_auth.html</loc>
   </url>
   <url>

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1 data-toc-skip>Getting started</h1>
                         <h4 data-toc-skip class="author">Andrea Dodet</h4>
             
-            <h4 data-toc-skip class="date">2021-11-26</h4>
+            <h4 data-toc-skip class="date">2022-01-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andodet/googlePubsubR/blob/HEAD/vignettes/getting_started.Rmd" class="external-link"><code>vignettes/getting_started.Rmd</code></a></small>
       <div class="hidden name"><code>getting_started.Rmd</code></div>
@@ -96,14 +96,14 @@
 
     
     
-<div class="section level1">
-<h1 id="googlepubsubr">
-<code>googlePubsubR</code><a class="anchor" aria-label="anchor" href="#googlepubsubr"></a>
-</h1>
-<p>This vignette will provide a walk through for the most common functions that will cover the majority of use cases.</p>
 <div class="section level2">
-<h2 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
+<h2 id="googlepubsubr">
+<code>googlePubsubR</code><a class="anchor" aria-label="anchor" href="#googlepubsubr"></a>
 </h2>
+<p>This vignette will provide a walk through for the most common functions that will cover the majority of use cases.</p>
+<div class="section level3">
+<h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
+</h3>
 <p>In order to authenticate the client, the following environment variables will need to be set:</p>
 <ul>
 <li>
@@ -116,12 +116,12 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>More authentication methods can be found in the <code><a href="../reference/pubsub_auth.html">?pubsub_auth</a></code> documentation.</p>
 </div>
-<div class="section level2">
-<h2 id="creating-and-getting-resources">Creating and getting resources<a class="anchor" aria-label="anchor" href="#creating-and-getting-resources"></a>
-</h2>
 <div class="section level3">
-<h3 id="topics">Topics<a class="anchor" aria-label="anchor" href="#topics"></a>
+<h3 id="creating-and-getting-resources">Creating and getting resources<a class="anchor" aria-label="anchor" href="#creating-and-getting-resources"></a>
 </h3>
+<div class="section level4">
+<h4 id="topics">Topics<a class="anchor" aria-label="anchor" href="#topics"></a>
+</h4>
 <p>In their most basic form, topics can be created in the following way:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create a topic that retains messages for a minimum of 4 hours.</span>
@@ -232,9 +232,9 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/topics_list_subscriptions.html">topics_list_subscriptions</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"vignette-topic"</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="schemas">Schemas<a class="anchor" aria-label="anchor" href="#schemas"></a>
-</h3>
+<div class="section level4">
+<h4 id="schemas">Schemas<a class="anchor" aria-label="anchor" href="#schemas"></a>
+</h4>
 <p>Schemas can be used to enforce a specific format on incoming messages, this will force all malformed messages to be discarded or sent to a dead letter queue. A schema object can be passed to a topic upon creation. Getting the schema definition in the right format (Pub/Sub expects it as a string) can be quite fiddly. In this example we’ll define an AVRO schema.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">avro_schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/schemas_create.html">schemas_create</a></span><span class="op">(</span>
@@ -271,9 +271,9 @@
   schema_settings <span class="op">=</span> <span class="fu"><a href="../reference/SchemaSettings.html">SchemaSettings</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"JSON"</span>, <span class="st">"vignette-schema"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="snapshots-and-seek">Snapshots and <code>seek</code><a class="anchor" aria-label="anchor" href="#snapshots-and-seek"></a>
-</h3>
+<div class="section level4">
+<h4 id="snapshots-and-seek">Snapshots and <code>seek</code><a class="anchor" aria-label="anchor" href="#snapshots-and-seek"></a>
+</h4>
 <p>There are two ways to <code>seek</code> a subscription back in time:</p>
 <ul>
 <li>Provide a snapshot of the subscription</li>
@@ -291,9 +291,9 @@
 <span class="fu"><a href="../reference/subscriptions_seek.html">subscriptions_seek</a></span><span class="op">(</span><span class="st">"vignette-sub"</span>, time <span class="op">=</span> <span class="st">"2021-11-08T23:55:00Z"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="messages">Messages<a class="anchor" aria-label="anchor" href="#messages"></a>
-</h2>
+<div class="section level3">
+<h3 id="messages">Messages<a class="anchor" aria-label="anchor" href="#messages"></a>
+</h3>
 <p>Pubsub messages are expected encoded as base64 strings, depending on the object you’re dealing with, the process to convert them in the right format might vary. Below we’ll convert a dataframe in a format that will not upset Pubsub that much:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>msg &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="st">"fork"</span>, <span class="dt">price =</span> <span class="dv">999</span>) <span class="op">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">as.list</span>() <span class="op">%&gt;%</span></span>
@@ -324,9 +324,9 @@
 <span id="cb9-17"><a href="#cb9-17"></a><span class="op">$</span><span class="st"> </span>attributes  <span class="op">&lt;</span>df[,<span class="dv">2</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>data.frame[<span class="dv">1</span> x <span class="dv">2</span>]<span class="op">&gt;</span></span>
 <span id="cb9-18"><a href="#cb9-18"></a><span class="er">$</span><span class="st"> </span>messageId   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> "3410320233787713"</span></span>
 <span id="cb9-19"><a href="#cb9-19"></a><span class="op">$</span><span class="st"> </span>publishTime <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> "2021-11-09T09:06:31.171Z</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="decoding-incoming-messages">Decoding incoming messages<a class="anchor" aria-label="anchor" href="#decoding-incoming-messages"></a>
-</h3>
+<div class="section level4">
+<h4 id="decoding-incoming-messages">Decoding incoming messages<a class="anchor" aria-label="anchor" href="#decoding-incoming-messages"></a>
+</h4>
 <p>In order to re-convert back message data into an usable format we’ll basically need to reverse the process that was used to encode them in the first place. Given that <code>subscriptions_pull</code> will return <strong>all</strong> messages in the queue, a good strategy might be to decode them all at once using <code>lapply</code></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">decoded_msg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">msgs</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">msg</span><span class="op">)</span> <span class="op">{</span>
@@ -369,7 +369,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer>
