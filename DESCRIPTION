@@ -1,6 +1,6 @@
 Package: googlePubsubR
 Title: R Interface for Google 'Cloud Pub/Sub' REST API
-Version: 0.0.3
+Version: 0.0.3.9000
 Authors@R: 
     person(given = "Andrea",
            family = "Dodet",
