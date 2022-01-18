@@ -4,10 +4,12 @@
 \alias{topics_get}
 \title{Gets a topic configuration}
 \usage{
-topics_get(topic)
+topics_get(topic, project = ps_project_get())
 }
 \arguments{
 \item{topic}{\code{character}, \code{Topic} Required, topic name or instance of a \code{Topic}}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{Topic}, A \code{Topic} object

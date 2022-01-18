@@ -1,6 +1,7 @@
 #' Get topic name
 #'
 #' @param x `character`, `Topic`
+#' @param project `character` GCP project id
 #'
 #' @return (`character`)
 #' @keywords internal
@@ -40,6 +41,7 @@ as.topic_name <- function(x, project = ps_project_get()) {
 #' @param schema_settings `SchemaSettings` An instance of a `SchemaSettings` object
 #' @param kms_key_name `character` The resource name of the Cloud KMS CryptoKey to be used
 #'  to protect access to messages published on this topic.
+#' @param project `character` GCP project id
 #'
 #' @return A `Topic` object representing the freshly created topic
 #' @importFrom googleAuthR gar_api_generator
@@ -51,13 +53,14 @@ topics_create <- function(name,
                           satisfies_pzs = NULL,
                           message_storage_policy = NULL,
                           schema_settings = NULL,
-                          message_retention_duration = NULL) {
+                          message_retention_duration = NULL,
+                          project = ps_project_get()) {
   
   if(!is.null(message_retention_duration)) {
     message_retention_duration <- paste0(message_retention_duration, "s")
   }
   
-  topic_name <- as.topic_name(name)
+  topic_name <- as.topic_name(name, project = project)
   topic <- Topic(
     labels                     = labels,
     kms_key_name               = kms_key_name,
@@ -84,14 +87,16 @@ topics_create <- function(name,
 #' Deletes a pub/sub topic
 #'
 #' @param topic `character`, `Topic` Required, topic name or instance of a `Topic` object
+#' @param project `character` GCP project id
 #' 
 #' @return None, called for side effects
 #' 
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
 #' @export
-topics_delete <- function(topic) {
-  topic <- as.topic_name(topic)
+topics_delete <- function(topic,
+                          project = ps_project_get()) {
+  topic <- as.topic_name(topic, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", topic)
   f <- googleAuthR::gar_api_generator(url, "DELETE", data_parse_function = function(x) x)
 
@@ -102,13 +107,15 @@ topics_delete <- function(topic) {
 #' Gets a topic configuration
 #'
 #' @param topic `character`, `Topic` Required, topic name or instance of a `Topic`
+#' @param project `character` GCP project id
 #' @return `Topic`, A `Topic` object
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
 #' @export
-topics_get <- function(topic) {
-  topic <- as.topic_name(topic)
+topics_get <- function(topic,
+                       project = ps_project_get()) {
+  topic <- as.topic_name(topic, project = project)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s", topic)
 
   f <- googleAuthR::gar_api_generator(
@@ -154,7 +161,7 @@ topics_list <- function(project = ps_project_get(), pageSize = NULL,
 #' @family Topic functions
 #' @export
 topics_exists <- function(topic, project = ps_project_get()) {
-  topic <- as.topic_name(topic)
+  topic <- as.topic_name(topic, project = project)
   all_topics <- topics_list(project)
   if (any(grepl(topic, all_topics$topics$name))) {
     return(TRUE)
@@ -175,6 +182,7 @@ topics_exists <- function(topic, project = ps_project_get()) {
 #'  a message after it is published to the topic.
 #' @param message_storage_policy `MessageStoragePolicy` Policy constraining the set of Google Cloud 
 #'  Platform regions where messages published to the topic may be stored.
+#' @param project `character` GCP project id
 #'
 #' @return An instance of the patched `Topic`
 #'
@@ -187,10 +195,11 @@ topics_patch <- function(topic,
                          kms_key_name = NULL,
                          schema_settings = NULL,
                          satisfies_pzs = NULL,
-                         message_retention_duration = NULL) {
+                         message_retention_duration = NULL,
+                         project = ps_project_get()) {
 
   # Build a patch request
-  topic <- as.topic_name(topic)
+  topic <- as.topic_name(topic, project = project)
   update_req <- UpdateObjectRequest(Topic(
     labels                     = labels,
     kms_key_name               = kms_key_name,
@@ -216,14 +225,16 @@ topics_patch <- function(topic,
 #'
 #' @param messages `list` Required, a list containing the messages to be published
 #' @param topic `Topic`, `character` Required, an instance of a `Topic` object or a topic name
+#' @param project `character` GCP project id
 #'
 #' @return A `character` vector containing message IDs
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions
 #' @export
-topics_publish <- function(messages, topic) {
-  topic <- as.topic_name(topic)
+topics_publish <- function(messages, topic,
+                           project = ps_project_get()) {
+  topic <- as.topic_name(topic, project = project)
   body <- list(messages = messages)
   url <- sprintf(
     "https://pubsub.googleapis.com/v1/%s:publish", topic
@@ -279,14 +290,16 @@ topics_publish <- function(messages, topic) {
 #'  of a prior `topics_list_subscriptions()` paged call, and that the system should return the next
 #'  page of data
 #' @param pageSize `numeric` Maximum number of subscription names to return
+#' @param project `character` GCP project id
 #'
 #' @return A `character` vector
 #'
 #' @importFrom googleAuthR gar_api_generator
 #' @family Topic functions 
 #' @export
-topics_list_subscriptions <- function(topic, pageToken = NULL, pageSize = NULL) {
-  topic <- as.topic_name(topic)
+topics_list_subscriptions <- function(topic, pageToken = NULL, pageSize = NULL,
+                                      project = ps_project_get()) {
+  topic <- as.topic_name(topic, project = project)
   print(topic)
   url <- sprintf("https://pubsub.googleapis.com/v1/%s/subscriptions", topic)
   pars <- list(pageToken = pageToken, pageSize = pageSize)

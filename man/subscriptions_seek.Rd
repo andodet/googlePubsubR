@@ -4,7 +4,12 @@
 \alias{subscriptions_seek}
 \title{Seek a subscription to a point in time}
 \usage{
-subscriptions_seek(subscription, time = NULL, snapshot = NULL)
+subscriptions_seek(
+  subscription,
+  time = NULL,
+  snapshot = NULL,
+  project = ps_project_get()
+)
 }
 \arguments{
 \item{subscription}{\code{character}, \code{Subscription} Required, a snapshot name or a \code{Snapshot}
@@ -13,6 +18,8 @@ object}
 \item{time}{\code{character} A timestamp in RFC3339 UTC "Zulu" format}
 
 \item{snapshot}{\code{character}, \code{Snapshot} A Snapshot name or a \code{Snapshot} object}
+
+\item{project}{\code{character} GCP project id}
 }
 \value{
 \code{logical} TRUE when succesfull seeked
