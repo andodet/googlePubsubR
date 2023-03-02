@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -69,7 +69,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">snapshots_patch</span><span class="op">(</span><span class="va">snapshot</span>, topic <span class="op">=</span> <span class="cn">NULL</span>, expire_time <span class="op">=</span> <span class="cn">NULL</span>, labels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">snapshots_patch</span><span class="op">(</span><span class="va">snapshot</span>, topic <span class="op">=</span> <span class="cn">NULL</span>, expire_time <span class="op">=</span> <span class="cn">NULL</span>, labels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -77,17 +77,26 @@
     <dl><dt>snapshot</dt>
 <dd><p><code>Snapshot</code>, <code>character</code> Required, an instance of a <code>Snapshot</code> object or a
 snapshot name</p></dd>
+
+
 <dt>topic</dt>
 <dd><p><code>character</code>, <code>Topic</code> Topic name or instance of a topic object</p></dd>
+
+
 <dt>expire_time</dt>
 <dd><p><code>string</code> The snapshot is guaranteed to exist up until this time.
 Must be formatted in RFC3339 UTC "Zulu" format</p></dd>
+
+
 <dt>labels</dt>
 <dd><p><code>list</code> Key-value pairs for topic labels</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An instance the patched <code>Snapshot</code> object</p>
+    
+
+<p>An instance the patched <code>Snapshot</code> object</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -110,7 +119,7 @@ Must be formatted in RFC3339 UTC "Zulu" format</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>

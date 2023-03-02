@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
   <a href="articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -88,7 +88,7 @@
 <div class="page-header"><h1 id="googlepubsubr">
 <code>googlePubsubR</code><a class="anchor" aria-label="anchor" href="#googlepubsubr"></a>
 </h1></div>
-
+<p><a href="https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check-ascran"></a> <a href="https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml" class="external-link"><img src="https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml/badge.svg" alt="testthat"></a> <a href="https://app.codecov.io/gh/andodet/googlePubsubR" class="external-link"><img src="https://codecov.io/gh/andodet/googlePubsubR/branch/master/graph/badge.svg?token=OTBHY3F1KD" alt="codecov"></a></p>
 <p>This library offers an easy to use interface for the Google Pub/Sub REST API (docs <a href="https://cloud.google.com/pubsub/docs/reference/rest" class="external-link">here</a>).</p>
 <p>Not an official Google product.</p>
 <div class="section level2">
@@ -96,10 +96,10 @@
 </h2>
 <p>You can install the package from CRAN or get the <code>dev</code> version from Github:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"googlePubsubR"</span><span class="op">)</span>
-
-<span class="co"># Or get the dev version from Github</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"andodet/googlePubsubR@dev"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"googlePubsubR"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or get the dev version from Github</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"andodet/googlePubsubR@dev"</span><span class="op">)</span></span></code></pre></div>
 <p>In order to use the library, you will need:</p>
 <ul>
 <li>An active GCP project</li>
@@ -121,56 +121,56 @@ The following example shows how to:</p>
 <li>Delete resources</li>
 </ol>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andodet/googlePubsubR" class="external-link">googlePubsubR</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/base64enc" class="external-link">base64enc</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://arxiv.org/abs/1403.2805" class="external-link">jsonlite</a></span><span class="op">)</span>
-
-<span class="co"># Authenticate </span>
-<span class="fu"><a href="reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Create resources</span>
-<span class="va">topic_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/topics_create.html">topics_create</a></span><span class="op">(</span><span class="st">"readme-topic"</span><span class="op">)</span>
-<span class="va">sub_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subscriptions_create.html">subscriptions_create</a></span><span class="op">(</span><span class="st">"readme-sub"</span>, <span class="va">topic_readme</span><span class="op">)</span>
-
-<span class="co"># Prepare the message</span>
-<span class="va">msg</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-  <span class="co"># Pub/Sub expects a base64 encoded string</span>
-  <span class="fu"><a href="reference/msg_encode.html">msg_encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
-  <span class="fu"><a href="reference/PubsubMessage.html">PubsubMessage</a></span><span class="op">(</span><span class="op">)</span> 
-
-<span class="co"># Publish the message!</span>
-<span class="fu"><a href="reference/topics_publish.html">topics_publish</a></span><span class="op">(</span><span class="va">msg</span>, <span class="va">topic_readme</span><span class="op">)</span>
-
-<span class="co"># Pull the message from server</span>
-<span class="va">msgs_pull</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subscriptions_pull.html">subscriptions_pull</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span>
-
-<span class="va">msg_decoded</span> <span class="op">&lt;-</span> <span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-  <span class="fu"><a href="reference/msg_decode.html">msg_decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">msg_decoded</span><span class="op">)</span>
-
-<span class="co"># Prints</span>
-<span class="co"># mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
-<span class="co"># Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
-<span class="co"># Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
-<span class="co"># Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
-<span class="co"># Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
-<span class="co"># Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span>
-<span class="co"># Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span>
-
-<span class="co"># We can acknowledge that the message has been consumed</span>
-<span class="fu"><a href="reference/subscriptions_ack.html">subscriptions_ack</a></span><span class="op">(</span><span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">ackId</span>, <span class="va">sub_readme</span><span class="op">)</span>
-<span class="co"># [1] TRUE</span>
-
-<span class="co"># A subsequent pull will return no messages from the server</span>
-<span class="fu"><a href="reference/subscriptions_pull.html">subscriptions_pull</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span>
-<span class="co"># named list()</span>
-
-<span class="co"># Cleanup resources</span>
-<span class="fu"><a href="reference/topics_delete.html">topics_delete</a></span><span class="op">(</span><span class="va">topic_readme</span><span class="op">)</span>
-<span class="fu"><a href="reference/subscriptions_delete.html">subscriptions_delete</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andodet/googlePubsubR" class="external-link">googlePubsubR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/base64enc" class="external-link">base64enc</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://arxiv.org/abs/1403.2805" class="external-link">jsonlite</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Authenticate </span></span>
+<span><span class="fu"><a href="reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create resources</span></span>
+<span><span class="va">topic_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/topics_create.html">topics_create</a></span><span class="op">(</span><span class="st">"readme-topic"</span><span class="op">)</span></span>
+<span><span class="va">sub_readme</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subscriptions_create.html">subscriptions_create</a></span><span class="op">(</span><span class="st">"readme-sub"</span>, <span class="va">topic_readme</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Prepare the message</span></span>
+<span><span class="va">msg</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Pub/Sub expects a base64 encoded string</span></span>
+<span>  <span class="fu"><a href="reference/msg_encode.html">msg_encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="reference/PubsubMessage.html">PubsubMessage</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># Publish the message!</span></span>
+<span><span class="fu"><a href="reference/topics_publish.html">topics_publish</a></span><span class="op">(</span><span class="va">msg</span>, <span class="va">topic_readme</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Pull the message from server</span></span>
+<span><span class="va">msgs_pull</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/subscriptions_pull.html">subscriptions_pull</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">msg_decoded</span> <span class="op">&lt;-</span> <span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/msg_decode.html">msg_decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/grapes-greater-than-grapes.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">msg_decoded</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Prints</span></span>
+<span><span class="co"># mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span><span class="co"># Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span><span class="co"># Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span><span class="co"># Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span><span class="co"># Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span><span class="co"># Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span><span class="co"># Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span>
+<span></span>
+<span><span class="co"># We can acknowledge that the message has been consumed</span></span>
+<span><span class="fu"><a href="reference/subscriptions_ack.html">subscriptions_ack</a></span><span class="op">(</span><span class="va">msgs_pull</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">ackId</span>, <span class="va">sub_readme</span><span class="op">)</span></span>
+<span><span class="co"># [1] TRUE</span></span>
+<span></span>
+<span><span class="co"># A subsequent pull will return no messages from the server</span></span>
+<span><span class="fu"><a href="reference/subscriptions_pull.html">subscriptions_pull</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span></span>
+<span><span class="co"># named list()</span></span>
+<span></span>
+<span><span class="co"># Cleanup resources</span></span>
+<span><span class="fu"><a href="reference/topics_delete.html">topics_delete</a></span><span class="op">(</span><span class="va">topic_readme</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/subscriptions_delete.html">subscriptions_delete</a></span><span class="op">(</span><span class="va">sub_readme</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="use-cases">Use cases<a class="anchor" aria-label="anchor" href="#use-cases"></a>
@@ -236,14 +236,7 @@ GCP_PROJECT=&lt;gcp_project_id_string&gt;</code></pre>
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/andodet/googlePubsubR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check-ascran"></a></li>
-<li><a href="https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml" class="external-link"><img src="https://github.com/andodet/googlePubsubR/actions/workflows/testthat.yaml/badge.svg" alt="testthat"></a></li>
-<li><a href="https://app.codecov.io/gh/andodet/googlePubsubR" class="external-link"><img src="https://codecov.io/gh/andodet/googlePubsubR/branch/master/graph/badge.svg?token=OTBHY3F1KD" alt="codecov"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -256,7 +249,7 @@ GCP_PROJECT=&lt;gcp_project_id_string&gt;</code></pre>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer>

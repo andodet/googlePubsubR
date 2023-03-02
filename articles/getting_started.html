@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -52,7 +52,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -81,13 +81,14 @@
 
       
 
-      </header><script src="getting_started_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting started</h1>
-                        <h4 data-toc-skip class="author">Andrea Dodet</h4>
+                        <h4 data-toc-skip class="author">Andrea
+Dodet</h4>
             
-            <h4 data-toc-skip class="date">2022-01-16</h4>
+            <h4 data-toc-skip class="date">2023-03-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andodet/googlePubsubR/blob/HEAD/vignettes/getting_started.Rmd" class="external-link"><code>vignettes/getting_started.Rmd</code></a></small>
       <div class="hidden name"><code>getting_started.Rmd</code></div>
@@ -100,21 +101,27 @@
 <h2 id="googlepubsubr">
 <code>googlePubsubR</code><a class="anchor" aria-label="anchor" href="#googlepubsubr"></a>
 </h2>
-<p>This vignette will provide a walk through for the most common functions that will cover the majority of use cases.</p>
+<p>This vignette will provide a walk through for the most common
+functions that will cover the majority of use cases.</p>
 <div class="section level3">
 <h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
 </h3>
-<p>In order to authenticate the client, the following environment variables will need to be set:</p>
+<p>In order to authenticate the client, the following environment
+variables will need to be set:</p>
 <ul>
 <li>
-<code>GCP_AUTH_FILE</code>: path to the .json file containing GCP credentials for a service account enabled to interact with the Pub/Sub API. You can also directly pass the path as a function argument.</li>
+<code>GCP_AUTH_FILE</code>: path to the .json file containing GCP
+credentials for a service account enabled to interact with the Pub/Sub
+API. You can also directly pass the path as a function argument.</li>
 <li>
 <code>GCP_PROJECT</code>: your GCP project id.</li>
 </ul>
-<p>Upon setting the environment variables, it is just a matter of calling:</p>
+<p>Upon setting the environment variables, it is just a matter of
+calling:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>More authentication methods can be found in the <code><a href="../reference/pubsub_auth.html">?pubsub_auth</a></code> documentation.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>More authentication methods can be found in the
+<code><a href="../reference/pubsub_auth.html">?pubsub_auth</a></code> documentation.</p>
 </div>
 <div class="section level3">
 <h3 id="creating-and-getting-resources">Creating and getting resources<a class="anchor" aria-label="anchor" href="#creating-and-getting-resources"></a>
@@ -122,231 +129,257 @@
 <div class="section level4">
 <h4 id="topics">Topics<a class="anchor" aria-label="anchor" href="#topics"></a>
 </h4>
-<p>In their most basic form, topics can be created in the following way:</p>
+<p>In their most basic form, topics can be created in the following
+way:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create a topic that retains messages for a minimum of 4 hours.</span>
-<span class="co">#  We'll attach some cutom labels to make it easier to spot</span>
-<span class="va">topic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topics_create.html">topics_create</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"vignette-topic"</span>, message_retention_duration <span class="op">=</span> <span class="fl">14400</span><span class="op">)</span>
-
-<span class="co"># A topic object is returned</span>
-<span class="va">topic</span>
-
-<span class="co"># $labels</span>
-<span class="co"># $labels$type</span>
-<span class="co"># [1] "pkg_vignette"</span>
-<span class="co"># </span>
-<span class="co"># </span>
-<span class="co"># $name</span>
-<span class="co"># [1] "projects/&lt;my-gcp-project&gt;/topics/vignette-topic"</span>
-<span class="co"># </span>
-<span class="co"># $kmsKeyName</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $satisfiesPzs</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $messageStoragePolicy</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $schemaSettings</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $messageRetentionDuration</span>
-<span class="co"># [1] "14400s"</span>
-<span class="co"># </span>
-<span class="co"># attr(,"class")</span>
-<span class="co"># [1] "Topic" "list"</span></code></pre></div>
-<p>It is possible to interact with pre-existing topic objects. For instance, one could retrieve a <code>Topic</code> object from an existing topic:</p>
+<code class="sourceCode R"><span><span class="co"># Create a topic that retains messages for a minimum of 4 hours.</span></span>
+<span><span class="co">#  We'll attach some cutom labels to make it easier to spot</span></span>
+<span><span class="va">topic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topics_create.html">topics_create</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"vignette-topic"</span>, message_retention_duration <span class="op">=</span> <span class="fl">14400</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># A topic object is returned</span></span>
+<span><span class="va">topic</span></span>
+<span></span>
+<span><span class="co"># $labels</span></span>
+<span><span class="co"># $labels$type</span></span>
+<span><span class="co"># [1] "pkg_vignette"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $name</span></span>
+<span><span class="co"># [1] "projects/&lt;my-gcp-project&gt;/topics/vignette-topic"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $kmsKeyName</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $satisfiesPzs</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $messageStoragePolicy</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $schemaSettings</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $messageRetentionDuration</span></span>
+<span><span class="co"># [1] "14400s"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># attr(,"class")</span></span>
+<span><span class="co"># [1] "Topic" "list"</span></span></code></pre></div>
+<p>It is possible to interact with pre-existing topic objects. For
+instance, one could retrieve a <code>Topic</code> object from an
+existing topic:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/topics_exists.html">topics_exists</a></span><span class="op">(</span><span class="st">"vignette-topic"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">topic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topics_get.html">topics_get</a></span><span class="op">(</span><span class="st">"vignette-topic"</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
-<p>In order to consume messages from a topic, a subscription will be needed:</p>
+<code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/topics_exists.html">topics_exists</a></span><span class="op">(</span><span class="st">"vignette-topic"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">topic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topics_get.html">topics_get</a></span><span class="op">(</span><span class="st">"vignette-topic"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>In order to consume messages from a topic, a subscription will be
+needed:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># You can either pass a Topic object or a topic name</span>
-<span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subscriptions_create.html">subscriptions_create</a></span><span class="op">(</span>
-  name <span class="op">=</span> <span class="st">"vignette-sub"</span>,
-  topic <span class="op">=</span> <span class="va">topic</span>,
-  <span class="co"># Messages will expire after 3 days of inactivity (no messages acked)</span>
-  expiration_policy <span class="op">=</span> <span class="fu"><a href="../reference/ExpirationPolicy.html">ExpirationPolicy</a></span><span class="op">(</span><span class="fl">86400</span><span class="op">)</span>,
-  <span class="co"># We'll retain unacked messages for 12 hours</span>
-  msg_retention_duration <span class="op">=</span> <span class="fl">43200</span>,
-  <span class="co"># We'll retry message delivery with at least 1 second delay from the previous try</span>
-  retry_policy <span class="op">=</span> <span class="fu"><a href="../reference/RetryPolicy.html">RetryPolicy</a></span><span class="op">(</span>min_backoff <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> 
-<span class="op">)</span>
-
-<span class="va">sub</span>
-
-<span class="co"># $deadLetterPolicy</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $messageRetentionDuration</span>
-<span class="co"># [1] "82400s"</span>
-<span class="co"># </span>
-<span class="co"># $labels</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $retryPolicy</span>
-<span class="co"># $retryPolicy$minimumBackoff</span>
-<span class="co"># [1] "1s"</span>
-<span class="co"># </span>
-<span class="co"># $retryPolicy$maximumBackoff</span>
-<span class="co"># [1] "600s"</span>
-<span class="co"># </span>
-<span class="co"># </span>
-<span class="co"># $pushConfig</span>
-<span class="co"># named list()</span>
-<span class="co"># </span>
-<span class="co"># $ackDeadlineSeconds</span>
-<span class="co"># [1] 10</span>
-<span class="co"># </span>
-<span class="co"># $expirationPolicy</span>
-<span class="co"># $expirationPolicy$ttl</span>
-<span class="co"># [1] "86400s"</span>
-<span class="co"># </span>
-<span class="co"># </span>
-<span class="co"># $filter</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $detached</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $retainAckedMessages</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $topic</span>
-<span class="co"># [1] "projects/&lt;my-gcp-project&gt;/topics/vignette-topic"</span>
-<span class="co"># </span>
-<span class="co"># $name</span>
-<span class="co"># [1] "projects/&lt;my-gcp-project&gt;/subscriptions/vignette-sub"</span>
-<span class="co"># </span>
-<span class="co"># $enableMessageOrdering</span>
-<span class="co"># NULL</span>
-<span class="co"># </span>
-<span class="co"># $topicMessageRetentionDuration</span>
-<span class="co"># [1] "14400s"</span>
-<span class="co"># </span>
-<span class="co"># attr(,"class")</span>
-<span class="co"># [1] "Subscription" "list"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># You can either pass a Topic object or a topic name</span></span>
+<span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subscriptions_create.html">subscriptions_create</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"vignette-sub"</span>,</span>
+<span>  topic <span class="op">=</span> <span class="va">topic</span>,</span>
+<span>  <span class="co"># Messages will expire after 3 days of inactivity (no messages acked)</span></span>
+<span>  expiration_policy <span class="op">=</span> <span class="fu"><a href="../reference/ExpirationPolicy.html">ExpirationPolicy</a></span><span class="op">(</span><span class="fl">86400</span><span class="op">)</span>,</span>
+<span>  <span class="co"># We'll retain unacked messages for 12 hours</span></span>
+<span>  msg_retention_duration <span class="op">=</span> <span class="fl">43200</span>,</span>
+<span>  <span class="co"># We'll retry message delivery with at least 1 second delay from the previous try</span></span>
+<span>  retry_policy <span class="op">=</span> <span class="fu"><a href="../reference/RetryPolicy.html">RetryPolicy</a></span><span class="op">(</span>min_backoff <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sub</span></span>
+<span></span>
+<span><span class="co"># $deadLetterPolicy</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $messageRetentionDuration</span></span>
+<span><span class="co"># [1] "82400s"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $labels</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $retryPolicy</span></span>
+<span><span class="co"># $retryPolicy$minimumBackoff</span></span>
+<span><span class="co"># [1] "1s"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $retryPolicy$maximumBackoff</span></span>
+<span><span class="co"># [1] "600s"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $pushConfig</span></span>
+<span><span class="co"># named list()</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $ackDeadlineSeconds</span></span>
+<span><span class="co"># [1] 10</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $expirationPolicy</span></span>
+<span><span class="co"># $expirationPolicy$ttl</span></span>
+<span><span class="co"># [1] "86400s"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $filter</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $detached</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $retainAckedMessages</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $topic</span></span>
+<span><span class="co"># [1] "projects/&lt;my-gcp-project&gt;/topics/vignette-topic"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $name</span></span>
+<span><span class="co"># [1] "projects/&lt;my-gcp-project&gt;/subscriptions/vignette-sub"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $enableMessageOrdering</span></span>
+<span><span class="co"># NULL</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># $topicMessageRetentionDuration</span></span>
+<span><span class="co"># [1] "14400s"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># attr(,"class")</span></span>
+<span><span class="co"># [1] "Subscription" "list"</span></span></code></pre></div>
 <p>We can also inspect all subscriptions attached to a given topic.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/topics_list_subscriptions.html">topics_list_subscriptions</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"vignette-topic"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/topics_list_subscriptions.html">topics_list_subscriptions</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"vignette-topic"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="schemas">Schemas<a class="anchor" aria-label="anchor" href="#schemas"></a>
 </h4>
-<p>Schemas can be used to enforce a specific format on incoming messages, this will force all malformed messages to be discarded or sent to a dead letter queue. A schema object can be passed to a topic upon creation. Getting the schema definition in the right format (Pub/Sub expects it as a string) can be quite fiddly. In this example we’ll define an AVRO schema.</p>
+<p>Schemas can be used to enforce a specific format on incoming
+messages, this will force all malformed messages to be discarded or sent
+to a dead letter queue. A schema object can be passed to a topic upon
+creation. Getting the schema definition in the right format (Pub/Sub
+expects it as a string) can be quite fiddly. In this example we’ll
+define an AVRO schema.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">avro_schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/schemas_create.html">schemas_create</a></span><span class="op">(</span>
-  name <span class="op">=</span> <span class="st">"vignette-schema"</span>, 
-  type <span class="op">=</span> <span class="st">"AVRO"</span>,
-  <span class="co"># toJSON as the API expects a string containing the definition of the AVRO schema</span>
-  definition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    name <span class="op">=</span> <span class="st">"cutlery"</span>,
-    type <span class="op">=</span> <span class="st">"record"</span>,
-    fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"name"</span> <span class="op">=</span> <span class="st">"name"</span>, <span class="st">"type"</span> <span class="op">=</span> <span class="st">"string"</span><span class="op">)</span>,
-      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"name"</span> <span class="op">=</span> <span class="st">"price"</span>, <span class="st">"type"</span> <span class="op">=</span> <span class="st">"int"</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span>, auto_unbox <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># Test a message against the schema</span>
-<span class="va">msg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-    name <span class="op">=</span> <span class="st">"John"</span>,
-    price <span class="op">=</span> <span class="fl">123</span>
-<span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
-  <span class="fu">base64enc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/PubsubMessage.html">PubsubMessage</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/schemas_validate_message.html">schemas_validate_message</a></span><span class="op">(</span>schema <span class="op">=</span> <span class="st">"vignette-schema"</span>, message <span class="op">=</span> <span class="va">msg</span>, encoding <span class="op">=</span> <span class="st">"JSON"</span><span class="op">)</span>
-<span class="co"># [1] TRUE</span>
-
-<span class="co"># Create a new topic and attach the schema</span>
-<span class="va">topic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topics_create.html">topics_create</a></span><span class="op">(</span>
-  name <span class="op">=</span> <span class="st">"vignette-topic"</span>, 
-  message_retention_duration <span class="op">=</span> <span class="fl">14400</span>, 
-  schema_settings <span class="op">=</span> <span class="fu"><a href="../reference/SchemaSettings.html">SchemaSettings</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"JSON"</span>, <span class="st">"vignette-schema"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">avro_schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/schemas_create.html">schemas_create</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"vignette-schema"</span>, </span>
+<span>  type <span class="op">=</span> <span class="st">"AVRO"</span>,</span>
+<span>  <span class="co"># toJSON as the API expects a string containing the definition of the AVRO schema</span></span>
+<span>  definition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">"cutlery"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"record"</span>,</span>
+<span>    fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"name"</span> <span class="op">=</span> <span class="st">"name"</span>, <span class="st">"type"</span> <span class="op">=</span> <span class="st">"string"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"name"</span> <span class="op">=</span> <span class="st">"price"</span>, <span class="st">"type"</span> <span class="op">=</span> <span class="st">"int"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span>, auto_unbox <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Test a message against the schema</span></span>
+<span><span class="va">msg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="st">"John"</span>,</span>
+<span>    price <span class="op">=</span> <span class="fl">123</span></span>
+<span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>auto_unbox <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">charToRaw</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">base64enc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64encode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/PubsubMessage.html">PubsubMessage</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/schemas_validate_message.html">schemas_validate_message</a></span><span class="op">(</span>schema <span class="op">=</span> <span class="st">"vignette-schema"</span>, message <span class="op">=</span> <span class="va">msg</span>, encoding <span class="op">=</span> <span class="st">"JSON"</span><span class="op">)</span></span>
+<span><span class="co"># [1] TRUE</span></span>
+<span></span>
+<span><span class="co"># Create a new topic and attach the schema</span></span>
+<span><span class="va">topic</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/topics_create.html">topics_create</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"vignette-topic"</span>, </span>
+<span>  message_retention_duration <span class="op">=</span> <span class="fl">14400</span>, </span>
+<span>  schema_settings <span class="op">=</span> <span class="fu"><a href="../reference/SchemaSettings.html">SchemaSettings</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"JSON"</span>, <span class="st">"vignette-schema"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="snapshots-and-seek">Snapshots and <code>seek</code><a class="anchor" aria-label="anchor" href="#snapshots-and-seek"></a>
 </h4>
-<p>There are two ways to <code>seek</code> a subscription back in time:</p>
+<p>There are two ways to <code>seek</code> a subscription back in
+time:</p>
 <ul>
 <li>Provide a snapshot of the subscription</li>
 <li>Via a timestamp in RFC3339 UTC “Zulu” format</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create a snapshot of a subscription</span>
-<span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/snapshots_create.html">snapshots_create</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"vignette-snap"</span>, subscription <span class="op">=</span> <span class="st">"vignette-sub"</span><span class="op">)</span>
-
-<span class="co"># 'Rewind' the subscription to the snapshot we've just created</span>
-<span class="fu"><a href="../reference/subscriptions_seek.html">subscriptions_seek</a></span><span class="op">(</span>subscription <span class="op">=</span> <span class="st">"vignette-sub"</span>, snapshot <span class="op">=</span> <span class="va">snapshot</span><span class="op">)</span>
-<span class="co"># [1] TRUE</span>
-
-<span class="co"># Seek the subscription to a specific timestamp</span>
-<span class="fu"><a href="../reference/subscriptions_seek.html">subscriptions_seek</a></span><span class="op">(</span><span class="st">"vignette-sub"</span>, time <span class="op">=</span> <span class="st">"2021-11-08T23:55:00Z"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Create a snapshot of a subscription</span></span>
+<span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/snapshots_create.html">snapshots_create</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"vignette-snap"</span>, subscription <span class="op">=</span> <span class="st">"vignette-sub"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 'Rewind' the subscription to the snapshot we've just created</span></span>
+<span><span class="fu"><a href="../reference/subscriptions_seek.html">subscriptions_seek</a></span><span class="op">(</span>subscription <span class="op">=</span> <span class="st">"vignette-sub"</span>, snapshot <span class="op">=</span> <span class="va">snapshot</span><span class="op">)</span></span>
+<span><span class="co"># [1] TRUE</span></span>
+<span></span>
+<span><span class="co"># Seek the subscription to a specific timestamp</span></span>
+<span><span class="fu"><a href="../reference/subscriptions_seek.html">subscriptions_seek</a></span><span class="op">(</span><span class="st">"vignette-sub"</span>, time <span class="op">=</span> <span class="st">"2021-11-08T23:55:00Z"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
 <h3 id="messages">Messages<a class="anchor" aria-label="anchor" href="#messages"></a>
 </h3>
-<p>Pubsub messages are expected encoded as base64 strings, depending on the object you’re dealing with, the process to convert them in the right format might vary. Below we’ll convert a dataframe in a format that will not upset Pubsub that much:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>msg &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="st">"fork"</span>, <span class="dt">price =</span> <span class="dv">999</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">as.list</span>() <span class="op">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">toJSON</span>(<span class="dt">auto_unbox =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">charToRaw</span>() <span class="op">%&gt;%</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span>base64enc<span class="op">::</span><span class="kw">base64encode</span>() <span class="op">%&gt;%</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">PubsubMessage</span>()</span>
-<span id="cb8-7"><a href="#cb8-7"></a>  </span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="kw">topics_publish</span>(<span class="dt">messages =</span> msg, <span class="dt">topic =</span> <span class="st">'vignette-topic'</span>)<span class="er">)</span></span></code></pre></div>
-<p>Now that we have successfully published a message (conforming to the schema specified above) we can pull messages from the subscription. Note that pulling will not take messages out of the queue (you can do it as many times you want). Messages will need to be acknowledged with <code>subscriptions_ack</code> after they have been successfully consumed in order to be successfully taken out of the queue.</p>
-<p>Pulling messages will return a list containing a <code>receivedMessages</code> dataframe containing ackIds and a dataframe storing and message data and information.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>msgs &lt;-<span class="st"> </span><span class="kw">subscriptions_pull</span>(<span class="st">"vignette-sub"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>tibble<span class="op">::</span><span class="kw">glimpse</span>(msgs)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>List of <span class="dv">1</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a> <span class="op">$</span><span class="st"> </span>receivedMessages<span class="op">:</span><span class="st">'data.frame'</span><span class="op">:</span><span class="st">   </span><span class="dv">1</span> obs. of  <span class="dv">2</span> variables<span class="op">:</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span>..<span class="op">$</span><span class="st"> </span>ackId  <span class="op">:</span><span class="st"> </span>chr <span class="st">"PkVTRFAGFixdRkhRNxkIaFEOT14jPzUgKEUSC1MTUVx1A1MQaVwzdQdRDRlzejV1aQwRVAsUUHRfURsfWVxEjczJsS9QXWJxa1oQAwJHUH1YUxw"</span><span class="op">|</span><span class="st"> </span>__truncated__</span>
-<span id="cb9-7"><a href="#cb9-7"></a>  ..<span class="op">$</span><span class="st"> </span>message<span class="op">:</span><span class="st">'data.frame'</span><span class="op">:</span><span class="st"> </span><span class="dv">1</span> obs. of  <span class="dv">4</span> variables<span class="op">:</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span>.. ..<span class="op">$</span><span class="st"> </span>data       <span class="op">:</span><span class="st"> </span>chr <span class="st">"eyJuYW1lIjoiZm9yayIsInByaWNlIjo5OTl9"</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a>  .. ..<span class="op">$</span><span class="st"> </span>attributes <span class="op">:</span><span class="st">'data.frame'</span><span class="op">:</span><span class="st">  </span><span class="dv">1</span> obs. of  <span class="dv">2</span> variables<span class="op">:</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="st">  </span>.. ..<span class="op">$</span><span class="st"> </span>messageId  <span class="op">:</span><span class="st"> </span>chr <span class="st">"3410320233787713"</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a>  .. ..<span class="op">$</span><span class="st"> </span>publishTime<span class="op">:</span><span class="st"> </span>chr <span class="st">"2021-11-09T09:06:31.171Z"</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a></span>
-<span id="cb9-13"><a href="#cb9-13"></a>tibble<span class="op">::</span><span class="kw">glimpse</span>(msgs<span class="op">$</span>receivedMessages<span class="op">$</span>message)</span>
-<span id="cb9-14"><a href="#cb9-14"></a>Rows<span class="op">:</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a>Columns<span class="op">:</span><span class="st"> </span><span class="dv">4</span></span>
-<span id="cb9-16"><a href="#cb9-16"></a><span class="op">$</span><span class="st"> </span>data        <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> "eyJuYW1lIjoiZm9yayIsInByaWNlIjo5OTl9"</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="op">$</span><span class="st"> </span>attributes  <span class="op">&lt;</span>df[,<span class="dv">2</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>data.frame[<span class="dv">1</span> x <span class="dv">2</span>]<span class="op">&gt;</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="er">$</span><span class="st"> </span>messageId   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> "3410320233787713"</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="op">$</span><span class="st"> </span>publishTime <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> "2021-11-09T09:06:31.171Z</span></span></code></pre></div>
+<p>Pubsub messages are expected encoded as base64 strings, depending on
+the object you’re dealing with, the process to convert them in the right
+format might vary. Below we’ll convert a dataframe in a format that will
+not upset Pubsub that much:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>msg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="st">"fork"</span>, <span class="at">price =</span> <span class="dv">999</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">toJSON</span>(<span class="at">auto_unbox =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">charToRaw</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  base64enc<span class="sc">::</span><span class="fu">base64encode</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">PubsubMessage</span>()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">topics_publish</span>(<span class="at">messages =</span> msg, <span class="at">topic =</span> <span class="st">'vignette-topic'</span>)<span class="er">)</span></span></code></pre></div>
+<p>Now that we have successfully published a message (conforming to the
+schema specified above) we can pull messages from the subscription. Note
+that pulling will not take messages out of the queue (you can do it as
+many times you want). Messages will need to be acknowledged with
+<code>subscriptions_ack</code> after they have been successfully
+consumed in order to be successfully taken out of the queue.</p>
+<p>Pulling messages will return a list containing a
+<code>receivedMessages</code> dataframe containing ackIds and a
+dataframe storing and message data and information.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>msgs <span class="ot">&lt;-</span> <span class="fu">subscriptions_pull</span>(<span class="st">"vignette-sub"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(msgs)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>List of <span class="dv">1</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> receivedMessages<span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>   <span class="dv">1</span> obs. of  <span class="dv">2</span> variables<span class="sc">:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> ackId  <span class="sc">:</span> chr <span class="st">"PkVTRFAGFixdRkhRNxkIaFEOT14jPzUgKEUSC1MTUVx1A1MQaVwzdQdRDRlzejV1aQwRVAsUUHRfURsfWVxEjczJsS9QXWJxa1oQAwJHUH1YUxw"</span><span class="sc">|</span> __truncated__</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> message<span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span> <span class="dv">1</span> obs. of  <span class="dv">4</span> variables<span class="sc">:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">$</span> data       <span class="sc">:</span> chr <span class="st">"eyJuYW1lIjoiZm9yayIsInByaWNlIjo5OTl9"</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">$</span> attributes <span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>  <span class="dv">1</span> obs. of  <span class="dv">2</span> variables<span class="sc">:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">$</span> messageId  <span class="sc">:</span> chr <span class="st">"3410320233787713"</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">$</span> publishTime<span class="sc">:</span> chr <span class="st">"2021-11-09T09:06:31.171Z"</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(msgs<span class="sc">$</span>receivedMessages<span class="sc">$</span>message)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>Rows<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>Columns<span class="sc">:</span> <span class="dv">4</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> data        <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"eyJuYW1lIjoiZm9yayIsInByaWNlIjo5OTl9"</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> attributes  <span class="sc">&lt;</span>df[,<span class="dv">2</span>]<span class="sc">&gt;</span> <span class="er">&lt;</span>data.frame[<span class="dv">1</span> x <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="er">$</span> messageId   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"3410320233787713"</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span> publishTime <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"2021-11-09T09:06:31.171Z</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="decoding-incoming-messages">Decoding incoming messages<a class="anchor" aria-label="anchor" href="#decoding-incoming-messages"></a>
 </h4>
-<p>In order to re-convert back message data into an usable format we’ll basically need to reverse the process that was used to encode them in the first place. Given that <code>subscriptions_pull</code> will return <strong>all</strong> messages in the queue, a good strategy might be to decode them all at once using <code>lapply</code></p>
+<p>In order to re-convert back message data into an usable format we’ll
+basically need to reverse the process that was used to encode them in
+the first place. Given that <code>subscriptions_pull</code> will return
+<strong>all</strong> messages in the queue, a good strategy might be to
+decode them all at once using <code>lapply</code></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">decoded_msg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">msgs</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">msg</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">msg</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-        <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-        <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">rawToChar</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-        <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>flatten <span class="op">=</span> <span class="cn">TRUE</span>, simplifyDataFrame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-        <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span>
-
-<span class="va">decoded_msg</span>
-<span class="co">#   name price</span>
-<span class="co"># 1 fork   999</span>
-
-<span class="co"># ... Do something with the dataframe</span>
-
-<span class="co"># Acknowledge we have succesfully used it</span>
-<span class="fu"><a href="../reference/subscriptions_ack.html">subscriptions_ack</a></span><span class="op">(</span>ack_ids <span class="op">=</span> <span class="va">msgs</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">ackId</span>, subscription <span class="op">=</span> <span class="st">"vignette-sub"</span><span class="op">)</span>
-<span class="co"># [1] TRUE</span></code></pre></div>
-<p>This approach is quite cumbersome and helpers to facilitate this process might be included in the library later on when a general enough approach will be found.</p>
+<code class="sourceCode R"><span><span class="va">decoded_msg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">msgs</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">message</span><span class="op">$</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">msg</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">msg</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/base64enc/man/base64.html" class="external-link">base64decode</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/rawConversion.html" class="external-link">rawToChar</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>flatten <span class="op">=</span> <span class="cn">TRUE</span>, simplifyDataFrame <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">.</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">decoded_msg</span></span>
+<span><span class="co">#   name price</span></span>
+<span><span class="co"># 1 fork   999</span></span>
+<span></span>
+<span><span class="co"># ... Do something with the dataframe</span></span>
+<span></span>
+<span><span class="co"># Acknowledge we have succesfully used it</span></span>
+<span><span class="fu"><a href="../reference/subscriptions_ack.html">subscriptions_ack</a></span><span class="op">(</span>ack_ids <span class="op">=</span> <span class="va">msgs</span><span class="op">$</span><span class="va">receivedMessages</span><span class="op">$</span><span class="va">ackId</span>, subscription <span class="op">=</span> <span class="st">"vignette-sub"</span><span class="op">)</span></span>
+<span><span class="co"># [1] TRUE</span></span></code></pre></div>
+<p>This approach is quite cumbersome and helpers to facilitate this
+process might be included in the library later on when a general enough
+approach will be found.</p>
 </div>
 </div>
 </div>
@@ -369,7 +402,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer>

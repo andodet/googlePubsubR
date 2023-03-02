@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -69,40 +69,57 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">topics_patch</span><span class="op">(</span>
-  <span class="va">topic</span>,
-  labels <span class="op">=</span> <span class="cn">NULL</span>,
-  message_storage_policy <span class="op">=</span> <span class="cn">NULL</span>,
-  kms_key_name <span class="op">=</span> <span class="cn">NULL</span>,
-  schema_settings <span class="op">=</span> <span class="cn">NULL</span>,
-  satisfies_pzs <span class="op">=</span> <span class="cn">NULL</span>,
-  message_retention_duration <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">topics_patch</span><span class="op">(</span></span>
+<span>  <span class="va">topic</span>,</span>
+<span>  labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  message_storage_policy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  kms_key_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  schema_settings <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  satisfies_pzs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  message_retention_duration <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>topic</dt>
 <dd><p><code>character</code>, <code>Topic</code> Required, topic name or instance of a <code>Topic</code> object</p></dd>
+
+
 <dt>labels</dt>
 <dd><p><code>list</code> Key-value pairs for topic labels</p></dd>
+
+
 <dt>message_storage_policy</dt>
 <dd><p><code>MessageStoragePolicy</code> Policy constraining the set of Google Cloud
 Platform regions where messages published to the topic may be stored.</p></dd>
+
+
 <dt>kms_key_name</dt>
 <dd><p><code>character</code> The resource name of the Cloud KMS CryptoKey to be used
 to protect access to messages published on this topic.</p></dd>
+
+
 <dt>schema_settings</dt>
 <dd><p><code>SchemaSettings</code> An instance of a <code>SchemaSettings</code> object</p></dd>
+
+
 <dt>satisfies_pzs</dt>
 <dd><p><code>logical</code> Reserved for future use.</p></dd>
+
+
 <dt>message_retention_duration</dt>
 <dd><p><code>character</code> Indicates the minimum duration to retain
 a message after it is published to the topic.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An instance of the patched <code>Topic</code></p>
+    
+
+<p>An instance of the patched <code>Topic</code></p>
+
+
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -128,7 +145,7 @@ a message after it is published to the topic.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>

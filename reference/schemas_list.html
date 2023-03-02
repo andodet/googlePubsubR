@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -69,30 +69,39 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">schemas_list</span><span class="op">(</span>
-  project <span class="op">=</span> <span class="fu"><a href="ps_project_get.html">ps_project_get</a></span><span class="op">(</span><span class="op">)</span>,
-  pageSize <span class="op">=</span> <span class="cn">NULL</span>,
-  view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SCHEMA_VIEW_UNSPECIFIED"</span>, <span class="st">"BASIC"</span>, <span class="st">"FULL"</span><span class="op">)</span>,
-  pageToken <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">schemas_list</span><span class="op">(</span></span>
+<span>  project <span class="op">=</span> <span class="fu"><a href="ps_project_get.html">ps_project_get</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  pageSize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  view <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SCHEMA_VIEW_UNSPECIFIED"</span>, <span class="st">"BASIC"</span>, <span class="st">"FULL"</span><span class="op">)</span>,</span>
+<span>  pageToken <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>project</dt>
 <dd><p><code>character</code> GCP project id</p></dd>
+
+
 <dt>pageSize</dt>
 <dd><p><code>numeric</code> Maximum number of schemas to return</p></dd>
+
+
 <dt>view</dt>
 <dd><p><code>list</code> The set of Schema fields to return in the response</p></dd>
+
+
 <dt>pageToken</dt>
 <dd><p><code>character</code> The value returned by the last <code>ListSchemasResponse</code>; indicates that
 this is a continuation of a prior <code>ListSchemas</code> call, and that the system should return
 the next page of data</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>data.frame</code> containing all schema objects and properties</p>
+    
+
+<p>A <code>data.frame</code> containing all schema objects and properties</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -117,7 +126,7 @@ the next page of data</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>

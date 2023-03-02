@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -69,34 +69,45 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">PubsubMessage</span><span class="op">(</span>
-  data <span class="op">=</span> <span class="cn">NULL</span>,
-  message_id <span class="op">=</span> <span class="cn">NULL</span>,
-  ordering_key <span class="op">=</span> <span class="cn">NULL</span>,
-  attributes <span class="op">=</span> <span class="cn">NULL</span>,
-  publish_time <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PubsubMessage</span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  message_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ordering_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  attributes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  publish_time <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p><code>character</code> The message data field as a base64 encoded string</p></dd>
+
+
 <dt>message_id</dt>
 <dd><p><code>character</code> ID of this message, assigned by the server when the message
 is published</p></dd>
+
+
 <dt>ordering_key</dt>
 <dd><p><code>character</code> If non-empty, identifies related messages for which publish
 order should be respected</p></dd>
+
+
 <dt>attributes</dt>
 <dd><p><code>list</code> Key-value pairs attributes for this message</p></dd>
+
+
 <dt>publish_time</dt>
 <dd><p><code>character</code> The time at which the message was published, populated by the server
 when it receives the <code>Publish</code> call</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>PubsubMessage</code> object</p>
+    
+
+<p><code>PubsubMessage</code> object</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -126,7 +137,7 @@ when it receives the <code>Publish</code> call</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>

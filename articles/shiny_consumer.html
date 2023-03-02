@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -52,7 +52,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -81,13 +81,15 @@
 
       
 
-      </header><script src="shiny_consumer_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Pub/Sub driven <code>{shiny}</code> dashboard</h1>
-                        <h4 data-toc-skip class="author">Andrea Dodet</h4>
+      <h1 data-toc-skip>Pub/Sub driven <code>{shiny}</code>
+dashboard</h1>
+                        <h4 data-toc-skip class="author">Andrea
+Dodet</h4>
             
-            <h4 data-toc-skip class="date">2022-01-16</h4>
+            <h4 data-toc-skip class="date">2023-03-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andodet/googlePubsubR/blob/HEAD/vignettes/shiny_consumer.Rmd" class="external-link"><code>vignettes/shiny_consumer.Rmd</code></a></small>
       <div class="hidden name"><code>shiny_consumer.Rmd</code></div>
@@ -99,15 +101,21 @@
 <div class="section level2">
 <h2 id="resource-setup">Resource setup<a class="anchor" aria-label="anchor" href="#resource-setup"></a>
 </h2>
-<p>In order to run the shiny app in <code>inst/shiny/consumer_example/app.R</code> you’ll need to setup your <code>GCP_PROJECT</code> as an environment variable before running this example.<br>
+<p>In order to run the shiny app in
+<code>inst/shiny/consumer_example/app.R</code> you’ll need to setup your
+<code>GCP_PROJECT</code> as an environment variable before running this
+example.<br>
 Run the app from the root of the package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="st">"inst/shiny/consumer_example/"</span><span class="op">)</span></code></pre></div>
-<p>Upon startup, the <code>inst/shiny/consumer_example/app.Rinit.R</code> file will take care of creating the following resources:</p>
+<code class="sourceCode R"><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="st">"inst/shiny/consumer_example/"</span><span class="op">)</span></span></code></pre></div>
+<p>Upon startup, the
+<code>inst/shiny/consumer_example/app.Rinit.R</code> file will take care
+of creating the following resources:</p>
 <ul>
 <li>A pubsub topic named <code>shiny-topic</code>
 </li>
-<li>An associated pubsub subscription from where we’ll be polling and consuming messages, named <code>shiny-sub</code>
+<li>An associated pubsub subscription from where we’ll be polling and
+consuming messages, named <code>shiny-sub</code>
 </li>
 </ul>
 </div>
@@ -116,49 +124,62 @@ Run the app from the root of the package:</p>
 </h2>
 <p>This app is composed by two main components:</p>
 <p><strong>A producer</strong>:</p>
-<p>In this case, our producer will be an <code>actionButton</code> (on top of this readme) that will trigger a <code>PubsubMessage</code> to be generated and sent to the subscription, the message will contain the following fields:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="dt">"col_a"</span><span class="fu">:</span> <span class="st">"int"</span><span class="fu">,</span>    <span class="er">#</span> <span class="er">A</span> <span class="er">random</span> <span class="er">integer</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">"col_b"</span><span class="fu">:</span> <span class="st">"int"</span><span class="fu">,</span>    <span class="er">#</span> <span class="er">A</span> <span class="er">random</span> <span class="er">integer</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">"fired_at"</span><span class="fu">:</span> <span class="st">"str"</span>  <span class="er">#</span> <span class="er">Timestamp</span> <span class="er">at</span> <span class="er">which</span> <span class="er">the</span> <span class="er">message</span> <span class="er">was</span> <span class="er">created</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">}</span></span></code></pre></div>
+<p>In this case, our producer will be an <code>actionButton</code> (on
+top of this readme) that will trigger a <code>PubsubMessage</code> to be
+generated and sent to the subscription, the message will contain the
+following fields:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"col_a"</span><span class="fu">:</span> <span class="st">"int"</span><span class="fu">,</span>    <span class="er">#</span> <span class="er">A</span> <span class="er">random</span> <span class="er">integer</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"col_b"</span><span class="fu">:</span> <span class="st">"int"</span><span class="fu">,</span>    <span class="er">#</span> <span class="er">A</span> <span class="er">random</span> <span class="er">integer</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"fired_at"</span><span class="fu">:</span> <span class="st">"str"</span>  <span class="er">#</span> <span class="er">Timestamp</span> <span class="er">at</span> <span class="er">which</span> <span class="er">the</span> <span class="er">message</span> <span class="er">was</span> <span class="er">created</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p><strong>A consumer:</strong></p>
-<p>This is the bulk of where the interesting things happen. The shiny app will check whether new messages have been published to the subscription every 2 seconds. In order not to block the user from sending new messages (or keep interacting with sliders, inputs, etc. in a more complex case), this will be done in a parallel R session using the <a href="https://github.com/rstudio/promises" class="external-link"><code>{promises}</code></a> and <a href="https://github.com/HenrikBengtsson/future" class="external-link"><code>{future}</code></a> packages.</p>
+<p>This is the bulk of where the interesting things happen. The shiny
+app will check whether new messages have been published to the
+subscription every 2 seconds. In order not to block the user from
+sending new messages (or keep interacting with sliders, inputs, etc. in
+a more complex case), this will be done in a parallel R session using
+the <a href="https://github.com/rstudio/promises" class="external-link"><code>{promises}</code></a>
+and <a href="https://github.com/HenrikBengtsson/future" class="external-link"><code>{future}</code></a>
+packages.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Set up a message consumer in background sessions (poll messages every 2 seconds)</span>
-<span class="fu">observe</span><span class="op">(</span><span class="op">{</span>
-  <span class="fu">invalidateLater</span><span class="op">(</span><span class="fl">20000</span>, <span class="va">session</span><span class="op">)</span>
-
-  <span class="fu">future_promise</span><span class="op">(</span><span class="op">{</span>
-    <span class="fu"><a href="../reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Authenticated session is not passed to futures' env</span>
-    <span class="fu">get_data</span><span class="op">(</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span>
-    <span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">{</span>
-      <span class="co"># Notify the user if new messages have been received</span>
-      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-        <span class="fu">showNotification</span><span class="op">(</span>
-          <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Message received at"</span>, <span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strftime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>,
-          duration <span class="op">=</span> <span class="fl">3</span>,
-          type <span class="op">=</span> <span class="st">"warning"</span>
-        <span class="op">)</span>
-      <span class="op">}</span>
-
-      <span class="co"># Append to the reactive dataframe</span>
-      <span class="va">out_df</span><span class="op">$</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">out_df</span><span class="op">$</span><span class="va">df</span>, <span class="va">res</span><span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>
-
-  <span class="co"># Hide the future, this is a fire and forget hack and allows avoid blocking</span>
-  <span class="co"># from https://stackoverflow.com/a/57922419/9046275</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Set up a message consumer in background sessions (poll messages every 2 seconds)</span></span>
+<span><span class="fu">observe</span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu">invalidateLater</span><span class="op">(</span><span class="fl">20000</span>, <span class="va">session</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">future_promise</span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/pubsub_auth.html">pubsub_auth</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Authenticated session is not passed to futures' env</span></span>
+<span>    <span class="fu">get_data</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> <span class="op"><a href="../reference/grapes-greater-than-grapes.html">%&gt;%</a></span></span>
+<span>    <span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="co"># Notify the user if new messages have been received</span></span>
+<span>      <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="fu">showNotification</span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Message received at"</span>, <span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strftime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>,</span>
+<span>          duration <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>          type <span class="op">=</span> <span class="st">"warning"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">}</span></span>
+<span></span>
+<span>      <span class="co"># Append to the reactive dataframe</span></span>
+<span>      <span class="va">out_df</span><span class="op">$</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">out_df</span><span class="op">$</span><span class="va">df</span>, <span class="va">res</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># Hide the future, this is a fire and forget hack and allows avoid blocking</span></span>
+<span>  <span class="co"># from https://stackoverflow.com/a/57922419/9046275</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>get_data()</code> function takes care of:</p>
 <ol style="list-style-type: decimal">
 <li>Pulling the messages from the Pub/Sub topic</li>
-<li>Convert the base64 encoded string and binding the results to a data frame</li>
-<li>Acknowledge the subscription the messages where consumed (effectively removing them from the subscription).</li>
+<li>Convert the base64 encoded string and binding the results to a data
+frame</li>
+<li>Acknowledge the subscription the messages where consumed
+(effectively removing them from the subscription).</li>
 </ol>
 <hr>
-<p>The components described above interact according the behaviour described by the diagram below:</p>
+<p>The components described above interact according the behaviour
+described by the diagram below:</p>
 <pre><code>+---------------+   +---------------+     +------------------+        +--------------------+                                                                                                                                                   
 | actionButton  |--&gt;| Pub/Sub Topic |     |Observe({promise})|------&gt; |Output dataframe    |                                                                                                                                                   
 | (producer)    |   |               |     |(consumer)        |        |(reactiveValues(df) |                                                                                                                                                   
@@ -172,7 +193,10 @@ Run the app from the root of the package:</p>
 <h3 id="todo">Todo<a class="anchor" aria-label="anchor" href="#todo"></a>
 </h3>
 <ul>
-<li>It would be nice to have the time to profile the whole thing (an idea could be to observe memory usage inside a docker container as I am not sure <code>profviz</code> is capable to handle multi-session shiny apps).</li>
+<li>It would be nice to have the time to profile the whole thing (an
+idea could be to observe memory usage inside a docker container as I am
+not sure <code>profviz</code> is capable to handle multi-session shiny
+apps).</li>
 </ul>
 </div>
 </div>
@@ -195,7 +219,7 @@ Run the app from the root of the package:</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer>

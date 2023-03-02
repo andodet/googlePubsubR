@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -69,29 +69,38 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">schemas_validate_message</span><span class="op">(</span>
-  <span class="va">schema</span>,
-  <span class="va">message</span>,
-  encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENCODING_UNSPECIFIED"</span>, <span class="st">"JSON"</span>, <span class="st">"BINARY"</span><span class="op">)</span>,
-  project <span class="op">=</span> <span class="fu"><a href="ps_project_get.html">ps_project_get</a></span><span class="op">(</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">schemas_validate_message</span><span class="op">(</span></span>
+<span>  <span class="va">schema</span>,</span>
+<span>  <span class="va">message</span>,</span>
+<span>  encoding <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENCODING_UNSPECIFIED"</span>, <span class="st">"JSON"</span>, <span class="st">"BINARY"</span><span class="op">)</span>,</span>
+<span>  project <span class="op">=</span> <span class="fu"><a href="ps_project_get.html">ps_project_get</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>schema</dt>
 <dd><p><code>character</code>, <code>Schema</code> Required, schema name or instance of a Schema object</p></dd>
+
+
 <dt>message</dt>
 <dd><p><code>PubsubMessage</code> Required, an instance of a <code>PubsubMessage</code>, can be created
 using <code><a href="PubsubMessage.html">PubsubMessage</a></code></p></dd>
+
+
 <dt>encoding</dt>
 <dd><p><code>character</code> The encoding of the message</p></dd>
+
+
 <dt>project</dt>
 <dd><p><code>character</code> A GCP project id</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>logical</code> TRUE if successfully validated</p>
+    
+
+<p><code>logical</code> TRUE if successfully validated</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -116,7 +125,7 @@ using <code><a href="PubsubMessage.html">PubsubMessage</a></code></p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>

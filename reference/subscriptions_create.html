@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googlePubsubR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -35,7 +35,7 @@
   <a href="../articles/getting_started.html">Quickstart</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -69,62 +69,89 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">subscriptions_create</span><span class="op">(</span>
-  <span class="va">name</span>,
-  <span class="va">topic</span>,
-  dead_letter_policy <span class="op">=</span> <span class="cn">NULL</span>,
-  msg_retention_duration <span class="op">=</span> <span class="cn">NULL</span>,
-  labels <span class="op">=</span> <span class="cn">NULL</span>,
-  retry_policy <span class="op">=</span> <span class="cn">NULL</span>,
-  push_config <span class="op">=</span> <span class="cn">NULL</span>,
-  ack_deadline <span class="op">=</span> <span class="cn">NULL</span>,
-  expiration_policy <span class="op">=</span> <span class="cn">NULL</span>,
-  filter <span class="op">=</span> <span class="cn">NULL</span>,
-  detached <span class="op">=</span> <span class="cn">NULL</span>,
-  retain_acked_messages <span class="op">=</span> <span class="cn">NULL</span>,
-  enable_msg_ordering <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">subscriptions_create</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  <span class="va">topic</span>,</span>
+<span>  dead_letter_policy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  msg_retention_duration <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  retry_policy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  push_config <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ack_deadline <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expiration_policy <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  detached <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  retain_acked_messages <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  enable_msg_ordering <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
 <dd><p><code>character</code> Required, name of the subscription to be created</p></dd>
+
+
 <dt>topic</dt>
 <dd><p><code>Topic</code>, <code>character</code> Required, an instance of a <code>Topic</code> object or a topic name</p></dd>
+
+
 <dt>dead_letter_policy</dt>
 <dd><p><code>DeadLetterPolicy</code> A policy object that specifies the conditions
 for dead lettering messages in this subscription</p></dd>
+
+
 <dt>msg_retention_duration</dt>
 <dd><p><code>string</code> How long to retain unacknowledged messages
 in the subscription's backlog in seconds</p></dd>
+
+
 <dt>labels</dt>
 <dd><p><code>list</code> Key-value pairs for snapshot labels</p></dd>
+
+
 <dt>retry_policy</dt>
 <dd><p><code>RetryPolicy</code> A <code>RetryPolicy</code> object that specifies how Pub/Sub retries
 message delivery for this subscription</p></dd>
+
+
 <dt>push_config</dt>
 <dd><p><code>PushConfig</code> A <code>PushConfig</code> object</p></dd>
+
+
 <dt>ack_deadline</dt>
 <dd><p><code>numeric</code> The approximate amount of time (on a best-effort basis) Pub/Sub
 waits for the subscriber to acknowledge receipt before resending the message.</p></dd>
+
+
 <dt>expiration_policy</dt>
 <dd><p><code>ExpirationPolicy</code> A policy object that specifies the conditions for
 this subscription's expiration</p></dd>
+
+
 <dt>filter</dt>
 <dd><p><code>character</code> An expression written in the Pub/Sub filter language</p></dd>
+
+
 <dt>detached</dt>
 <dd><p><code>logical</code> Indicates whether the subscription is detached from its topic</p></dd>
+
+
 <dt>retain_acked_messages</dt>
 <dd><p><code>logical</code> Indicates whether to retain acknowledged messages</p></dd>
+
+
 <dt>enable_msg_ordering</dt>
 <dd><p><code>logical</code> If true, messages published with the same orderingKey
 in PubsubMessage will be delivered to the subscribers in the order in which they are received
 by the Pub/Sub system</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>Subscription</code> object</p>
+    
+
+<p>A <code>Subscription</code> object</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -154,7 +181,7 @@ by the Pub/Sub system</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer></div>
