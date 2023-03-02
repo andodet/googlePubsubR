@@ -7,3 +7,4 @@
 ^.gcp_creds.json
 ^cran-comments.md
 ^CRAN-RELEASE$
+.vscode/
