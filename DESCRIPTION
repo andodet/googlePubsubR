@@ -1,6 +1,6 @@
 Package: googlePubsubR
 Title: R Interface for Google 'Cloud Pub/Sub' REST API
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: 
     person(given = "Andrea",
            family = "Dodet",
@@ -26,7 +26,7 @@ Suggests:
   promises
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/testthat/parallel: false
