@@ -1,3 +1,7 @@
+# googlePubsubR 0.0.4
+
+* Use `packageStartupMessage` as per CRAN comment
+
 # googlePubsubR 0.0.3
 
 * Add helper methods (`ps_project_set/get`) to switch between GCP projects (thanks MarkEdmonson1234,
