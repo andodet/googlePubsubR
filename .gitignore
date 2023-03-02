@@ -17,8 +17,9 @@
 # Output files from R CMD check
 /*.Rcheck/
 
-# RStudio files
+# IDE files
 .Rproj.user/
+.vscode/
 
 # produced vignettes
 vignettes/*.html
@@ -46,3 +47,4 @@ docs/
 # translation temp files
 po/*~
 docs
+
